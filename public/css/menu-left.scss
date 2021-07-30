@@ -1,0 +1,116 @@
+@import "color";
+
+
+html {
+  height: 100%;
+  min-height: 500px;
+}
+body {
+  height: 100vh;
+  min-height: inherit;
+  display: flex;
+}
+.menu {
+  top: 0;
+  left: 0;
+  width: 200px;
+  padding: 10px;
+  height: 100%;
+  background: #202020;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 40px;
+  transition: all 0.5s ease;
+  &-header {
+    display: flex;
+    justify-content: flex-end;
+    & > ion-icon {
+      align-self: center;
+      font-size: 25px;
+      transition: all
+      0.2s ease;
+      margin-right: 12px;
+      transform: rotate(180deg);
+      &:hover {
+        color: #fff;
+      }
+      &:active {
+        color: #202020;
+      }
+    }
+    margin-bottom: 10px;
+  }
+  &-item {
+    padding: 10px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    transition: all;
+    border-radius: 10px;
+    & > ion-icon {
+      font-size: 30px;
+    }
+    &-text {
+      margin-left: 20px;
+      font-size: 15px;
+      font-weight: 300;
+      color: inherit;
+      display: inline-block;
+      opacity: 1;    
+      transition: all
+      0.2s ease-out;
+    }
+    &:hover {
+      background-color: #262626;
+      color: #fff;
+    }
+  }
+  &-search {
+    margin: 10px 0 10px 0;
+    padding: 0;
+    background-color: #3A3B3C;
+    position: relative;
+    border-radius: 10px;
+    &-icon {
+      position: absolute;
+      top: 50%;
+      left: 25px;
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+    &>input {
+      height: 40px;
+      width: 100%;
+      background: #18191A;
+      border-radius: inherit;
+      transition: all 0.2s ease;
+      color: #808385;
+      padding-left: 0;
+      &:focus {
+        outline: none;
+        background: #292A2C;
+        color: #fff;
+      }
+    }
+  }
+}
+.menu-small {
+  width: 70px;
+}
+#icon-hint {
+  transition: all 0.5s ease;
+  justify-self: center;
+}
+.iconhide_2 {
+  justify-content: flex-end;
+}
+.text-hide {
+  margin: 0 !important;
+  padding: 0;
+  width: 0;
+  opacity: 0 !important;
+}
+ul{
+  padding-top: 10px !important;
+}

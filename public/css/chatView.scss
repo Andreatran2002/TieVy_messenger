@@ -1,0 +1,253 @@
+.page-main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #161616;
+  padding: 5px 5px 10px 0;
+}
+.body__left-container {
+  display: flex;
+  flex-direction: column;
+}
+.body__left-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 20px;
+  height: 35%;
+  &-image {
+    width: 160px;
+    height: 160px;
+    border-radius: 38% 62% 62% 38% / 30% 30% 70% 70%;
+    border: 4px solid rgba(61, 37, 37, 0.05);
+    box-shadow: 10px 10px 5px rgb(0 0 0 / 50%), -8px -12px 5px #414e623a;
+    transition: all 0.2s ease;
+    &:hover {
+      box-shadow: 10px 10px 12px rgb(0 0 0 / 50%), -8px -12px 12px #414e623a;
+    }
+  }
+  &-name {
+    font-size: 25px;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgb(0 0 0 / 90%), -2px -2px 4px #6782aa5d;
+    transition: all 0.2s ease;
+    &:hover {
+      text-shadow: 2px 2px 2px rgb(0 0 0 / 90%), -2px -2px 2px #6782aa5d;
+      color: rgba(255, 255, 255, 0.747);
+    }
+  }
+}
+.body {
+  font-weight: 300;
+  height: 100%;
+  display: flex;
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.705);
+  &__left {
+    margin: 5px;
+    border-radius: 20px;
+    box-shadow: inset 2px 2px 5px rgb(0 0 0 / 30%),
+      inset -2px -2px 5px #414e623a;
+    width: 300px;
+    color: inherit;
+    overflow-y: scroll;
+    height: 75%;
+    &::-webkit-scrollbar {
+      background-color: transparent;
+      width: 0px;
+    }
+    &-item {
+      color: inherit;
+      font-weight: 400;
+      margin: 20px 10px 20px 10px;
+      border-radius: inherit;
+      height: 80px;
+      display: flex;
+      padding: 20px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      transition: all 0.2s ease;
+      box-shadow: 2px 2px 5px rgb(0 0 0 / 20%), -2px -2px 5px #414e623a;
+      &:hover {
+        box-shadow: 2px 2px 3px rgb(0 0 0 / 50%), -2px -2px 3px #6782aa3a;
+        background-color: #1b1b1b;
+        font-weight: 600;
+        color: #fff;
+        & > img {
+          box-shadow: 2px 2px 3px rgb(0 0 0 /40%), -2px -2px 3px #414e6250;
+        }
+      }
+      &:active {
+        box-shadow: 2px 2px 6px rgb(0 0 0 / 20%), -2px -2px 6px #414e623a;
+        transform: scale(0.99);
+      }
+      &:first-child {
+        margin-top: 10px;
+      }
+      &-image {
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        box-shadow: 2px 2px 5px rgb(0 0 0 / 10%), -2px -2px 5px #414e623a;
+        border: 2px solid rgba(61, 37, 37, 0.05);
+        margin-right: 10px;
+        transition: all 0.2s ease;
+      }
+      &-name {
+        color: inherit;
+      }
+    }
+  }
+  &__chatBox {
+    border-radius: inherit;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    &-header {
+      position: relative;
+      margin: 5px;
+      border-radius: inherit;
+      box-shadow: inset 2px 2px 5px rgb(0 0 0 / 30%),
+        inset -2px -2px 5px #414e623a;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      &-image {
+        width: 45px;
+        height: 45px;
+        border-radius: 400px;
+        box-shadow: 2px 2px 5px rgb(0 0 0 / 10%), -2px -2px 5px #414e623a;
+        border: 2px solid rgba(61, 37, 37, 0.05);
+        transition: all 0.5s ease;
+      }
+      &-name {
+        color: #fff;
+        font-weight: 500;
+        margin-left: 15px;
+        font-size: 25px;
+        text-shadow: 2px 2px 4px rgb(0 0 0 / 90%), -2px -2px 4px #6782aa5d;
+      }
+      &-help {
+        cursor: pointer;
+        position: absolute;
+        top: 46%;
+        right: 0px;
+        transform: translate(-50%, -50%);
+        color: rgba(255, 255, 255, 0.788);
+        font-size: 30px;
+      }
+    }
+    &-msgArea {
+      padding: 320px 10px 10px 10px;
+      margin: 5px;
+      border-radius: inherit;
+      box-shadow: inset 2px 2px 5px rgb(0 0 0 / 50%),
+        inset -2px -2px 5px #414e625e;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: scroll;
+      height: 100%;
+      color: inherit;
+      &::-webkit-scrollbar {
+        background-color: transparent;
+        width: 0px;
+      }
+      // ::-webkit-scrollbar hình nền của chính thanh cuộn đó.
+      // ::-webkit-scrollbar-button các nút định hướng trên thanh cuộn.
+      // ::-webkit-scrollbar-track không gian trống bên dưới thanh tiến trình.
+      // ::-webkit-scrollbar-track-piece phần trên cùng của thanh tiến trình không bị che bởi ảnh thumb.
+      // ::-webkit-scrollbar-thumb phần tử cuộn có thể kéo để thay đổi kích cỡ.
+      // ::-webkit-scrollbar-corner góc dưới cùng của phần tử cuộn, nơi hai thanh cuộn gặp nhau.
+      // ::-webkit-resizer chỉnh sửa lại kích thước có thể kéo được xuất hiện phía trên thanh cuộn ở góc dưới cùng của một số phần tử.
+      &-item {
+        padding: 8px 15px;
+        max-width: 300px;
+        box-shadow: 2px 2px 5px rgb(0 0 0 / 60%), -2px -2px 5px #414e6249;
+        border-radius: inherit;
+        margin-bottom: 10px;
+        color: inherit;
+        font-weight: 400;
+        border: 3px solid rgba(61, 37, 37, 0.05);
+        font-weight: 500;
+      }
+    }
+    &-input {
+      position: relative;
+      margin: 5px;
+      border-radius: inherit;
+      box-shadow: inset 2px 2px 5px rgb(0 0 0 / 30%),
+        inset -2px -2px 5px #414e623a;
+      height: 60px;
+      &-icon {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translate(-50%, -50%) scale(1.2);
+        transition: all 0.5s ease;
+
+        &:hover {
+          transform: translate(-50%, -50%) scale(1.5) rotate(405deg);
+          color: greenyellow;
+        }
+        &:active {
+          transition: all 0.2s ease;
+          top: 50%;
+          right: 15px;
+          transform: translate(-50%, -50%) scale(1.4) rotate(360deg);
+          color: red;
+        }
+      }
+    }
+  }
+}
+.sent {
+  align-self: flex-end;
+}
+.message__input {
+  height: 100%;
+  border: inherit;
+  border-radius: inherit;
+  padding-left: 20px;
+  width: 100%;
+  background-color: transparent;
+  color: #fff;
+}
+// class cho friend item sau khi được nhấn nha
+.friend-item-focus {
+  box-shadow: 2px 2px 3px rgb(0 0 0 / 50%), -2px -2px 3px #6782aa3a;
+  background-color: #1b1b1b;
+  font-weight: 600;
+  color: #fff;
+}
+@keyframes fade-out-in {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes rocket-1 {
+  0% {
+    transform: translate(-50%, -50%) scale(1.5) rotate(405deg);
+    color: greenyellow;
+  }
+  100% {
+  }
+}
+.rocket-fly {
+  transition: all 0.2s ease;
+  top: 50%;
+  right: 15px;
+  transform: translate(-50%, -50%) scale(1.4) rotate(360deg);
+  color: red;
+}
