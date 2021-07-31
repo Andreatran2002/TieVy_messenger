@@ -39,7 +39,7 @@ class Ajax extends Controller{
       }
 
       public function searchFriends(){
-             // Gán hàm addslashes để chống sql injection
+             // Gán hàm addslashes để chống sql injection 
             $name = addslashes($_POST["search_friend"]);
             if (empty($name)){
                   echo "You have to type your friend's name.";

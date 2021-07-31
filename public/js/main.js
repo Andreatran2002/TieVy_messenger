@@ -1,6 +1,7 @@
 
 var message__input = document.getElementById("message__input");
 var message__area = document.getElementById("message__area");
+var friend_search_input = document.getElementById("friend_search_input");
 var receiver ; 
 $(document).ready(function () {
 	$("#username").keyup(function () {
@@ -75,6 +76,21 @@ function updateChat() {
 		}
 		$("#message__area").html(output);
 	});
+}
+
+
+
+function searchFriendInDB() {
+	var name=friend_search_input.value;
+	if (name != "") {
+		$.post("./Ajax/searchFriends", {
+			search_friend : name
+		}, function (data) {
+			alert(data);
+			$("#friend_search_input").val("");
+			$("#friend_search_area").val(data);			
+		});
+	}
 }
 
 
