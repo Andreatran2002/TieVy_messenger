@@ -30,3 +30,6 @@
   input:focus {
     outline: none;
   }
+  ion-icon {
+    cursor: pointer;
+  }

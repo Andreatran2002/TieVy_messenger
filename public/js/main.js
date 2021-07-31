@@ -78,6 +78,17 @@ function updateChat() {
 	});
 }
 
+// home
+
+
+function updateNewPosts() { 
+	$.post("./Ajax/updatePosts", {
+		// id = user_id; 
+		// Để hiển thị các bài post mới là bạn của người dùng
+	}, function (data) {
+		$("#postNews").html(data);			
+	});
+}
 
 
 function searchFriendInDB() {
@@ -86,9 +97,8 @@ function searchFriendInDB() {
 		$.post("./Ajax/searchFriends", {
 			search_friend : name
 		}, function (data) {
-			alert(data);
 			$("#friend_search_input").val("");
-			$("#friend_search_area").val(data);			
+			$("#friend_search_area").html(data);			
 		});
 	}
 }

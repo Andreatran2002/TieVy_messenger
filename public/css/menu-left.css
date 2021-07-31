@@ -76,6 +76,7 @@ body {
   background-color: #3A3B3C;
   position: relative;
   border-radius: 10px;
+  display: inline-block;
 }
 .menu-search-icon {
   position: absolute;
