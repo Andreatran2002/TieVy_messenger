@@ -2,7 +2,7 @@
 var message__input = document.getElementById("message__input");
 var message__area = document.getElementById("message__area");
 var friend_search_input = document.getElementById("friend_search_input");
-var receiver ; 
+var receiver;
 $(document).ready(function () {
 	$("#username").keyup(function () {
 		var user = $(this).val();
@@ -17,36 +17,36 @@ $(document).ready(function () {
 	updateChat()
 })
 
-function getReceiver(receiver_id){
-	if (receiver_id != "#"){
-	 receiver = receiver_id;
+function getReceiver(receiver_id) {
+	if (receiver_id != "#") {
+		receiver = receiver_id;
 	}
 	return receiver;
 }
 
 
 
-function updateResult (data) {result = data; }
+function updateResult(data) { result = data; }
 function getcookie(cname) {
 	var result = false;
-    	$.ajax({	
-        type: "POST",
-        url: './Ajax/getCookies',
-        data: ({cookieName: cname}),
-        dataType: "json",
-        async: false,
-        success: function(data) {
-		  
-            result = data;
-        },
-        error: function() {
-            alert("error")
-        }
-    });
-    return result;		
-		
+	$.ajax({
+		type: "POST",
+		url: './Ajax/getCookies',
+		data: ({ cookieName: cname }),
+		dataType: "json",
+		async: false,
+		success: function (data) {
+
+			result = data;
+		},
+		error: function () {
+			alert("error")
+		}
+	});
+	return result;
+
 }
- 
+
 function escapehtml(text) {
 	return text
 		.replace(/&/g, "&amp;")
@@ -81,24 +81,37 @@ function updateChat() {
 // home
 
 
-function updateNewPosts() { 
+function updateNewPosts() {
 	$.post("./Ajax/updatePosts", {
 		// id = user_id; 
 		// Để hiển thị các bài post mới là bạn của người dùng
 	}, function (data) {
-		$("#postNews").html(data);			
+		$("#postNews").html(data);
 	});
+}
+
+function addFriend(friend_id) {
+	$.post("./Ajax/addFriend", {
+		friend_id: friend_id
+		// Để hiển thị các bài post mới là bạn của người dùng
+	}, function (data) {
+
+		if (data != "true") {
+			var result = document.getElementById(friend_id);
+			result.classList.add('icon_hide');
+		}
+	})
 }
 
 
 function searchFriendInDB() {
-	var name=friend_search_input.value;
+	var name = friend_search_input.value;
 	if (name != "") {
 		$.post("./Ajax/searchFriends", {
-			search_friend : name
+			search_friend: name
 		}, function (data) {
 			$("#friend_search_input").val("");
-			$("#friend_search_area").html(data);			
+			$("#friend_search_area").html(data);
 		});
 	}
 }
@@ -106,7 +119,7 @@ function searchFriendInDB() {
 
 function sendmsg() {
 
-	 updateChat();
+	updateChat();
 	var message = message__input.value;
 	if (message != "") {
 		$.post("./Ajax/sendMessage", {
@@ -118,11 +131,19 @@ function sendmsg() {
 		});
 	}
 }
+function showFriends() {
+	$.post("./Ajax/showFriends", {
+		// id = user_id; 
+		// Để hiển thị các bài post mới là bạn của người dùng
+	}, function (data) {
+		$("#friendlist").html(data);
+	});
+}
 
 function eraseCookieFromAllPaths(name) {
-	
+
 }
-function logout(){
+function logout() {
 	eraseCookieFromAllPaths("messageUser")
 	eraseCookieFromAllPaths("SNID")
 	eraseCookieFromAllPaths("SNID_")
@@ -163,95 +184,95 @@ setTimeout(() => {
 	let iconhide = document.getElementsByClassName("menu-header");
 	let barHint = true;
 	function grow() {
-	  if (barHint == false) {
-	    setTimeout(() => {
-		filter.style.animation = "filter-off 0.5s ease forwards";
-		setTimeout(() => {
-		  filter.style.zIndex = "-999";
-		},300)
-	    }, 300);
-	    setTimeout(() => {
-		signupField[0].style = "";
-		filter.style = "";
-		filter.style.display = "none";
-	    }, 1000);
-	    friendContainer[0].classList.add("height-0");
-	    friendSearch[0].style.opacity = "0";
-	    hide = true;
-	    document.getElementById("nagication-bar").classList.add("menu-small");
-	    document.getElementById("icon-hint").style.transform = "rotate(180deg)";
-	    document.getElementsByClassName("menu-item-text");
-	    barHint = true;
-	    searchInput.style.padding = "0 0 0 0";
-	    for (let i = 0; i < textArray.length; i++) {
-		textArray[i].classList.add("text-hide");
-	    }
-	  } else {
-	    filter.style.display = "block";
-	    setTimeout(() => {
-		filter.style.zIndex = "19";
-		filter.style.animation = "filter-on 0.3s ease forwards";
-	    }, 100);
-	    document.getElementById("nagication-bar").classList.remove("menu-small");
-	    document.getElementById("icon-hint").style.transform = "rotate(0deg)";
-	    iconhide[0].classList.add("icon-hide_2");
-	    searchInput.style.padding = "0 10px 0 45px";
-	    for (let i = 0; i < textArray.length; i++) {
-		setTimeout(() => {
-		  textArray[i].classList.remove("text-hide");
-		}, 250);
-	    }
-	    barHint = false;
-	  }
+		if (barHint == false) {
+			setTimeout(() => {
+				filter.style.animation = "filter-off 0.5s ease forwards";
+				setTimeout(() => {
+					filter.style.zIndex = "-999";
+				}, 300)
+			}, 300);
+			setTimeout(() => {
+				signupField[0].style = "";
+				filter.style = "";
+				filter.style.display = "none";
+			}, 1000);
+			friendContainer[0].classList.add("height-0");
+			friendSearch[0].style.opacity = "0";
+			hide = true;
+			document.getElementById("nagication-bar").classList.add("menu-small");
+			document.getElementById("icon-hint").style.transform = "rotate(180deg)";
+			document.getElementsByClassName("menu-item-text");
+			barHint = true;
+			searchInput.style.padding = "0 0 0 0";
+			for (let i = 0; i < textArray.length; i++) {
+				textArray[i].classList.add("text-hide");
+			}
+		} else {
+			filter.style.display = "block";
+			setTimeout(() => {
+				filter.style.zIndex = "19";
+				filter.style.animation = "filter-on 0.3s ease forwards";
+			}, 100);
+			document.getElementById("nagication-bar").classList.remove("menu-small");
+			document.getElementById("icon-hint").style.transform = "rotate(0deg)";
+			iconhide[0].classList.add("icon-hide_2");
+			searchInput.style.padding = "0 10px 0 45px";
+			for (let i = 0; i < textArray.length; i++) {
+				setTimeout(() => {
+					textArray[i].classList.remove("text-hide");
+				}, 250);
+			}
+			barHint = false;
+		}
 	}
 	// [0].style.display = "none";
 	function growSearch() {
-	  if (barHint == true) {
-	    grow();
-	  }
+		if (barHint == true) {
+			grow();
+		}
 	}
-    
+
 	// let friendSearch = document.getElementsByClassName("friend__box-search");
 	let friendContainer = document.getElementsByClassName(
-	  "friend__box-container"
+		"friend__box-container"
 	);
 	let hide = true;
 	function searchFriend() {
-	  if (hide === true && barHint === true) {
-	    grow();
-	    setTimeout(() => {
-		friendContainer[0].classList.remove("height-0");
-		setTimeout(() => {
-		  friendSearch[0].style.opacity = "1";
-		}, 100);
-	    }, 200);
-	    friendSearch[0].style.display = "inline-block";
-	    hide = false;
-	  } else if (hide === true && barHint === false) {
-		friendSearch[0].style.display = "inline-block";
+		if (hide === true && barHint === true) {
+			grow();
+			setTimeout(() => {
+				friendContainer[0].classList.remove("height-0");
+				setTimeout(() => {
+					friendSearch[0].style.opacity = "1";
+				}, 100);
+			}, 200);
+			friendSearch[0].style.display = "inline-block";
+			hide = false;
+		} else if (hide === true && barHint === false) {
+			friendSearch[0].style.display = "inline-block";
 
-	    friendContainer[0].classList.remove("height-0");
-	    setTimeout(() => {
-		friendSearch[0].style.opacity = "1";
-	    }, 100);
-	    hide = false;
-	  } else if (hide === false && barHint === false) {
-	    friendContainer[0].classList.add("height-0");
-	    friendSearch[0].style.opacity = "0";
-	    setTimeout(() => {
-		friendSearch[0].style.display = "none";
-	    },300);
-	    hide = true;
-	  }
-	  
+			friendContainer[0].classList.remove("height-0");
+			setTimeout(() => {
+				friendSearch[0].style.opacity = "1";
+			}, 100);
+			hide = false;
+		} else if (hide === false && barHint === false) {
+			friendContainer[0].classList.add("height-0");
+			friendSearch[0].style.opacity = "0";
+			setTimeout(() => {
+				friendSearch[0].style.display = "none";
+			}, 300);
+			hide = true;
+		}
+
 	}
 }
 // menu-left animation
 {
 	function getID(oObject) {
 		var id = oObject.id;
-            return id ; 
-      }
+		return id;
+	}
 
 	function refreshFriendlist() {
 		msgScroll();
@@ -289,8 +310,8 @@ setTimeout(() => {
 				// console.log(nameRegex);
 				// let name = ;
 				// console.log(friendItem[i].childNodes[3]);
-				 
-                        var receiver = getReceiver(getID(friendItem[i])); 
+
+				var receiver = getReceiver(getID(friendItem[i]));
 			});
 		}
 	}
@@ -300,7 +321,7 @@ function msgScroll() {
 	let box = document.getElementById("message__area");
 	let len = box.childNodes.length;
 	console.log(len);
-	if(len >= 9) {
+	if (len >= 9) {
 		box.style.justifyContent = "center";
 	} else {
 		box.style.justifyContent = "flex-end";

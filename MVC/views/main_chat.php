@@ -28,9 +28,9 @@
                         <div class="body__left-user">
                               <img src="<?php 
 					if (DB::query("SELECT profileimg FROM users WHERE username = :username", array(":username"=>$_COOKIE['messageUser']))){
-						echo DB::query("SELECT profileimg FROM users WHERE username = :username", array(":username"=>$_COOKIE['messageUser']))[0]['profileimg'];
+						echo DB::query("SELECT * FROM users WHERE username = :username", array(":username"=>$_COOKIE['messageUser']))[0]['profileimg'];
 					}
-					else echo "./public/images/default_avatar.jpg"
+					else echo "./public/images/default_avatar.png"
 					?>" alt="" class="body__left-user-image" />
                               <a href="#" class="body__left-user-name"><?php echo $_COOKIE['messageUser']?></a>
                         </div>
@@ -45,6 +45,7 @@
                               <ion-icon name="information-outline" class="body__chatBox-header-help"></ion-icon>
                         </div>
                         <div class="body__chatBox-msgArea " id="message__area">
+                              
                         </div>
                         <div class="body__chatBox-input">
                               <input type="text" name="message__input" class="message__input" id="message__input" onkeydown="if (event.keyCode == 13) {sendMsg();}" value="" placeholder="Enter your message here ... (Press enter to send message)" />

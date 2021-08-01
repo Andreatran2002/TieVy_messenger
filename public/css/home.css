@@ -123,6 +123,9 @@
   overflow-y: scroll;
   height: calc(100% - 5px);
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .timeNew__body > li + li {
   margin-top: 50px;
@@ -135,13 +138,34 @@
   border-radius: 100px;
   background-color: #ffffff66;
 }
+.timeNew__btn-add-post {
+  align-self: flex-start;
+  position: absolute;
+  bottom: 20px;
+  right: 15px;
+  transform: translate(-50%, -50%) scale(1.8);
+  transition: all 0.2s ease;
+}
+.timeNew__btn-add-post:hover {
+  color: #fff;
+  transform: translate(-50%, -50%) scale(2);
+}
+.timeNew__btn-see-more {
+  transition: all 0.2s ease;
+}
+.timeNew__btn-see-more:hover {
+  color: #fff;
+  transform: scale(2);
+}
 
 .post {
-  width: 90%;
+  width: 85%;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6), -2px -2px 5px #3c495c6b;
   margin: 0 auto;
   padding: 20px 30px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 .post:first-child {
   margin-top: 10px;
@@ -165,6 +189,13 @@
   border-radius: 30% 70% 65% 35%/30% 32% 68% 70%;
   box-shadow: 2px 2px 5px black, -2px -2px 5px #3c495c6b;
 }
+.post__header-time {
+  position: absolute;
+  top: 60%;
+  left: 100px;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+}
 .post__header::before {
   content: "";
   position: absolute;
@@ -178,6 +209,7 @@
 }
 .post__header-name {
   margin-left: 20px;
+  margin-bottom: 10px;
   transition: all 0.2s ease;
 }
 .post__header-name:hover {
@@ -187,12 +219,16 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+}
+.post__body-text {
+  margin-bottom: 20px;
 }
 .post__body-image {
-  margin-top: 20px;
-  height: 400px;
-  width: 400px;
+  align-self: center;
+  margin-top: 20px auto;
+  height: 300px;
+  width: 300px;
 }
 .post__footer {
   margin-top: 10px;
@@ -201,13 +237,12 @@
   display: flex;
   padding-left: 10px;
 }
-.post__footer > form > button + button {
+.post__footer > button + button {
   margin-left: 20px;
 }
 .post__footer-btncmt {
   background-color: transparent;
   cursor: pointer;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8), -2px -2px 5px #414e623a;
   border-radius: 10px;
   position: relative;
   padding: 10px 20px;
@@ -221,22 +256,211 @@
   top: 50%;
   left: 20px;
   transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
+}
+.post__footer-btncmt:hover {
+  transition: all 0.2s ease;
+}
+.post__footer-btncmt:hover > ion-icon {
+  color: greenyellow;
+  transform: translate(-50%, -50%) rotate(10deg) scale(1.2);
+}
+.post__footer-btncmt:active > ion-icon {
+  transform: translate(-50%, -50%) rotate(-10deg) scale(0.9);
+  color: red;
 }
 
 .btn {
   background-color: transparent;
   cursor: pointer;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8), -2px -2px 5px #414e623a;
   border-radius: 10px;
   position: relative;
   width: 45px;
   height: 45px;
+  transition: all 0.3s ease;
 }
-.btn > ion-icon {
+.btn-label {
+  height: 40px;
+  width: 40px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: #fff;
+}
+.btn > ion-icon {
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
+}
+.btn:hover {
+  transition: all 0.2s ease;
+}
+.btn:hover > ion-icon {
+  transform: translate(-50%, -50%) rotate(10deg) scale(1.1);
+}
+.btn:active > ion-icon {
+  transform: translate(-50%, -50%) rotate(-10deg) scale(0.9);
+}
+
+.cmtField {
+  display: none;
+  height: 0;
+  flex-direction: column;
+  transition: all 0.4s ease;
+  opacity: 0;
+}
+
+.cmtContainer {
+  margin-top: 30px;
+  display: flex;
+  opacity: inherit;
+  flex-direction: column;
+  margin-bottom: 20px;
+  height: inherit;
+  height: 240px;
+  overflow-y: scroll;
+}
+.cmtContainer::-webkit-scrollbar {
+  border-radius: 100px;
+  width: 6px;
+}
+.cmtContainer::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background-color: #ffffff66;
+}
+.cmtContainer__item {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 20px 20px;
+}
+.cmtContainer__item-header {
+  border-top: 0.1px solid #414141;
+  padding: 10px;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+}
+.cmtContainer__item-header-avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  background: linear-gradient(to bottom, transparent, transparent), linear-gradient(45deg, #9b3d95, #b7356b, #ef2e36, #fc8b4b) border-box;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6), -2px -2px 5px #3c495c6b;
+}
+.cmtContainer__item-header-name {
+  margin-left: 15px;
+  transition: all 0.2s ease;
+  font-size: 16px;
+}
+.cmtContainer__item-header-name:hover {
+  color: #fff;
+}
+.cmtContainer__item-body {
+  border-radius: 10px;
+  background-color: #161616;
+}
+.cmtContainer__item-body > p {
+  font-size: 14px;
+  padding: 0 10px;
+}
+
+.cmtInput {
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+  position: relative;
+}
+.cmtInput__input {
+  width: 100%;
+  background-color: #212121;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+}
+.cmtInput__input::-webkit-scrollbar {
+  border-radius: 100px;
+  width: 6px;
+}
+.cmtInput__input::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background-color: #ffffff66;
+}
+.cmtInput__input::placeholder {
+  font-family: inherit;
+}
+.cmtInput__input:focus {
+  outline: none;
+  font-weight: 300;
+}
+.cmtInput > ion-icon {
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+  transform: translate(-50%, -50%);
+  height: 16px;
+  width: 16px;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  padding-bottom: 0;
+  width: 100%;
+}
+.status > textarea {
+  background-color: #212121;
+  font: inherit;
+  font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  color: inherit;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  position: relative;
+  margin-bottom: 20px;
+}
+.status > textarea::placeholder {
+  font-style: italic;
+}
+.status > textarea:focus {
+  outline: none;
+}
+.status__post {
+  background-color: transparent;
+  position: relative;
+  height: 40px;
+  width: 40px;
+  margin-left: calc(100% - 40px);
+}
+.status__post > input {
+  background-color: transparent;
+}
+.status__post-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.2s ease;
+}
+.status__post-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+.status__post-btn:active {
+  transform: translate(-50%, -50%) scale(0.99);
+}
+.status__upImage {
+  background-color: transparent;
 }
 
 .friendlist {

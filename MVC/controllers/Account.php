@@ -32,6 +32,10 @@ class Account extends Controller
 
       public function Login_user()
       {
+            if (Login::isLoggedIn()){
+                  header("Location: http://localhost/simple-messenger/Home");
+            }
+            else{
             if (isset($_POST['login'])) {
                   $username = $_POST['username'];
                   $password = $_POST['password'];
@@ -56,6 +60,7 @@ class Account extends Controller
                         "result" => $result
                   ]);
             }
+      }
       }
       public function logout()
       {

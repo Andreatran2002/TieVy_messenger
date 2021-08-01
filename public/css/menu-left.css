@@ -250,6 +250,11 @@ img {
   display: none;
 }
 
+.icon_hide{
+  opacity: 0 ; 
+}
+
+
 @keyframes filter-on {
   0% {
     opacity: 0;
