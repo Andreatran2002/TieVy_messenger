@@ -17,7 +17,7 @@
       <link rel="stylesheet" href="./public/css/chatView.css" />
 </head>
 
-<body onload="updateChat()">
+<body onload="updateChat(); constructUser(); ">
       <!-- menu-left -->
       <?php require_once "./MVC/views/pages/menu.php"; ?>
       <!-- menu-left -->
@@ -39,7 +39,7 @@
                         </div>
                   </div>
                   <div class="body__chatBox">
-                        <div class="body__chatBox-header">
+                        <div class="body__chatBox-header" id="body__chatBox-header">
                               <img src="" alt="" id="current-friend" class="body__chatBox-header-image" />
                               <a href="#" class="body__chatBox-header-name" id="current-friend-name"></a>
                               <ion-icon name="information-outline" class="body__chatBox-header-help"></ion-icon>

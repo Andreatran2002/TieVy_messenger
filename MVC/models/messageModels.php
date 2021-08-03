@@ -30,4 +30,12 @@ class messageModels extends DB
                   echo "\n";
             }
       }
+
+      public function getCloseMessage() {
+            $userid = Login::isLoggedIn();
+            $result =  $this->query("SELECT * FROM messages 
+            WHERE user_id =:userid 
+            ORDER BY time DESC LIMIT 1",array(':userid'=>$userid))[0];
+            return $result['receiver_id'];
+      }
 }

@@ -18,6 +18,7 @@ $(document).ready(function () {
 })
 
 function getReceiver(receiver_id) {
+	message__area.scrollTop = message__area.scrollHeight;
 	if (receiver_id != "#") {
 		receiver = receiver_id;
 	}
@@ -104,6 +105,7 @@ function addFriend(friend_id) {
 }
 
 
+
 function searchFriendInDB() {
 	var name = friend_search_input.value;
 	if (name != "") {
@@ -127,6 +129,7 @@ function sendmsg() {
 			receiver: receiver
 		}, function (data) {
 			$("#message__input").val("");
+			message__area.scrollTop = message__area.scrollHeight;
 			updateChat();
 		});
 	}
@@ -148,13 +151,15 @@ function logout() {
 	eraseCookieFromAllPaths("SNID")
 	eraseCookieFromAllPaths("SNID_")
 }
-setTimeout(() => {
-	document.getElementById("message__area").scrollTo(0, document.getElementById("message__area").scrollHeight);
-}, 500);
+function ScrollDown() {
+	setTimeout(() => {
+		document.getElementById("message__area").scrollTo(0, document.getElementById("message__area").scrollHeight);
+	}, 1500);
+}
 
 {
 	function sendMsg() {
-		msgScroll();
+		
 		let rocket = document.getElementsByClassName("body__chatBox-input-icon");
 		rocket[0].classList.add("rocket-fly");
 		console.log(rocket[0].classList);
@@ -169,6 +174,8 @@ setTimeout(() => {
 } {
 
 	function friendChatting(receiver_id) {
+		ScrollDown();
+		// sendMsg();
 		for (let i = 1; i < a.length - 3; i++) {
 			a[i].style = "background-color: #323944bf";
 			console.log(i);
@@ -270,12 +277,14 @@ setTimeout(() => {
 // menu-left animation
 {
 	function getID(oObject) {
-		var id = oObject.id;
+		var id = oObject.id; 
+		// message__area.scrollTop = message__area.scrollHeight;
+
 		return id;
+		
 	}
 
 	function refreshFriendlist() {
-		msgScroll();
 		let friendItem = document.getElementsByClassName("body__left-item");
 		let n = friendItem.length;
 		for (let i = 0; i < n; i++) {
@@ -310,28 +319,27 @@ setTimeout(() => {
 				// console.log(nameRegex);
 				// let name = ;
 				// console.log(friendItem[i].childNodes[3]);
-
 				var receiver = getReceiver(getID(friendItem[i]));
 			});
 		}
 	}
 
 }
-function msgScroll() {
-	let box = document.getElementById("message__area");
-	let len = box.childNodes.length;
-	console.log(len);
-	if (len >= 9) {
-		box.style.justifyContent = "center";
-	} else {
-		box.style.justifyContent = "flex-end";
 
-	}
-}
 
 refreshFriendlist();
 
 
-setInterval(function () { updateChat() }, 1500);
+setInterval(function () { updateChat() }, 500);
 
 
+function constructUser(){
+	$.post("./Ajax/getUser", {
+		// id = user_id; 
+		// Để hiển thị các bài post mới là bạn của người dùng
+	}, function (data) {
+		var response = data.split("///");
+		 $('#body__chatBox-header').html(response[0]);
+		 receiver = response[1]; 
+	});
+}

@@ -64,7 +64,7 @@ class Ajax extends Controller
                           />
                           <span class=\"menu-item-text friend__box-item-text\"  
                             >" . $row['username'];
-                              if (!DB::query('SELECT * FROM followers WHERE user_id = :friendid', array(':friendid' => $row['id']))) {
+                              if (!DB::query('SELECT * FROM followers WHERE user_id = :friendid AND follower_id = :userid', array(':friendid' => $row['id'], ':userid'=>Login::isLoggedIn()))) {
                                     echo "<ion-icon id=\"" . $row['id'] . "\" onclick=\"addFriend('" . $row['id'] . "')\"
                               name=\"close-circle-outline\"
                               class=\"friend__box-item-icon\"
@@ -199,5 +199,15 @@ class Ajax extends Controller
                   >
                 </div>";
             }
+      }
+
+      public function getUser(){
+        $closeUserId =  $this->messageModels->getCloseMessage(); 
+        $user = $this->userModels->getUser($closeUserId);
+        echo '
+        <img src="'.$user['profileimg'].'" alt="" id="current-friend" class="body__chatBox-header-image" />
+        <a href="#" class="body__chatBox-header-name" id="current-friend-name">'.$user['username'].'</a>
+        <ion-icon name="information-outline" class="body__chatBox-header-help"></ion-icon>
+        ///'.$closeUserId; 
       }
 }

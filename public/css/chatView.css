@@ -148,15 +148,15 @@
   color: rgba(255, 255, 255, 0.788);
   font-size: 30px;
 }
-.body__chatBox-msgArea {
-  padding: 320px 10px 10px 10px;
+.body__chatBox-msgArea { 
+  padding: 20px 10px 10px 10px;
   margin: 5px;
   border-radius: inherit;
   box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5), inset -2px -2px 5px #414e625e;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: flex-start;/* 
+  justify-content: center; */
   overflow-y: scroll;
   height: 100%;
   color: inherit;
@@ -166,6 +166,8 @@
   width: 0px;
 }
 .body__chatBox-msgArea-item {
+  /* khi đôi môi em còn đỏ mọng chẹp chẹp chẹp chẹp chẹp */
+  /* thằng nào nay nói chuyện lao hen bắt đầu gáy hả chèn */
   padding: 8px 15px;
   max-width: 300px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6), -2px -2px 5px #414e6249;

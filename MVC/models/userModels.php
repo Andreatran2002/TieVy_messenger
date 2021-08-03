@@ -82,4 +82,8 @@ class userModels extends DB
             $this->query('DELETE FROM login_tokens WHERE user_id = :user_id',array(':user_id'=>$user_id));
             return true; 
       }
+      public function getUser($id){
+            $user = $this->query('SELECT * FROM users WHERE id =:id', array(':id'=>$id))[0];
+            return ($user); 
+      }
 }
