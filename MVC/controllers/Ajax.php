@@ -2,62 +2,75 @@
 
 class Ajax extends Controller
 {
-      public $userModels;
-      public $postModel;
-      public $messageModels;
+  public $userModels;
+  public $postModel;
+  public $messageModels;
 
-      public function __construct()
-      {
-            $this->userModels = $this->model("userModels");
-            $this->messageModels = $this->model("messageModels");
-            $this->postModel = $this->model("postModels");
-      }
+  public function __construct()
+  {
+    $this->userModels = $this->model("userModels");
+    $this->messageModels = $this->model("messageModels");
+    $this->postModel = $this->model("postModels");
+  }
 
-      public function checkUsername()
-      {
-            $un = $_POST["un"];
+  public function checkUsername()
+  {
+    $un = $_POST["un"];
 
-            echo $a = $this->userModels->checkUsername($un);
-      }
-      public function checkEmail()
-      {
-            $e = $_POST["email"];
-            echo $a = $this->userModels->checkEmail($e);
-      }
-      public function sendMessage()
-      {
-            $id = \Ramsey\Uuid\Uuid::uuid4();
-            $message = $_POST["message"];
-            $user_id = Login::isLoggedIn();
-            $receiver = $_POST["receiver"];
-            $a = $this->messageModels->insert_message($id, $user_id, $receiver, $message);
-            echo $result = "<div class=\"body__chatBox-msgArea-item sent\">" . $message . " </div>";
-      }
-      public function updateMessage()
-      {
-            $receiver = $_POST["receiver"];
-            $result = $this->messageModels->get_message($receiver);
-            echo $result;
-      }
-      public function getCookies()
-      {
-            $cookieName = $_POST["cookieName"];
-            echo json_encode($_COOKIE[$cookieName]);
-      }
+    echo $a = $this->userModels->checkUsername($un);
+  }
+  public function checkEmail()
+  {
+    $e = $_POST["email"];
+    echo $a = $this->userModels->checkEmail($e);
+  }
+  public function sendMessage()
+  {
+    $options = array(
+      'cluster' => 'ap1',
+      'useTLS' => true
+    );
+    $pusher = new Pusher\Pusher(
+      '6d26d8d2ff0bf9b79d49',
+      '690b7bb4be34ea3bd2f9',
+      '1253694',
+      $options
+    );
+    $data['request'] = "message";
+    $data['message'] = $_POST['message'];
+    $pusher->trigger('my-channel', 'my-event', $data);
+    $id = \Ramsey\Uuid\Uuid::uuid4();
+    $message = $_POST["message"];
+    $user_id = Login::isLoggedIn();
+    $receiver = $_POST["receiver"];
+    $a = $this->messageModels->insert_message($id, $user_id, $receiver, $message);
+    echo  "<div class=\"body__chatBox-msgArea-item sent\">" . $message . " </div>";
+  }
+  public function updateMessage()
+  {
+    $receiver = $_POST["receiver"];
+    $result = $this->messageModels->get_message($receiver);
+    echo $result;
+  }
+  public function getCookies()
+  {
+    $cookieName = $_POST["cookieName"];
+    echo json_encode($_COOKIE[$cookieName]);
+  }
 
-      public function searchFriends()
-      {
-            // Gán hàm addslashes để chống sql injection 
-            $name = addslashes($_POST["search_friend"]);
-            if (empty($name)) {
-                  echo "You have to type your friend's name.";
-            } else {
-                  $query = "SELECT * FROM users WHERE username LIKE '%$name%'";
-                  $result = DB::query($query);
-                  $num = count($result);
-                  if ($num > 0 && $name != "") {
-                        foreach ($result as $row) {
-                              echo "<li>
+  public function searchFriends()
+  {
+    // Gán hàm addslashes để chống sql injection 
+    $name = addslashes($_POST["search_friend"]);
+    if (empty($name)) {
+      echo "You have to type your friend's name.";
+    } else {
+      $query = "SELECT * FROM users WHERE username LIKE '%$name%'";
+      $result = DB::query($query);
+      $num = count($result);
+      if ($num > 0 && $name != "") {
+        foreach ($result as $row) {
+          echo "<li>
                         <a href=\"#\" class=\"friend__box-item\">
                           <img
                             class=\"friend__box-item-image\"
@@ -65,30 +78,30 @@ class Ajax extends Controller
                           />
                           <span class=\"menu-item-text friend__box-item-text\"  
                             >" . $row['username'];
-                              if (!DB::query('SELECT * FROM followers WHERE user_id = :friendid AND follower_id = :userid', array(':friendid' => $row['id'], ':userid'=>Login::isLoggedIn()))) {
-                                    echo "<ion-icon id=\"" . $row['id'] . "\" onclick=\"addFriend('" . $row['id'] . "')\"
+          if (!DB::query('SELECT * FROM followers WHERE user_id = :friendid AND follower_id = :userid', array(':friendid' => $row['id'], ':userid' => Login::isLoggedIn()))) {
+            echo "<ion-icon id=\"" . $row['id'] . "\" onclick=\"addFriend('" . $row['id'] . "')\"
                               name=\"close-circle-outline\"
                               class=\"friend__box-item-icon\"
                             ></ion-icon>";
-                              }
-                              echo "
+          }
+          echo "
                           </span>
                         </a>
                       </li>";
-                        }
-                  } else {
-                        echo "Khong tim thay ket qua!";
-                  }
-            }
+        }
+      } else {
+        echo "Khong tim thay ket qua!";
       }
-      public function updatePosts()
-      {
-          $userid = Login::isLoggedIn();
-          $user =  $this->userModels->getUser($userid);
-            echo '<li class="post">
+    }
+  }
+  public function updatePosts()
+  {
+    $userid = Login::isLoggedIn();
+    $user =  $this->userModels->getUser($userid);
+    echo '<li class="post">
             <div class="post__header">
-              <img src="'.$user['profileimg'].'" alt="" class="post__header-avatar">
-              <a href="#" class="post__header-name">'.$user['username'].'</a>
+              <img src="' . $user['profileimg'] . '" alt="" class="post__header-avatar">
+              <a href="#" class="post__header-name">' . $user['username'] . '</a>
               <ion-icon name="reorder-two"></ion-icon>
             </div>
             <div class="post__body status">
@@ -108,12 +121,12 @@ class Ajax extends Controller
 
 
 
-            $result = DB::query("SELECT * FROM posts WHERE user_id = :user_id ORDER BY time DESC LIMIT 30" , array(':user_id'=>Login::isLoggedIn()));
-            foreach ($result as $row) {
-                  $user = DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $row['user_id']))[0];
-                  echo '<li class="post">
+    $result = DB::query("SELECT * FROM posts WHERE user_id = :user_id ORDER BY time DESC LIMIT 30", array(':user_id' => Login::isLoggedIn()));
+    foreach ($result as $row) {
+      $user = DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $row['user_id']))[0];
+      echo '<li class="post">
                   <div class="post__header">
-                    <img src="'.$user['profileimg'].'" alt="" class="post__header-avatar">
+                    <img src="' . $user['profileimg'] . '" alt="" class="post__header-avatar">
                     <a href="#" class="post__header-name">' . $user['username'] . '</a>
                     <p  class="post__header-time">2 minutes ago</p>
 
@@ -121,11 +134,11 @@ class Ajax extends Controller
                   </div>
                   <div class="post__body">
                     <p class="post__body-text">' . $row['postbody'] . '</p>';
-                  if ($row['postimg'] != NULL){
-                    echo '<img class="post__body-image" src="' . $row['postimg'] .'">'; 
-                  }
-                  
-                    echo'</div>
+      if ($row['postimg'] != NULL) {
+        echo '<img class="post__body-image" src="' . $row['postimg'] . '">';
+      }
+
+      echo '</div>
                   <div class="post__footer">
                       <button class="post__footer-btnLike btn">
                         <ion-icon name="heart"></ion-icon>
@@ -164,35 +177,35 @@ class Ajax extends Controller
                       </div>
                   </div>
                 </li>';
-              }
-              echo '        <li class="timeNew__btn-add-post">
+    }
+    echo '        <li class="timeNew__btn-add-post">
               <ion-icon name="add-circle-outline"></ion-icon>
             </li>
             <li class="timeNew__btn-see-more">
               <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
             </li>';
-      }
-      public function addFriend()
-      {
-        $userid =  $_POST['friend_id'];
-        $id = \Ramsey\Uuid\Uuid::uuid4();
-            $followerid = Login::isLoggedIn();
-            if (DB::query("SELECT * FROM followers WHERE user_id = :userid", array(':userid' => $userid))) {
-                  echo json_encode(true);
-            } else {
-                  DB::query('INSERT INTO followers VALUES(:id,:userid,:followerid)', array('id' => $id, 'userid' => $userid, 'followerid' => $followerid));
-            }
-      }
-      public function showFriends()
-      {
-            $userid = Login::isLoggedIn();
-            $result = DB::query("SELECT * FROM followers WHERE follower_id = :userid", array(':userid' => $userid));
+  }
+  public function addFriend()
+  {
+    $userid =  $_POST['friend_id'];
+    $id = \Ramsey\Uuid\Uuid::uuid4();
+    $followerid = Login::isLoggedIn();
+    if (DB::query("SELECT * FROM followers WHERE user_id = :userid", array(':userid' => $userid))) {
+      echo json_encode(true);
+    } else {
+      DB::query('INSERT INTO followers VALUES(:id,:userid,:followerid)', array('id' => $id, 'userid' => $userid, 'followerid' => $followerid));
+    }
+  }
+  public function showFriends()
+  {
+    $userid = Login::isLoggedIn();
+    $result = DB::query("SELECT * FROM followers WHERE follower_id = :userid", array(':userid' => $userid));
 
-            foreach ($result as $row) {
-                  $name = DB::query("SELECT * FROM users WHERE id = :follower_id", array(':follower_id' => $row['user_id']))[0];
-                  echo "<div class=\"friendlist-item\">
+    foreach ($result as $row) {
+      $name = DB::query("SELECT * FROM users WHERE id = :follower_id", array(':follower_id' => $row['user_id']))[0];
+      echo "<div class=\"friendlist-item\">
                   <img
-                    src=\"".$name['profileimg']."\"
+                    src=\"" . $name['profileimg'] . "\"
                     class=\"friendlist-item-image\"
                   />
                   <a
@@ -201,16 +214,17 @@ class Ajax extends Controller
                     >" . $name['username'] . "</a
                   >
                 </div>";
-            }
-      }
+    }
+  }
 
-      public function getUser(){
-        $closeUserId =  $this->messageModels->getCloseMessage(); 
-        $user = $this->userModels->getUser($closeUserId);
-        echo '
-        <img src="'.$user['profileimg'].'" alt="" id="current-friend" class="body__chatBox-header-image" />
-        <a href="#" class="body__chatBox-header-name" id="current-friend-name">'.$user['username'].'</a>
+  public function getUser()
+  {
+    $closeUserId =  $this->messageModels->getCloseMessage();
+    $user = $this->userModels->getUser($closeUserId);
+    echo '
+        <img src="' . $user['profileimg'] . '" alt="" id="current-friend" class="body__chatBox-header-image" />
+        <a href="#" class="body__chatBox-header-name" id="current-friend-name">' . $user['username'] . '</a>
         <ion-icon name="information-outline" class="body__chatBox-header-help"></ion-icon>
-        ///'.$closeUserId; 
-      }
+        ///' . $closeUserId;
+  }
 }

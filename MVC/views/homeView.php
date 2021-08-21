@@ -103,6 +103,28 @@ $user = DB::query("SELECT * FROM users WHERE username = :username ", array(':use
     <!-- <script src="./public/js/home.js"></script> -->
     <script src="./public/js/main.js"></script>
     <script src="./public/js/home.js" defer></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('6d26d8d2ff0bf9b79d49', {
+      cluster: 'ap1'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      
+      $.ajax({
+        url: "./Ajax/test",
+        success: function(result) {
+            alert(result);
+        }
+    });
+    });
+    
+  </script>
 </body>
 
 </html>

@@ -57,12 +57,30 @@ function escapehtml(text) {
         .replace(/'/g, "&#039;");
 }
 
+function sendmsg() {
+
+
+    var message = message__input.value;
+    if (message != "") {
+        $.post("./Ajax/sendMessage", {
+            message: message,
+            receiver: receiver
+        }, function(data) {
+            $("#message__input").val("");
+            message__area.scrollTop = message__area.scrollHeight;
+
+
+        });
+    }
+}
+
 function updateChat() {
     var username = getcookie("messageUser");
     var output = "";
     $.post("./Ajax/updateMessage", {
         receiver: receiver
     }, function(data) {
+
         var response = data.split("\n");
         var rl = response.length;
         var item = "";
@@ -121,21 +139,7 @@ function searchFriendInDB() {
 }
 
 
-function sendmsg() {
 
-    updateChat();
-    var message = message__input.value;
-    if (message != "") {
-        $.post("./Ajax/sendMessage", {
-            message: message,
-            receiver: receiver
-        }, function(data) {
-            $("#message__input").val("");
-            message__area.scrollTop = message__area.scrollHeight;
-            updateChat();
-        });
-    }
-}
 
 function showFriends() {
     $.post("./Ajax/showFriends", {
@@ -155,7 +159,7 @@ function logout() {
     eraseCookieFromAllPaths("SNID")
     eraseCookieFromAllPaths("SNID_")
 }
-setInterval(function() { updateChat() }, 500);
+// setInterval(function() { updateChat() }, 500);
 
 function ScrollDown() {
     setTimeout(() => {
@@ -328,6 +332,7 @@ function ScrollDown() {
                 // let name = ;
                 // console.log(friendItem[i].childNodes[3]);
                 var receiver = getReceiver(getID(friendItem[i]));
+                updateChat();
             });
         }
     }
@@ -338,7 +343,7 @@ function ScrollDown() {
 refreshFriendlist();
 
 
-setInterval(function() { updateChat() }, 500);
+
 
 
 function constructUser() {
@@ -349,5 +354,26 @@ function constructUser() {
         var response = data.split("///");
         $('#body__chatBox-header').html(response[0]);
         receiver = response[1];
+        updateChat();
     });
 }
+
+// constructUser Message 
+
+
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('6d26d8d2ff0bf9b79d49', {
+    cluster: 'ap1'
+});
+
+var channel = pusher.subscribe('my-channel');
+channel.bind('my-event', function(data) {
+    // alert(JSON.stringify(data));
+    // WE will use jquery ajax
+    if (data['request'] == "updateChat") {
+        updateChat();
+    }
+
+});
