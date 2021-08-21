@@ -19,7 +19,7 @@ class Home extends Controller
                         $postid = $this->postModel->createImgPost($_POST['postbody'], Login::isLoggedIn());
                         Image::uploadImage('postimg', "UPDATE posts SET postimg=:postimg WHERE id=:postid", array(':postid' => $postid));
                   }
-                  header("Location: http://localhost/simple-messenger/Home");
+                  header("Location: http://localhost:8080/simple-messenger/Home");
 
             }
       }

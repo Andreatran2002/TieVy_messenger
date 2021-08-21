@@ -58,7 +58,6 @@
               <ion-icon
                 class="password-hide-btn"
                 onclick="hidePw(0)"
-                name="eye"
               ></ion-icon>
             </div>
             <div class="login__left-item">

@@ -37,7 +37,7 @@
           </a>
           <div href="#" class="friend__box">
             <div class="friend__box-search">
-              <input type="text" name="search_friend" id="friend_search_input" onkeydown="if (event.keyCode == 13) {searchFriendInDB();}" placeholder="Search for friend..." />
+              <input type="text" name="search_friend" id="friend_search_input" onkeydown="if (event.keyCode == 13) { searchFriendInDB();}" placeholder="Search for friend..." />
             </div>
             <ul class="friend__box-container height-0" id="friend_search_area" >    
               

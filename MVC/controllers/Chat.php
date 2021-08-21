@@ -9,7 +9,7 @@
             public function __construct(){
                   
                   if (!(Login::isLoggedIn())){
-                  header("Location: http://localhost/simple-messenger/Account"); 
+                  header("Location: http://localhost:8080/simple-messenger/Account"); 
                   }
                   $this->mainView = $this->view("main_chat"); 
             }

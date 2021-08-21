@@ -17,7 +17,7 @@
       <link rel="stylesheet" href="./public/css/chatView.css" />
 </head>
 
-<body onload="updateChat(); constructUser(); ">
+<body onload="updateChat(); constructUser();updateStatus() ">
       <!-- menu-left -->
       <?php require_once "./MVC/views/pages/menu.php"; ?>
       <!-- menu-left -->

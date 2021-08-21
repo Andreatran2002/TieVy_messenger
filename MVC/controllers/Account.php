@@ -25,20 +25,23 @@ class Account extends Controller
                   $result = false;
                   if ($this->userModel->checkEmail($email) == "true" && $this->userModel->checkPassword($password == "true") && $this->userModel->checkUsernameValid($username) == "true") {
                         $result = $this->userModel->insert_user($id, $username, $password, $email);
-                        header("Location: http://localhost/simple-messenger/Account");
+                        header("Location: http://localhost:8080/simple-messenger/Account");
                   }
             }
       }
 
       public function Login_user()
       {
+            
             if (Login::isLoggedIn()){
-                  header("Location: http://localhost/simple-messenger/Home");
+                  header("Location: http://localhost:8080/simple-messenger/Home");
             }
             else{
-            if (isset($_POST['login'])) {
+            if (isset($_POST ['login'])) {
+                  
                   $username = $_POST['username'];
                   $password = $_POST['password'];
+                  echo "<script>alert(".$username.")</script>";
                   $result = false;
                   if (DB::query('SELECT username FROM users WHERE username=:username', array(':username' => $username))) {
 
@@ -53,13 +56,13 @@ class Account extends Controller
                               setcookie("messageUser", $username, time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
                               setcookie("SNID", $token, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, TRUE);
                               setcookie("SNID_", '1', time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
-                              header("Location: http://localhost/simple-messenger/Home");
+                              header("Location: http://localhost:8080/simple-messenger/Home");
                         }
                   }
-                  $this->view("login_logout", [
-                        "result" => $result
-                  ]);
+                  
+                  
             }
+           
       }
       }
       public function logout()
@@ -76,6 +79,6 @@ class Account extends Controller
             if (isset($_POST['uploadprofileimg'])){
                   Image::uploadImage('profileimg','UPDATE users SET profileimg = :profileimg WHERE id = :userid',array(':userid'=>$userid));
               }
-              header("Location: http://localhost/simple-messenger/Home");
+              header("Location: http://localhost:8080/simple-messenger/Home");
       }
 }

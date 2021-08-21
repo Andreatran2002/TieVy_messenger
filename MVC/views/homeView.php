@@ -20,7 +20,7 @@ $user = DB::query("SELECT * FROM users WHERE username = :username ", array(':use
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
-<body onload="updateNewPosts(); showFriends();">
+<body onload="updateNewPosts(); showFriends(); updateStatus()">
   <!-- menu-left -->
   <?php require_once "./MVC/views/pages/menu.php" ?>
   <div class="container-home">
@@ -40,26 +40,40 @@ $user = DB::query("SELECT * FROM users WHERE username = :username ", array(':use
           <li class="information__item">
             <ion-icon class="information__item-icon" name="briefcase"></ion-icon>
             <p class="information__item-text">
-              Ho Chi Minh City University of Technology and Education
+              <?php 
+              echo $user['education'];
+              ?>
             </p>
           </li>
           <li class="information__item">
             <ion-icon class="information__item-icon" name="navigate"></ion-icon>
             <p class=informationr__item-text">
-              Số 62, Bom Bo, Bù Đăng, Bình Phước
+            <?php 
+              echo $user['address'];
+              ?>
             </p>
           </li>
           <li class="information__item" class="information__item">
             <ion-icon name="call"></ion-icon>
-            <p class="information__item-text">0394973287</p>
+            <p class="information__item-text"> 
+              <?php 
+              echo $user['phone'];
+              ?></p>
           </li>
           <li class="information__item" class="information__item">
             <ion-icon name="mail"></ion-icon>
-            <p class="information__item-text">beo1692@gmail.com</p>
+            <p class="information__item-text">
+            <?php 
+              echo $user['email'];
+              ?>
+            </p>
           </li>
           <li class="information__item">
             <ion-icon name="logo-instagram"></ion-icon>
-            <a href="https://www.instagram.com/1wky0u/" class="information__item-text">_1wkuwu</a>
+            <a href="https://www.instagram.com/1wky0u/" class="information__item-text">
+            <?php 
+              echo $user['instagram_address'];
+              ?></a>
           </li>
         </ul>
       </div>

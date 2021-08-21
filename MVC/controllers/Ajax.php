@@ -1,4 +1,5 @@
 <?php
+
 class Ajax extends Controller
 {
       public $userModels;
@@ -82,10 +83,12 @@ class Ajax extends Controller
       }
       public function updatePosts()
       {
+          $userid = Login::isLoggedIn();
+          $user =  $this->userModels->getUser($userid);
             echo '<li class="post">
             <div class="post__header">
-              <img src="https://i.pinimg.com/564x/7b/ee/c5/7beec5a45c69696b4902a46a4d33eeed.jpg" alt="" class="post__header-avatar">
-              <a href="#" class="post__header-name">Peter Packer</a>
+              <img src="'.$user['profileimg'].'" alt="" class="post__header-avatar">
+              <a href="#" class="post__header-name">'.$user['username'].'</a>
               <ion-icon name="reorder-two"></ion-icon>
             </div>
             <div class="post__body status">
@@ -134,7 +137,7 @@ class Ajax extends Controller
                         <ion-icon name="chatbox-ellipses"></ion-icon>
                         Comment
                       </button>
-                    <div class="cmtField">
+                    <div class="cmtField" style="display:block">
                       <ul class="cmtContainer">
                         <li class="cmtContainer__item">
                           <div class="cmtContainer__item-header">
