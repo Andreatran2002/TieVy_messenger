@@ -40,7 +40,7 @@ $user = DB::query("SELECT * FROM users WHERE username = :username ", array(':use
           <li class="information__item">
             <ion-icon class="information__item-icon" name="briefcase"></ion-icon>
             <p class="information__item-text">
-              <?php 
+              <?php
               echo $user['education'];
               ?>
             </p>
@@ -48,22 +48,22 @@ $user = DB::query("SELECT * FROM users WHERE username = :username ", array(':use
           <li class="information__item">
             <ion-icon class="information__item-icon" name="navigate"></ion-icon>
             <p class=informationr__item-text">
-            <?php 
+              <?php
               echo $user['address'];
               ?>
             </p>
           </li>
           <li class="information__item" class="information__item">
             <ion-icon name="call"></ion-icon>
-            <p class="information__item-text"> 
-              <?php 
+            <p class="information__item-text">
+              <?php
               echo $user['phone'];
               ?></p>
           </li>
           <li class="information__item" class="information__item">
             <ion-icon name="mail"></ion-icon>
             <p class="information__item-text">
-            <?php 
+              <?php
               echo $user['email'];
               ?>
             </p>
@@ -71,7 +71,7 @@ $user = DB::query("SELECT * FROM users WHERE username = :username ", array(':use
           <li class="information__item">
             <ion-icon name="logo-instagram"></ion-icon>
             <a href="https://www.instagram.com/1wky0u/" class="information__item-text">
-            <?php 
+              <?php
               echo $user['instagram_address'];
               ?></a>
           </li>
@@ -88,43 +88,40 @@ $user = DB::query("SELECT * FROM users WHERE username = :username ", array(':use
     <!-- friend field -->
     <div class="friendlist" id="friendlist">
 
-
-
     </div>
     <!-- time new Field -->
 
     <!-- friend field -->
     <!-- script file -->
     <div id="filter-container" class="filter-container" onclick="grow()"></div>
-    <script>
 
-    </script>
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <!-- <script src="./public/js/home.js"></script> -->
     <script src="./public/js/main.js"></script>
-    <script src="./public/js/home.js" defer></script>
+    <script src="./public/js/home.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-  <script>
+    <script>
+      // Enable pusher logging - don't include this in production
+      Pusher.logToConsole = true;
 
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+      var pusher = new Pusher('6d26d8d2ff0bf9b79d49', {
+        cluster: 'ap1'
+      });
 
-    var pusher = new Pusher('6d26d8d2ff0bf9b79d49', {
-      cluster: 'ap1'
-    });
+      var channel = pusher.subscribe('my-channel');
+      channel.bind('my-event', function(data) {
 
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
-      
-      $.ajax({
-        url: "./Ajax/test",
-        success: function(result) {
+        $.ajax({
+          url: "./Ajax/test",
+          success: function(result) {
             alert(result);
-        }
-    });
-    });
-    
-  </script>
+          }
+        });
+      });
+    </script>
+    <script src="./public/js/navigartionBar.js"></script>
 </body>
 
 </html>

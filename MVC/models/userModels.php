@@ -7,7 +7,7 @@ class userModels extends DB
       public function insert_user($id, $username, $password, $email)
       {
             $profileimg = "./public/images/default_avatar.jpg"; 
-            $this->query('INSERT INTO users VALUES (:id,:username,:email,:password,:profileimg) ', array(':id' => $id, ':username' => $username, ':email' => $email, ':password' => $password , ':profileimg' => $profileimg));
+            $this->query('INSERT INTO users VALUES (:id,:username,:email,:password,:profileimg, \'\', \'\', \'\', \'\', \'\' ) ', array(':id' => $id, ':username' => $username, ':email' => $email, ':password' => $password , ':profileimg' => $profileimg));
             $result = false;
             if ($this->query('SELECT * FROM users WHERE id = :id', array(':id' => $id))) {
                   $result = true;

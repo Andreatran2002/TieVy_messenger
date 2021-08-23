@@ -1,35 +1,60 @@
-*{ 
+* {
     margin: 0;
     padding: 0;
     border: 0;
     box-sizing: border-box;
     font-size: 100%;
-   }
-  button,html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, input{
+}
+
+button,
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+input {
     margin: 0;
     padding: 0;
     border: 0;
     font-size: 100%;
     font-family: 'Quicksand', sans-serif;
     color: rgba(255, 255, 255, 0.4);
-  }
-  a {
-    color: inherit; /* blue colors for links too */
-    text-decoration: inherit; /* no underline */
-  }
-  ol, ul {
+}
+
+a {
+    color: inherit;
+    /* blue colors for links too */
+    text-decoration: inherit;
+    /* no underline */
+}
+
+ol,
+ul {
     list-style: none;
-  }
-  html {
+}
+
+html {
     background-color: #161616;
-  }
-  body {
+}
+
+body {
     margin: 0;
     padding: 0;
-  }
-  input:focus {
+}
+
+input:focus {
     outline: none;
-  }
-  ion-icon {
+}
+
+ion-icon {
     cursor: pointer;
-  }
+}

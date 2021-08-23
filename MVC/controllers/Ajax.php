@@ -43,11 +43,13 @@ class Ajax extends Controller
     $message = $_POST["message"];
     $user_id = Login::isLoggedIn();
     $receiver = $_POST["receiver"];
+   
     $a = $this->messageModels->insert_message($id, $user_id, $receiver, $message);
     echo  "<div class=\"body__chatBox-msgArea-item sent\">" . $message . " </div>";
   }
   public function updateMessage()
   {
+    
     $receiver = $_POST["receiver"];
     $result = $this->messageModels->get_message($receiver);
     echo $result;
@@ -108,7 +110,9 @@ class Ajax extends Controller
             
             <form  class="post__body status" action="./Home/upNewPost"method="post" enctype="multipart/form-data">
             <textarea  class="status__input" name="postbody" rows="6"placeholder="New status for a new day !!!"></textarea>
-            <input class="status__upImage" type="file" name="postimg"/>
+            <label class="label-upload" for="input-image">Upload image</label>
+            <input id="input-image" type="file" name="postimg" accept="image/*" class="input-image" onchange="loadFile(event)">
+            <img src="" id="output"/>
             <label for="post" class="status__post">
               <button type="submit" name="post" value="">
               <ion-icon  name="send" class="status__post-btn"></ion-icon>
@@ -129,8 +133,14 @@ class Ajax extends Controller
                     <img src="' . $user['profileimg'] . '" alt="" class="post__header-avatar">
                     <a href="#" class="post__header-name">' . $user['username'] . '</a>
                     <p  class="post__header-time">2 minutes ago</p>
-
-                    <ion-icon name="reorder-two"></ion-icon>
+                    <ion-icon  name="reorder-two" class="post__header-btn" onclick="turnOnOptionPost(event)">
+              </ion-icon>
+              <ul class="post__option">
+                <li class="post__option-item">Truy cập trang cá nhân</li>
+                <li class="post__option-item">Ẩn bài viết</li>
+                <li class="post__option-item">Ẩn bài viết từ người này</li>
+                <li class="post__option-item">Báo cáo bài viết</li>
+              </ul>
                   </div>
                   <div class="post__body">
                     <p class="post__body-text">' . $row['postbody'] . '</p>';
@@ -139,51 +149,57 @@ class Ajax extends Controller
       }
 
       echo '</div>
-                  <div class="post__footer">
-                      <button class="post__footer-btnLike btn">
-                        <ion-icon name="heart"></ion-icon>
-                      </button>
-                      <button class="post__footer-btnDisLike btn"> 
-                        <ion-icon name="heart-dislike"></ion-icon>
-                      </button>
-                      <button class="post__footer-btncmt">
-                        <ion-icon name="chatbox-ellipses"></ion-icon>
-                        Comment
-                      </button>
-                    <div class="cmtField" style="display:block">
-                      <ul class="cmtContainer">
-                        <li class="cmtContainer__item">
-                          <div class="cmtContainer__item-header">
-                            <img src="https://i.pinimg.com/564x/57/fc/b6/57fcb656c72c31e7c9a17199fed8daf5.jpg" alt="" class="cmtContainer__item-header-avatar">
-                            <a href="#" class="cmtContainer__item-header-name">Miles Morales</a>
-                          </div>
-                          <div class="cmtContainer__item-body">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam est molestias fugit.</p>
-                          </div>
-                        </li>
-                        <li class="cmtContainer__item">
-                          <div class="cmtContainer__item-header">
-                            <img src="https://i.pinimg.com/564x/b0/5c/a4/b05ca4dc3b1cad8946609202036e2b97.jpg" alt="" class="cmtContainer__item-header-avatar">
-                            <a href="#" class="cmtContainer__item-header-name">Miles Morales</a>
-                          </div>
-                          <div class="cmtContainer__item-body">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam est molestias fugit.</p>
-                          </div>
-                        </li>
-                      </ul>
-                      <div class="cmtInput">
-                        <textarea placeholder="Comment ở đây nè con đĩ" name="postbody" rows="3" cols="80" class="cmtInput__input"></textarea>
-                          <ion-icon class="cmtInput__btn" name="send"></ion-icon>
-                      </div>
-                  </div>
+      <div  class="post__footer">
+      <button  class="post__footer-btnLike btn" onclick="like(event)">
+        <ion-icon  name="heart"></ion-icon>
+      </button>
+      <button  class="post__footer-btnDisLike btn" onclick="like(event)">
+        <ion-icon  name="heart-dislike"></ion-icon>
+      </button>
+      <button  class="post__footer-btncmt" onclick="openCmtField(event)">
+        <ion-icon  name="chatbox-ellipses"></ion-icon>
+        Comment
+      </button>
+      <div  class="cmtField">
+        <ul  class="cmtContainer">
+          <li  class="cmtContainer__item">
+            <div  class="cmtContainer__item-header">
+              <img src="
+      https://i.pinimg.com/564x/57/fc/b6/57fcb656c72c31e7c9a17199fed8daf5.jpg"alt="" class="
+      cmtContainer__item-header-avatar">
+              <a href="#" class="cmtContainer__item-header-name">Miles Morales</a>
+            </div>
+            <div  class="cmtContainer__item-body">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam est molestias fugit.</p>
+            </div>
+          </li>
+          <li  class="cmtContainer__item">
+            <div  class="cmtContainer__item-header">
+              <img src="
+      https://i.pinimg.com/564x/b0/5c/a4/b05ca4dc3b1cad8946609202036e2b97.jpg"alt="" class="
+      cmtContainer__item-header-avatar">
+              <a href="#" class="cmtContainer__item-header-name">Miles Morales</a>
+            </div>
+            <div  class="cmtContainer__item-body">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam est molestias fugit.</p>
+            </div>
+          </li>
+        </ul>
+        <div  class="cmtInput">
+          <textarea placeholder="Comment here..." name="postbody"rows="3"cols="
+      80" class="cmtInput__input"></textarea>
+          <ion-icon  class="cmtInput__btn" name="send"></ion-icon>
+        </div>
+      </div>
+    </div>
                 </li>';
     }
-    echo '        <li class="timeNew__btn-add-post">
-              <ion-icon name="add-circle-outline"></ion-icon>
-            </li>
-            <li class="timeNew__btn-see-more">
-              <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-            </li>';
+    echo '         <li onclick="btnNewPost()" class="timeNew__btn-add-post">
+    <ion-icon name="add-circle-outline"></ion-icon>
+  </li>
+  <li class="timeNew__btn-see-more">
+    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+  </li>';
   }
   public function addFriend()
   {
@@ -208,19 +224,29 @@ class Ajax extends Controller
                     src=\"" . $name['profileimg'] . "\"
                     class=\"friendlist-item-image\"
                   />
-                  <a
-                    href=\"https://www.facebook.com/sherman.pham.75?__tn__=-UC*F\"
+                  <p
+                    href=\"./chat\"
                     class=\"friendlist-item-name\"
-                    >" . $name['username'] . "</a
+                    >" . $name['username'] . "</p
                   >
+                  <div class=\"btn-container\">
+            <button class=\"btn-mess\"><ion-icon name=\"chatbox-ellipses-outline\"></ion-icon>Chat</button>
+            <button class=\"btn-info\"><ion-icon name=\"person-outline\"></ion-icon>User</button>
+          </div>
                 </div>";
     }
   }
 
   public function getUser()
   {
+    if (isset($id)){
+      $closeUserId = $id;
+      
+    }
+    else{
     $closeUserId =  $this->messageModels->getCloseMessage();
-    $user = $this->userModels->getUser($closeUserId);
+  }
+  $user = $this->userModels->getUser($closeUserId);
     echo '
         <img src="' . $user['profileimg'] . '" alt="" id="current-friend" class="body__chatBox-header-image" />
         <a href="#" class="body__chatBox-header-name" id="current-friend-name">' . $user['username'] . '</a>

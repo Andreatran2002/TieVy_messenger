@@ -7,7 +7,7 @@
                   $arr = $this->UrlProcess();
                   
                   // Xu ly controller
-
+                 
                   if (file_exists("./mvc/controllers/".$arr[0].".php")){
                         $this->controller = $arr[0];
                         unset($arr[0]);
@@ -23,6 +23,7 @@
                         unset($arr[1]);
                   }
                   // Xu ly params 
+                  // echo "<script>alert('".$arr[2]."'); </script>";
                   $this->params = $arr?array_values($arr) : [] ; //
                   call_user_func_array([$this->controller,$this->action],$this->params);
             }

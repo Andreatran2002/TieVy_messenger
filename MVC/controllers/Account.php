@@ -4,13 +4,14 @@ class Account extends Controller
 {
       public $userModel;
 
-      public function sayHi()
+      public function SayHi()
       {
 
             $this->view("login_logout", []);
       }
       public function __construct()
       {
+            
             $this->userModel = $this->model("userModels");
       }
 
@@ -41,7 +42,6 @@ class Account extends Controller
                   
                   $username = $_POST['username'];
                   $password = $_POST['password'];
-                  echo "<script>alert(".$username.")</script>";
                   $result = false;
                   if (DB::query('SELECT username FROM users WHERE username=:username', array(':username' => $username))) {
 

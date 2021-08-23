@@ -1,75 +1,68 @@
-let btnCmt = document.getElementsByClassName("post__footer-btncmt");
-let cmtField = document.getElementsByClassName("cmtField");
-let n = cmtField.length;
-console.log(cmtField);
-let check = [];
-for (let i = 0; i < n; i++) {
-  check.push(false);
-}
-console.log(check);
-function refreshCmt() {
-  for (let i = 0; i < n; i++) {
-    btnCmt[i].addEventListener("click", () => {
-      if (check[i] === false) {
-        cmtField[i].style.display = "flex";
-        setTimeout(() => {
-          cmtField[i].style.height = "350px";
-          setTimeout(() => {
-            cmtField[i].style.opacity = "1";
-          }, 300);
-        }, 200);
-        check[i] = true;
-        console.log(check[i]);
-      } else if (check[i] === true) {
-        // alert("lala");
-        cmtField[i].style.opacity = "0";
-        setTimeout(() => {
-          cmtField[i].style.height = "0px";
-          setTimeout(() => {
-            cmtField[i].style.display = "none";
-          }, 300);
-        }, 300);
-        check[i] = false;
-      }
+let btnNewPost = () => {
+    document.getElementsByClassName("timeNew__body")[0].scrollTo({
+        top: 0,
+        behavior: "smooth",
     });
-  }
+    setTimeout(() => {
+        document.getElementsByClassName("status__input")[0].focus();
+    }, 700);
+};
+
+let openCmtField = event => {
+    let cmtField = event.target.parentNode.lastElementChild
+    if (cmtField.style.opacity != '1' && cmtField.style.height != '350px') {
+        cmtField.style.height = '350px'
+        setTimeout(() => {
+            cmtField.style.opacity = '1'
+        }, 200)
+    } else {
+        cmtField.style.opacity = '0'
+        setTimeout(() => {
+            cmtField.style.height = '0'
+        }, 200)
+    }
 }
-function refreshLike() {
-  let btn = document.getElementsByClassName("btn");
-  console.log(btn);
-  let n = btn.length;
-  let check = [];
-  console.log(btn[0].classList[0]);
-  for (let i = 0; i < n; i++) {
-    check.push(false);
-  }
-  for (let i = 0; i < n; i++) {
-    btn[i].addEventListener("click", () => {
-      if (btn[i].classList[0] == "post__footer-btnLike") {
-        if (check[i] === false) {
-          btn[i].style.color = "greenyellow";
-          btn[i + 1].style.color = "inherit";
-          check[i] = true;
-          check[i + 1] = false;
-        } else if (check[i] === true) {
-          btn[i].style.color = "inherit";
-          check[i] = false;
-        }
-      } else if (btn[i].classList[0] == "post__footer-btnDisLike") {
-        if (check[i] === false) {
-          btn[i].style.color = "red";
-          btn[i - 1].style.color = "inherit";
-          check[i] = true;
-          check[i - x1] = false;
-        } else if (check[i] === true) {
-          btn[i].style.color = "inherit";
-          check[i] = false;
-        }
-      }
-    });
-  }
+
+let turnOnOptionPost = (event) => {
+    let option = event.target.parentNode.lastElementChild
+    if (option.style.display != 'block') {
+        option.style.display = 'block'
+        setTimeout(() => {
+            option.style.opacity = '1'
+        }, 200)
+    } else {
+        option.style.opacity = '0'
+        setTimeout(() => {
+            option.style.display = 'none'
+        }, 200)
+
+    }
 }
-// setInterval(() => {
-  refreshCmt();
-  refreshLike();
-// },1000)
+
+let like = event => {
+    let btnLike = event.target
+    let arrBtn = btnLike.parentNode.childNodes
+    if (btnLike.classList.contains('post__footer-btnLike')) {
+        if (btnLike.style.color != 'white') {
+            btnLike.style.color = 'white'
+            arrBtn[3].style.color = ''
+        } else {
+            btnLike.style.color = ''
+        }
+    } else {
+        if (btnLike.style.color != 'white') {
+            btnLike.style.color = 'white'
+            arrBtn[1].style.color = ''
+        } else
+            btnLike.style.color = ''
+    }
+}
+
+function loadFile(event) {
+    console.log(URL.createObjectURL(event.target.files[0]));
+    let ouput = document.getElementById("output");
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+        URL.revokeObjectURL(output.src);
+    };
+}

@@ -13,7 +13,6 @@ $(document).ready(function() {
         });
 
     })
-    updateChat()
 })
 
 function getReceiver(receiver_id) {
@@ -95,6 +94,7 @@ function updateChat() {
             }
         }
         $("#message__area").html(output);
+        message__area.scrollTop = message__area.scrollHeight;
     });
 }
 

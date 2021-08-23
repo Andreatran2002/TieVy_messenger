@@ -44,12 +44,115 @@
             </ul>
           </div>
         </li>
-        <li>
-          <a href="#" class="menu-item">
-            <ion-icon name="notifications-outline"></ion-icon>
-            <span class="menu-item-text text-hide">Notifications</span>
-          </a>
-        </li>
+        <li style="position:relative">
+        <a href="#" class="menu-item icon-information info-item" onclick="openInformation()">
+          <ion-icon  name="notifications-outline"></ion-icon>
+          <span  class="menu-item-text text-hide">Notifications</span>
+        </a>
+        <ul class="notiList">
+          <p style="
+            font-weight: 500;
+            margin: 0 0 10px 5px;
+            font-size: 26px;
+            color: #fff;
+            ">Notifications</p>
+          <p style="
+            font-weight: 500;
+            margin: 0 0 10px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+          ">News
+          <a href="#" style="
+            font-size: 14px;
+            font-weight: 300;
+          "
+          >See all</a>  
+        </p>
+          <li class="notiList__item">
+            <img src="https://i.pinimg.com/564x/23/32/23/2332236e06caa9000505d7daa27ad0ee.jpg" alt="" class="notiList__item-image">
+            <div class="notiList__item-content">
+              <p><a href="#">Vy Xinh Đẹp</a> Lorem ipsum dolor sit amet consectetur</p>
+            </div>
+          </li>
+          <li class="notiList__item">
+            <img src="https://i.pinimg.com/564x/23/32/23/2332236e06caa9000505d7daa27ad0ee.jpg" alt="" class="notiList__item-image">
+            <div class="notiList__item-content">
+              <p><a href="#">Vy Xinh Đẹp</a> Lorem ipsum dolor sit amet consectetur</p>
+            </div>
+          </li>
+          <li class="notiList__item">
+            <img src="https://i.pinimg.com/564x/23/32/23/2332236e06caa9000505d7daa27ad0ee.jpg" alt="" class="notiList__item-image">
+            <div class="notiList__item-content">
+              <p><a href="#">Vy Xinh Đẹp</a> Lorem ipsum dolor sit amet consectetur</p>
+            </div>
+          </li>
+          <li class="notiList__item">
+            <img src="https://i.pinimg.com/564x/23/32/23/2332236e06caa9000505d7daa27ad0ee.jpg" alt="" class="notiList__item-image">
+            <div class="notiList__item-content">
+              <p><a href="#">Vy Xinh Đẹp</a> Lorem ipsum dolor sit amet consectetur</p>
+            </div>
+          </li>
+          <p style="
+            font-weight: 500;
+            margin: 0 0 10px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+          ">Add friend
+          <a href="#" style="
+          font-size: 14px;
+          font-weight: 300;
+        "
+        >See all</a>    
+        </p>
+          <li class="notiList__item">
+            <img src="https://i.pinimg.com/564x/23/32/23/2332236e06caa9000505d7daa27ad0ee.jpg" alt="" class="notiList__item-image">
+            <div class="notiList__item-content">
+              <p><a href="#">Vy Xinh Đẹp</a> đã gửi cho bạn một lời mời kết bạn</p>
+              <div class="notiList__item-btn">
+                <button type="button" class="btn-Fr">
+                  <ion-icon name="person-add-outline"></ion-icon>
+                  <p>Add</p>
+                <button type="button" class="btn-Fr">
+                  <ion-icon name="person-remove-outline"></ion-icon>
+                  <p>Remove</p>
+                </button>
+              </div>
+            </div>
+          </li>
+          <li class="notiList__item">
+            <img src="https://i.pinimg.com/564x/23/32/23/2332236e06caa9000505d7daa27ad0ee.jpg" alt="" class="notiList__item-image">
+            <div class="notiList__item-content">
+              <p><a href="#">Vy Xinh Đẹp</a> đã gửi cho bạn một lời mời kết bạn</p>
+              <div class="notiList__item-btn">
+                <button type="button" class="btn-Fr">
+                  <ion-icon name="person-add-outline"></ion-icon>
+                  <p>Add</p>
+                <button type="button" class="btn-Fr">
+                  <ion-icon name="person-remove-outline"></ion-icon>
+                  <p>Remove</p>
+                </button>
+              </div>
+            </div>
+          </li>
+          <li class="notiList__item">
+            <img src="https://i.pinimg.com/564x/23/32/23/2332236e06caa9000505d7daa27ad0ee.jpg" alt="" class="notiList__item-image">
+            <div class="notiList__item-content">
+              <p><a href="#">Vy Xinh Đẹp</a> đã gửi cho bạn một lời mời kết bạn</p>
+              <div class="notiList__item-btn">
+                <button type="button" class="btn-Fr">
+                  <ion-icon name="person-add-outline"></ion-icon>
+                  <p>Add</p>
+                <button type="button" class="btn-Fr">
+                  <ion-icon name="person-remove-outline"></ion-icon>
+                  <p>Remove</p>
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
       </div>
       <div class="bottom">
         <li>
@@ -59,9 +162,9 @@
           </a>
         </li>
         <li>
-          <a href="#" class="menu-item">
+          <a href="./Profile" class="menu-item">
             <ion-icon name="person-circle-outline"></ion-icon>
-            <span class="menu-item-text text-hide">Account</span>
+            <span class="menu-item-text text-hide">Profile</span>
           </a>
         </li>
         <li>

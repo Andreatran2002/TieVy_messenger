@@ -14,7 +14,7 @@ class Login {
                                         DB::query('INSERT INTO login_tokens VALUES (\'\', :token, :user_id)', array(':token'=>sha1($token), ':user_id'=>$userid));
                                         DB::query('DELETE FROM login_tokens WHERE tokens=:token', array(':token'=>sha1($_COOKIE['SNID'])));
 
-                                        setcookie("SNID", $token, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, TRUE);
+                                        setcookie("SNID", $token, time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
                                         setcookie("SNID_", '1', time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
 
                                         return $userid;
