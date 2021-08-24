@@ -60,7 +60,7 @@
                               <label for="ins" class="editField__item-name">Contact via Instagram</label>
                               <input type="text" id="ins" name="ig_address" value="<?php echo  $data['ig_address'] ?>" class="editField__item-input">
                         </li>
-                        <button class="Form-submit">Complete</button>
+                        <button name="editProfile" class="Form-submit">Complete</button>
                   </ul>
             </form>
       </div>
@@ -68,6 +68,8 @@
       <!-- <div class="filter-option"></div> -->
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
       <script>
             let userNames = ["PhuongVy", "NhatTien2002", "Lala"]
 
@@ -85,17 +87,17 @@
                   var a = event.target.value
 
                   var mess = document.getElementsByClassName('editField__item-des')[1]
-                  console.log(mess
-                  )
+                  console.log(mess)
+
                   $.post("./Ajax/checkUsername", {
                         un : a
                   }, function(data) {
                         var result = data;
-                        alert(data)
+                        console.log(result)
                         alertMes(result)
 
                         function alertMes(result) {
-                              if (result == true) {
+                              if (result == 'false') {
                                     event.target.style.borderColor = "green"
                                     mess.style.opacity = "0"
                                     setTimeout(() => {

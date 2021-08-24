@@ -26,25 +26,35 @@
                   }
                   $this->userModel = $this->model("notifyModels"); 
             }
-            // public function friend(){
-            //       $this->userModel = $this->model("messageModels");
-                
-            //       // echo "<script>alert(".json_encode($id).")</script>";
-            // }
-            // function Show($a, $b){        
-            //       // Call Models
-            //       $teo = $this->model("SinhVienModel");
-            //       $tong = $teo->Tong($a, $b); // 3
-          
-            //       // Call Views
-            //       $this->view("aodep", [
-            //           "Page"=>"news",
-            //           "Number"=>$tong,
-            //           "Mau"=>"red",
-            //           "SoThich"=>["A", "B", "C"],
-            //           "SV" => $teo->SinhVien()
-            //       ]);
-            //   }
+            public function edit(){
+                  if (isset($_POST['editProfile'])){
+                        $id= Login::isLoggedIn();
+                        $username = $_POST['username'];
+                        $birthday = $_POST['birthday'];
+                        $phone = $_POST['phone']; 
+                        $education = $_POST['education'];
+                        $address = $_POST['address'];
+                        $ig_address = $_POST['ig_address'];
+                        DB::query('UPDATE users SET 
+                        username = :username,
+                        birthday = :birthday,
+                        phone = :phone,
+                        education = :education,
+                        address = :address,
+                        instagram_address = :ig_address
+                        WHERE id = :id
+                        ',array(
+                              ":id" => $id,
+                              ":username"=>$username,
+                              ":birthday"=>$birthday,
+                              ":phone"=>$phone,
+                              ":education"=>$education,
+                              ":address"=>$address,
+                              ":ig_address"=>$ig_address
+                        ));
+                        header("Location: http://localhost:8080/simple-messenger/Profile"); 
+                  }
+            }
             
             
       }
