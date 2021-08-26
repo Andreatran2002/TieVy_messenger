@@ -27,11 +27,15 @@
                   <div class="body__left-container">
                         <div class="body__left-user">
                               <img src="<?php
-                                          if (DB::query("SELECT profileimg FROM users WHERE username = :username", array(":username" => $_COOKIE['messageUser']))) {
-                                                echo DB::query("SELECT * FROM users WHERE username = :username", array(":username" => $_COOKIE['messageUser']))[0]['profileimg'];
+                                          if (DB::query("SELECT profileimg FROM users WHERE id = :id", array(":id" => $_COOKIE['messageUser']))) {
+                                                echo DB::query("SELECT * FROM users WHERE id = :id", array(":id" => $_COOKIE['messageUser']))[0]['profileimg'];
                                           } else echo "./public/images/default_avatar.png"
                                           ?>" alt="" class="body__left-user-image" />
-                              <a href="#" class="body__left-user-name"><?php echo $_COOKIE['messageUser'] ?></a>
+                              <a href="#" class="body__left-user-name">
+                                    <?php
+                                        echo DB::query("SELECT * FROM users WHERE id = :id", array(":id" => $_COOKIE['messageUser']))[0]['username']  ;  
+                                    ?>
+                              </a>
                         </div>
                         <div class="body__left">
                               <?php require_once("./MVC/views/pages/userFriend.php") ?>

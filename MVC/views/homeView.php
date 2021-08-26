@@ -1,5 +1,5 @@
 <?php
-$user = DB::query("SELECT * FROM users WHERE username = :username ", array(':username' => $_COOKIE['messageUser']))[0];
+$user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE['messageUser']))[0];
 ?>
 
 <!DOCTYPE html>

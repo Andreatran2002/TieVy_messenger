@@ -9,17 +9,19 @@ class PostModels extends DB
             if (strlen($postbody) > 500 || strlen($postbody) < 1) {
                   die('Incorrect length!');
             }
-            $id = $id = \Ramsey\Uuid\Uuid::uuid4();
+             $id = \Ramsey\Uuid\Uuid::uuid4();
             // add notify
             if (count(Notify::createNotify($postbody)) != 0) {
                   foreach (Notify::createNotify($postbody) as $key => $n) {
                         $s = Login::isLoggedIn();
                         $r = DB::query('SELECT id FROM users WHERE username=:username', array(':username' => $key))[0]['id'];
+                       
                         if ($r != 0) {
-                              DB::query('INSERT INTO notifications VALUES (\'\', :type, :receiver, :sender, :extra)', array(':type' => $n["type"], ':receiver' => $r, ':sender' => $s, ':extra' => $n["extra"]));
+                              DB::query('INSERT INTO notifications VALUES (:id, :type, :receiver, :sender, :extra)', array(':id'=>$id,':type' => $n["type"], ':receiver' => $r, ':sender' => $s, ':extra' => $n["extra"]));
                         }
                   }
             }
+            $id = \Ramsey\Uuid\Uuid::uuid4();
             $this->query('INSERT INTO posts VALUES (:id, :postbody, \'\', :userid, \'\', \'\',NOW())', array(':id' => $id, ':postbody' => $postbody, ':userid' => $userid));
       }
       public function createImgPost($postbody, $userid)

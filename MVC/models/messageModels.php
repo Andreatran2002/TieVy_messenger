@@ -23,8 +23,7 @@ class messageModels extends DB
             ORDER BY time ", array(':receiver' => $receiver, ':user' => $sender));
 
             foreach ($result as $r) {
-                  $sendername = $this->query("SELECT * FROM users WHERE  id=:user ", array(':user' => $r['user_id']))[0]['username'];
-                  echo $sendername;
+                  echo $r['user_id'];
                   echo "\\";
                   echo htmlspecialchars($r['message']);
                   echo "\n";

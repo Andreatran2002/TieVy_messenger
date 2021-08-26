@@ -53,8 +53,8 @@ class Account extends Controller
                               $result = $this->userModel->login_user($id, $token, $user_id);
                               //Hàm sha1() trong php có tác dụng chuyển một chuỗi sang một chuỗi mới đã được mã hóa theo tiêu chuẩn sha1
 
-                              setcookie("messageUser", $username, time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
-                              setcookie("SNID", $token, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, TRUE);
+                              setcookie("messageUser", $user_id, time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
+                              setcookie("SNID", $token, time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
                               setcookie("SNID_", '1', time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
                               header("Location: http://localhost:8080/simple-messenger/Home");
                         }

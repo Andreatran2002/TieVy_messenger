@@ -52,7 +52,10 @@
                               ":address"=>$address,
                               ":ig_address"=>$ig_address
                         ));
-                        header("Location: http://localhost:8080/simple-messenger/Profile"); 
+                        if ($_FILES['profileimg']['size'] > 0){
+                              Image::uploadImage('profileimg','UPDATE users SET profileimg = :profileimg WHERE id = :userid',array(':userid'=>$id));
+                        }
+                        header('Location: http://localhost:8080/simple-messenger/Profile'); 
                   }
             }
             

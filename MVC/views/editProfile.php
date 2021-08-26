@@ -26,13 +26,13 @@
                   </div>
                   <div class="header__setting"></div>
             </header>
-            <form class="body" method="post" action="./Profile/edit">
+            <form class="body" method="post" action="./Profile/edit" enctype="multipart/form-data">
                   <ul class="editField">
                         <li class="editField__item">
                               <label for="" class="editField__item-name">Avatar</label>
                               <img src="<?php echo  $data['img'] ?>" id="output" />
                               <label class="editField__item-upload" for="input-image">Upload</label>
-                              <input id="input-image" name="avatarImg" type="file" accept="image/*" class="input-image" onchange="loadFile(event)">
+                              <input id="input-image" name="profileimg" type="file" accept="image/*" class="input-image" onchange="loadFile(event)">
                               <p class="editField__item-des">Your uploaded image should be a square to fit the avatar frame!</p>
                         </li>
                         <li class="editField__item" style="grid-column: 2/3; grid-row: 1/2; ">
