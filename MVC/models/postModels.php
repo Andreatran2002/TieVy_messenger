@@ -17,7 +17,7 @@ class PostModels extends DB
                         $r = DB::query('SELECT id FROM users WHERE username=:username', array(':username' => $key))[0]['id'];
                        
                         if ($r != 0) {
-                              DB::query('INSERT INTO notifications VALUES (:id, :type, :receiver, :sender, :extra)', array(':id'=>$id,':type' => $n["type"], ':receiver' => $r, ':sender' => $s, ':extra' => $n["extra"]));
+                              DB::query('INSERT INTO notifications VALUES (:id, :type, :receiver, :sender, :extra,\'\')', array(':id'=>$id,':type' => $n["type"], ':receiver' => $r, ':sender' => $s, ':extra' => $n["extra"]));
                         }
                   }
             }
