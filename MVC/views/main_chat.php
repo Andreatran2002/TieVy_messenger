@@ -9,7 +9,8 @@
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet" />
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet" />
       <title>TiVy</title>
       <link rel="stylesheet" href="./public/css/reset.css" />
@@ -43,7 +44,8 @@
                   </div>
                   <div class="body__chatBox">
                         <div class="body__chatBox-header" id="body__chatBox-header">
-                              <img src="./public/images/default_avatar.jpg" alt="" id="current-friend" class="body__chatBox-header-image" />
+                              <img src="./public/images/default_avatar.jpg" alt="" id="current-friend"
+                                    class="body__chatBox-header-image" />
                               <a href="#" class="body__chatBox-header-name" id="current-friend-name">Not found</a>
                               <ion-icon name="information-outline" class="body__chatBox-header-help"></ion-icon>
                         </div>
@@ -51,8 +53,11 @@
 
                         </div>
                         <div class="body__chatBox-input">
-                              <input type="text" name="message__input" class="message__input" id="message__input" onkeydown="if (event.keyCode == 13) {sendMsg();}" value="" placeholder="Enter your message here ... (Press enter to send message)" />
-                              <ion-icon class="body__chatBox-input-icon" name="rocket-outline" onclick="sendMsg()"></ion-icon>
+                              <input type="text" name="message__input" class="message__input" id="message__input"
+                                    onkeydown="if (event.keyCode == 13) {sendMsg();}" value=""
+                                    placeholder="Enter your message here ... (Press enter to send message)" />
+                              <ion-icon class="body__chatBox-input-icon" name="rocket-outline" onclick="sendMsg()">
+                              </ion-icon>
                         </div>
                   </div>
             </div>
@@ -60,21 +65,21 @@
       <!-- <?php 
        echo $data['id'];
       ?> -->
-     
+
       <!-- main-page -->
       <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
       <script type="text/javascript" src="./public/js/main.js"></script>
-      <script src="./public/js/home.js" defer></script>
+      <script src="./public/js/home.js"></script>
       <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
       <script src="./public/js/chat.js">
 
-</script>
-<script>
-      recevier =  <?php 
+      </script>
+      <script>
+      recevier = <?php 
  echo $data['id'];
 ?>
-</script>
-<script src="./public/js/navigartionBar.js"></script>
+      </script>
+      <script src="./public/js/navigartionBar.js"></script>
 </body>
 
 </html>

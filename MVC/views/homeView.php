@@ -20,7 +20,7 @@ $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
-<body onload="updateNewPosts(); showFriends(); updateStatus()">
+<body onload="updateNewPosts(); showFriends(); updateStatus(); ">
   <!-- menu-left -->
   <?php require_once "./MVC/views/pages/menu.php" ?>
   <div class="container-home">
@@ -102,25 +102,7 @@ $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE
     <script src="./public/js/main.js"></script>
     <script src="./public/js/home.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script>
-      // Enable pusher logging - don't include this in production
-      Pusher.logToConsole = true;
-
-      var pusher = new Pusher('6d26d8d2ff0bf9b79d49', {
-        cluster: 'ap1'
-      });
-
-      var channel = pusher.subscribe('my-channel');
-      channel.bind('my-event', function(data) {
-
-        $.ajax({
-          url: "./Ajax/test",
-          success: function(result) {
-            alert(result);
-          }
-        });
-      });
-    </script>
+    <script src="./public/js/chat.js"></script>
     <script src="./public/js/navigartionBar.js"></script>
 </body>
 

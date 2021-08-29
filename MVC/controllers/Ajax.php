@@ -76,7 +76,7 @@ class Ajax extends Controller
                         <a href=\"#\" class=\"friend__box-item\">
                           <img
                             class=\"friend__box-item-image\"
-                            src=\"https://i.pinimg.com/564x/90/33/83/903383dbe84483ffe3628a9149a55a1e.jpg\"
+                            src=\"".$row['profileimg'] ."\"
                           />
                           <span class=\"menu-item-text friend__box-item-text\"  
                             >" . $row['username'];
@@ -160,35 +160,30 @@ class Ajax extends Controller
         <ion-icon  name="chatbox-ellipses"></ion-icon>
         Comment
       </button>
-      <div  class="cmtField">
-        <ul  class="cmtContainer">
-          <li  class="cmtContainer__item">
-            <div  class="cmtContainer__item-header">
-              <img src="
-      https://i.pinimg.com/564x/57/fc/b6/57fcb656c72c31e7c9a17199fed8daf5.jpg"alt="" class="
-      cmtContainer__item-header-avatar">
-              <a href="#" class="cmtContainer__item-header-name">Miles Morales</a>
-            </div>
-            <div  class="cmtContainer__item-body">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam est molestias fugit.</p>
-            </div>
-          </li>
-          <li  class="cmtContainer__item">
-            <div  class="cmtContainer__item-header">
-              <img src="
-      https://i.pinimg.com/564x/b0/5c/a4/b05ca4dc3b1cad8946609202036e2b97.jpg"alt="" class="
-      cmtContainer__item-header-avatar">
-              <a href="#" class="cmtContainer__item-header-name">Miles Morales</a>
-            </div>
-            <div  class="cmtContainer__item-body">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam est molestias fugit.</p>
-            </div>
-          </li>
+      <div  class="cmtField" id ="cmtField">
+        <ul  class="cmtContainer">';
+        $comments = DB::query("SELECT * FROM comments WHERE post_id =:postid",array(":postid"=>$row['id']));
+        foreach($comments as $c){
+          $commentator = DB::query("SELECT * FROM users WHERE id = :id", array(':id'=>$c['commentator_id']))[0];
+          echo ' <li  class="cmtContainer__item">
+          <div  class="cmtContainer__item-header">
+            <img src="'.$commentator['profileimg'].'"alt="" class="
+    cmtContainer__item-header-avatar">
+            <a href="#" class="cmtContainer__item-header-name">'.$commentator['username'].'</a>
+          </div>
+          <div  class="cmtContainer__item-body">
+            <p>'.$c['commentBody'].'</p>
+          </div>
+        </li>';
+        }
+        echo '
         </ul>
         <div  class="cmtInput">
-          <textarea placeholder="Comment here..." name="postbody"rows="3"cols="
-      80" class="cmtInput__input"></textarea>
-          <ion-icon  class="cmtInput__btn" name="send"></ion-icon>
+          <input  id="commentInput_input" placeholder="Comment here..." name="postbody"rows="3"cols="
+      80" class="cmtInput__input"></input>
+          <ion-icon  class="cmtInput__btn" onclick="';
+          echo "addComment('".$row['id']."'); \" name=\"send\"></ion-icon>";
+          echo'
         </div>
       </div>
     </div>
@@ -206,7 +201,7 @@ class Ajax extends Controller
     $userid =  $_POST['friend_id'];
     $id = \Ramsey\Uuid\Uuid::uuid4();
     $followerid = Login::isLoggedIn();
-    if (DB::query("SELECT * FROM followers WHERE user_id = :userid", array(':userid' => $userid))) {
+    if (DB::query("SELECT * FROM followers WHERE user_id = :userid AND follower_id =:follower_id", array(':userid' => $userid , ':follower_id' => $followerid))) {
       echo json_encode(true);
     } else {
       DB::query('INSERT INTO followers VALUES(:id,:userid,:followerid)', array('id' => $id, 'userid' => $userid, 'followerid' => $followerid));
@@ -253,4 +248,56 @@ class Ajax extends Controller
         <ion-icon name="information-outline" class="body__chatBox-header-help"></ion-icon>
         ///' . $closeUserId;
   }
+  public function addComment(){
+    
+      $options = array(
+        'cluster' => 'ap1',
+        'useTLS' => true
+      );
+      $pusher = new Pusher\Pusher(
+        '6d26d8d2ff0bf9b79d49',
+        '690b7bb4be34ea3bd2f9',
+        '1253694',
+        $options
+      );
+      $data['request'] = "comment";
+      $data['comment'] = $_POST['comment'];
+      $data['postid'] = $_POST['postid']; 
+      $pusher->trigger('my-channel', 'my-event', $data);
+      $id = \Ramsey\Uuid\Uuid::uuid4();
+      $comment = $_POST["comment"];
+      $user_id = Login::isLoggedIn();
+      $postid = $_POST['postid']; 
+      DB::query("INSERT INTO comments VALUES(:id,:commentBody,:postid,:commentator_id, 0, 0,NOW())",array(':id'=>$id,':commentBody'=>$comment,':postid'=>$postid, ':commentator_id'=>$user_id)); 
+      
+    }
+    public function updateComment()
+    {
+      echo '
+        <ul  class="cmtContainer">';
+      $postid = $_POST["postid"];
+      $result = DB::query("SELECT * FROM comments WHERE post_id = :postid",array(':postid'=>$postid));
+      foreach ($result as $row){
+        $commentator = DB::query("SELECT * FROM users WHERE id = :id", array(':id'=>$row['commentator_id']))[0];
+        echo '
+        <li  class="cmtContainer__item">
+        <div  class="cmtContainer__item-header">
+          <img src="'.$commentator['profileimg'].'"alt="" class="
+  cmtContainer__item-header-avatar">
+          <a href="#" class="cmtContainer__item-header-name">'.$commentator['username'].'</a>
+        </div>
+        <div  class="cmtContainer__item-body">
+          <p>'.$row['commentBody'].'</p>
+        </div>
+      </li>';
+      }
+      echo '
+        </ul>
+        <div  class="cmtInput">
+          <input  id="commentInput_input" placeholder="Comment here..." name="postbody"rows="3"cols="
+      80" class="cmtInput__input"></input>
+          <ion-icon  class="cmtInput__btn" onclick="';
+          echo "addComment('".$row['id']."'); \" name=\"send\"></ion-icon>";
+        
+    }
 }

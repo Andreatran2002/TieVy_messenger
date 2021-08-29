@@ -117,14 +117,41 @@ function addFriend(friend_id) {
         friend_id: friend_id
     }, function(data) {
 
-        if (data != "true") {
+        if (data == "true") {
             var result = document.getElementById(friend_id);
             result.classList.add('icon_hide');
         }
     })
 }
 
+var comment_input = document.getElementById("commentInput_input");
+var comment_area = document.getElementById("cmtField");
 
+function addComment(postid) {
+    comment = document.getElementById("commentInput_input").value;
+    comment_area = document.getElementById("cmtField");
+    alert(comment);
+    if (comment != "") {
+        $.post("./Ajax/addComment", {
+            comment: comment,
+            postid: postid
+        }, function(data) {
+            $("#" + postid +
+                " #commentInput_input").val("");
+        });
+
+    }
+}
+
+function updateComment(postid) {
+    comment_area = document.getElementById("cmtField");
+
+    $.post("./Ajax/updateComment", {
+        postid: postid
+    }, function(data) {
+        $("#cmtField").html(data);
+    });
+}
 
 function searchFriendInDB() {
     var name = friend_search_input.value;
