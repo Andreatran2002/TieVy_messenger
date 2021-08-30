@@ -7,7 +7,8 @@
             function SayHi(){
                   $this->userModel = $this->model('userModels');
                   $userAccount = $this->userModel->getUser(Login::isLoggedIn());
-                  $this->mainView = $this->view("editProfile",[
+                  $this->mainView = $this->view("PageMaster",[
+                        'page' =>'profile',
                         'img'=> $userAccount['profileimg'],
                         'username'=>$userAccount['username'],
                         'phone'=>$userAccount['phone'],

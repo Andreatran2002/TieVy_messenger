@@ -5,7 +5,8 @@
             
             function SayHi(){
                
-                  $this->mainView = $this->view("main_chat",[
+                  $this->mainView = $this->view("PageMaster",[
+                        'page' =>'chat'
                   ]);  
                   // echo "<script>alert('".$_GET['username']."')</script>";
             }

@@ -4,7 +4,9 @@ class Home extends Controller
       public $postModel;
       public function sayHi()
       {
-            $this->view("homeView", []);
+            $this->view("PageMaster", [
+                  'page'=>'home'
+            ]);
       }
       public function __construct()
       {

@@ -8,9 +8,8 @@
   <title>Home</title>
   <link rel="stylesheet" href="./public/css/reset.css" />
   <link rel="stylesheet" href="./public/css/menu-left.css" />
-  <link rel="stylesheet" href="./public/css/home.css" />
-  <link rel="stylesheet" href="./public/css/chatView.css" />
-  <link rel="stylesheet" href="./public/css/Notifications.css" />
+  <link rel="stylesheet" href="./public/css/<?php echo $data['page'] ?>.css" />
+  
 
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet" />
@@ -18,7 +17,7 @@
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
-<body>
+<body onload = "updateNewPosts(); showFriends(); updateStatus();constructUser(); updateChat(); ">
 
   <!-- menu-left -->
   <ul id="nagication-bar" class="menu menu-small">
