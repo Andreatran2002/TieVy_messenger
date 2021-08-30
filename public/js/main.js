@@ -360,6 +360,8 @@ function ScrollDown() {
                 // console.log(friendItem[i].childNodes[3]);
                 var receiver = getReceiver(getID(friendItem[i]));
                 updateChat();
+                //message readed
+                message_read(receiver);
             });
         }
     }
@@ -406,3 +408,20 @@ channel.bind('my-event', function(data) {
     }
 
 });
+
+function message_read(id) {
+
+    $.post("./Ajax/setMessageRead", {
+        sender: id
+            // Để hiển thị các bài post mới là bạn của người dùng
+    }, function(data) {
+
+        $(data).css({
+            "content": "0"
+        })
+    });
+}
+
+function seeProfile(name) {
+
+}

@@ -43,9 +43,10 @@
       <ul class="list" id="frieField">
 
         <?php 
-          $friend_requests = DB::query("SELECT * FROM followers WHERE user_id = :user_id", array(':user_id' => $_COOKIE['messageUser']));
+          $friend_requests = DB::query("SELECT * FROM followers WHERE user_id = :user_id ", array(':user_id' => $_COOKIE['messageUser']));
           foreach ($friend_requests as $friend){
-            $follower = DB::query("SELECT * FROM users WHERE id = :id", array(':id'=>$friend['follower_id']))[0];
+            if (!(DB::query("SELECT * FROM followers WHERE follower_id = :user_id AND user_id =:friendid", array(':user_id' => $_COOKIE['messageUser'], ':friendid'=>$friend['follower_id']))))
+            {$follower = DB::query("SELECT * FROM users WHERE id = :id", array(':id'=>$friend['follower_id']))[0];
             echo '
             <li class="list__item">
             <img src="'.$follower['profileimg'] .'" alt=""
@@ -54,7 +55,7 @@
               <p><a href="">'.$follower['username'].'</a> want to become your friend !
               </p>
               <div class="list__item-btnContainer">
-                <button class="btn-add">
+                <button onclick="addFriend("'.$follower['id'].'");" class="btn-add">
                   <ion-icon name="person-add-outline"></ion-icon> Add
                 </button>
                 <button class="btn-remove">
@@ -63,6 +64,7 @@
               </div>
             </div>
           </li>';
+            }
           }
            
         ?>

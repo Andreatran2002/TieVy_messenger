@@ -1,5 +1,6 @@
 <?php
 $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE['messageUser']))[0];
+
 ?>
 <div class="container-home">
       <!-- menu-left -->

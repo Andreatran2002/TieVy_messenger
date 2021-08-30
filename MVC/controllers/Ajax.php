@@ -226,7 +226,7 @@ class Ajax extends Controller
                   >
                   <div class=\"btn-container\">
             <button class=\"btn-mess\"><ion-icon name=\"chatbox-ellipses-outline\"></ion-icon>Chat</button>
-            <button class=\"btn-info\"><ion-icon name=\"person-outline\"></ion-icon>User</button>
+            <button onclick=\"seeProfile('" . $name['username'] . "');\" class=\"btn-info\"><ion-icon name=\"person-outline\"></ion-icon>User</button>
           </div>
                 </div>";
     }
@@ -299,5 +299,10 @@ class Ajax extends Controller
           <ion-icon  class="cmtInput__btn" onclick="';
           echo "addComment('".$row['id']."'); \" name=\"send\"></ion-icon>";
         
+    }
+    public function setMessageRead(){
+      $sender_id = $_POST['sender'];
+      DB::query("UPDATE messages SET is_read = 1 WHERE receiver_id = :userid AND user_id =:senderid",array(':senderid' => $sender_id,':userid'=>$_COOKIE['messageUser']));
+      echo json_encode($sender_id); 
     }
 }
