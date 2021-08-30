@@ -14,7 +14,7 @@ html {
     flex-direction: row;
     justify-content: flex-start;
     padding: 10px 20px;
-    border-bottom: 1px solid #505050;
+    margin-top: 10px;
 }
 
 .header__info {
@@ -25,6 +25,9 @@ html {
 .header__info-img {
     border: 3px solid #212121;
     border-radius: 100px;
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
 }
 
 .header__info-name {
@@ -61,8 +64,7 @@ html {
 }
 
 .list {
-    max-width: 500px;
-    min-width: 300px;
+    min-width: 500px;
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6), -2px -2px 5px #3c495c6b;
     height: calc(100vh - 130px);
@@ -99,7 +101,10 @@ html {
 
 .list__item-image {
     border-radius: 100px;
+    width: 70px;
+    height: 70px;
     border: 1px solid #505050;
+    object-fit: cover;
 }
 
 .list__item-content {

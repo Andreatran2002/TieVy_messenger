@@ -1,338 +1,71 @@
+ <?php 
+      $user = DB::query("SELECT * FROM users WHERE id = :id",array(':id' => $_COOKIE['messageUser']))[0];
+      
+ ?>
+ 
  <!-- main content -->
  <div class="container">
     <header class="header">
       <div class="header__info">
-        <img src="https://i.pinimg.com/564x/7b/ee/c5/7beec5a45c69696b4902a46a4d33eeed.jpg" alt="avatar"
+        <img src="<?php echo $user['profileimg']?>" alt="avatar"
           class="header__info-img">
-        <a href="#" class="header__info-name">Phạm Nhật Tiến</a>
+        <a href="#" class="header__info-name"><?php echo $user['username']?></a>
       </div>
       <div class="header__setting"></div>
     </header>
     <div class="body">
       <ul class="list" id="notiField">
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
+            
+        <?php 
+        $news = DB::query("SELECT * FROM notifications WHERE receiver =:receiver", array(':receiver' => $_COOKIE['messageUser']));
+        foreach ($news as $n) {
+              $sender = DB::query("SELECT * FROM users WHERE id = :id", array(":id" => $n['sender']))[0];
+              if ($n['type'] == 1) {
+                    if ($n['extra'] != "") {
+                          $extra = json_decode($n['extra']);
+                          echo '
+                          <li class="list__item">
+                          <img src="'.$sender['profileimg'].'" alt=""
+                            class="list__item-image">
+                          <div class="list__item-content">
+                            <p><a href="">'.$sender['username'].'</a> mentioned you in a post
+                            </p>
+                          </div>
+                        </li>';
+                    }
+              }
+        }
+        ?>
+        
+    
       </ul>
       <div class="box"></div>
       <ul class="list" id="frieField">
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content of-req">
-            <p><a href="">Tien dep trai</a> want to become your friend !
-            </p>
-            <div class="list__item-btnContainer">
-              <button class="btn-add">
-                <ion-icon name="person-add-outline"></ion-icon> Add
-              </button>
-              <button class="btn-remove">
-                <ion-icon name="person-remove-outline"></ion-icon> Remove
-              </button>
+
+        <?php 
+          $friend_requests = DB::query("SELECT * FROM followers WHERE user_id = :user_id", array(':user_id' => $_COOKIE['messageUser']));
+          foreach ($friend_requests as $friend){
+            $follower = DB::query("SELECT * FROM users WHERE id = :id", array(':id'=>$friend['follower_id']))[0];
+            echo '
+            <li class="list__item">
+            <img src="'.$follower['profileimg'] .'" alt=""
+              class="list__item-image">
+            <div class="list__item-content of-req">
+              <p><a href="">'.$follower['username'].'</a> want to become your friend !
+              </p>
+              <div class="list__item-btnContainer">
+                <button class="btn-add">
+                  <ion-icon name="person-add-outline"></ion-icon> Add
+                </button>
+                <button class="btn-remove">
+                  <ion-icon name="person-remove-outline"></ion-icon> Remove
+                </button>
+              </div>
             </div>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content of-req">
-            <p><a href="">Tien dep trai</a> want to become your friend !
-            </p>
-            <div class="list__item-btnContainer">
-              <button class="btn-add">
-                <ion-icon name="person-add-outline"></ion-icon> Add
-              </button>
-              <button class="btn-remove">
-                <ion-icon name="person-remove-outline"></ion-icon> Remove
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content of-req">
-            <p><a href="">Tien dep trai</a> want to become your friend !
-            </p>
-            <div class="list__item-btnContainer">
-              <button class="btn-add">
-                <ion-icon name="person-add-outline"></ion-icon> Add
-              </button>
-              <button class="btn-remove">
-                <ion-icon name="person-remove-outline"></ion-icon> Remove
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content of-req">
-            <p><a href="">Tien dep trai</a> want to become your friend !
-            </p>
-            <div class="list__item-btnContainer">
-              <button class="btn-add">
-                <ion-icon name="person-add-outline"></ion-icon> Add
-              </button>
-              <button class="btn-remove">
-                <ion-icon name="person-remove-outline"></ion-icon> Remove
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content of-req">
-            <p><a href="">Tien dep trai</a> want to become your friend !
-            </p>
-            <div class="list__item-btnContainer">
-              <button class="btn-add">
-                <ion-icon name="person-add-outline"></ion-icon> Add
-              </button>
-              <button class="btn-remove">
-                <ion-icon name="person-remove-outline"></ion-icon> Remove
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content of-req">
-            <p><a href="">Tien dep trai</a> want to become your friend !
-            </p>
-            <div class="list__item-btnContainer">
-              <button class="btn-add">
-                <ion-icon name="person-add-outline"></ion-icon> Add
-              </button>
-              <button class="btn-remove">
-                <ion-icon name="person-remove-outline"></ion-icon> Remove
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content of-req">
-            <p><a href="">Tien dep trai</a> want to become your friend !
-            </p>
-            <div class="list__item-btnContainer">
-              <button class="btn-add">
-                <ion-icon name="person-add-outline"></ion-icon> Add
-              </button>
-              <button class="btn-remove">
-                <ion-icon name="person-remove-outline"></ion-icon> Remove
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content of-req">
-            <p><a href="">Tien dep trai</a> want to become your friend !
-            </p>
-            <div class="list__item-btnContainer">
-              <button class="btn-add">
-                <ion-icon name="person-add-outline"></ion-icon> Add
-              </button>
-              <button class="btn-remove">
-                <ion-icon name="person-remove-outline"></ion-icon> Remove
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content of-req">
-            <p><a href="">Tien dep trai</a> want to become your friend !
-            </p>
-            <div class="list__item-btnContainer">
-              <button class="btn-add">
-                <ion-icon name="person-add-outline"></ion-icon> Add
-              </button>
-              <button class="btn-remove">
-                <ion-icon name="person-remove-outline"></ion-icon> Remove
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content of-req">
-            <p><a href="">Tien dep trai</a> want to become your friend !
-            </p>
-            <div class="list__item-btnContainer">
-              <button class="btn-add">
-                <ion-icon name="person-add-outline"></ion-icon> Add
-              </button>
-              <button class="btn-remove">
-                <ion-icon name="person-remove-outline"></ion-icon> Remove
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content of-req">
-            <p><a href="">Tien dep trai</a> want to become your friend !
-            </p>
-            <div class="list__item-btnContainer">
-              <button class="btn-add">
-                <ion-icon name="person-add-outline"></ion-icon> Add
-              </button>
-              <button class="btn-remove">
-                <ion-icon name="person-remove-outline"></ion-icon> Remove
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
-        <li class="list__item">
-          <img src="https://i.pinimg.com/236x/3b/5b/d7/3b5bd777ed555c88903d5924480de068.jpg" alt=""
-            class="list__item-image">
-          <div class="list__item-content">
-            <p><a href="">Tien dep trai</a> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, laboriosam.
-            </p>
-          </div>
-        </li>
+          </li>';
+          }
+           
+        ?>
       </ul>
       <h2 id="title-1">Notifications</h2>
       <h2 id="title-2">Friend requests</h2>

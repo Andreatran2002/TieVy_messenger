@@ -378,10 +378,12 @@ function constructUser() {
         // id = user_id; 
         // Để hiển thị các bài post mới là bạn của người dùng
     }, function(data) {
-        var response = data.split("///");
-        $('#body__chatBox-header').html(response[0]);
-        receiver = response[1];
-        updateChat();
+        if (data != "false" && data != "") {
+            var response = data.split("///");
+            $('#body__chatBox-header').html(response[0]);
+            receiver = response[1];
+            updateChat();
+        }
     });
 }
 

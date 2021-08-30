@@ -234,19 +234,19 @@ class Ajax extends Controller
 
   public function getUser()
   {
-    if (isset($id)){
-      $closeUserId = $id;
-      
-    }
-    else{
     $closeUserId =  $this->messageModels->getCloseMessage();
-  }
+    if (!isset($closeUserId)){
+      $closeUserId = DB::query("SELECT * FROM followers WHERE follower_id = :userid", array(':userid' => $_COOKIE['messageUser']))[0];
+    } 
   $user = $this->userModels->getUser($closeUserId);
+    if($user != "false"){
     echo '
         <img src="' . $user['profileimg'] . '" alt="" id="current-friend" class="body__chatBox-header-image" />
         <a href="#" class="body__chatBox-header-name" id="current-friend-name">' . $user['username'] . '</a>
         <ion-icon name="information-outline" class="body__chatBox-header-help"></ion-icon>
         ///' . $closeUserId;
+    }
+    else return json_encode(false);
   }
   public function addComment(){
     

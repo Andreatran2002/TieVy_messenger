@@ -83,7 +83,8 @@ class userModels extends DB
             return true; 
       }
       public function getUser($id){
-            $user = $this->query('SELECT * FROM users WHERE id =:id', array(':id'=>$id))[0];
-            return ($user); 
+            if (isset($this->query('SELECT * FROM users WHERE id =:id', array(':id'=>$id))[0]))
+            return ($this->query('SELECT * FROM users WHERE id =:id', array(':id'=>$id))[0]);
+            else return json_encode(false); 
       }
 }

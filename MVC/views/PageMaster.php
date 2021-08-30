@@ -5,19 +5,17 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home</title>
+  <title><?php echo $data['page'];?></title>
   <link rel="stylesheet" href="./public/css/reset.css" />
   <link rel="stylesheet" href="./public/css/menu-left.css" />
   <link rel="stylesheet" href="./public/css/<?php echo $data['page'] ?>.css" />
-  
-
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet" />
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
-<body onload = "updateNewPosts(); showFriends(); updateStatus();constructUser(); updateChat(); ">
+<body onload = "constructUser();updateNewPosts(); showFriends(); updateStatus(); updateChat(); ">
 
   <!-- menu-left -->
   <ul id="nagication-bar" class="menu menu-small">
@@ -80,7 +78,7 @@
             justify-content: space-between;
             align-items: flex-end;
           ">News
-            <a href="#" style="
+            <a href="./notifications" style="
             font-size: 14px;
             font-weight: 300;
           ">See all</a>
@@ -113,15 +111,20 @@
             justify-content: space-between;
             align-items: flex-end;
           ">Add friend
-            <a href="#" style="
+            <a href="./notifications" style="
           font-size: 14px;
           font-weight: 300;
         ">See all</a>
           </p>
-          <li class="notiList__item">
-            <img src="https://i.pinimg.com/564x/23/32/23/2332236e06caa9000505d7daa27ad0ee.jpg" alt="" class="notiList__item-image">
+          <?php 
+          $friend_requests = DB::query("SELECT * FROM followers WHERE user_id = :user_id", array(':user_id' => $_COOKIE['messageUser']));
+          foreach ($friend_requests as $friend){
+            $follower = DB::query("SELECT * FROM users WHERE id = :id", array(':id'=>$friend['follower_id']))[0];
+            echo '
+            <li class="notiList__item">
+            <img src="'.$follower['profileimg'] .'" alt="" class="notiList__item-image">
             <div class="notiList__item-content">
-              <p><a href="#">Vy Xinh Đẹp</a> đã gửi cho bạn một lời mời kết bạn</p>
+              <p><a href="#">'.$follower['username'].'</a> want to be your friend.</p>
               <div class="notiList__item-btn">
                 <button type="button" class="btn-Fr">
                   <ion-icon name="person-add-outline"></ion-icon>
@@ -132,37 +135,10 @@
                   </button>
               </div>
             </div>
-          </li>
-          <li class="notiList__item">
-            <img src="https://i.pinimg.com/564x/23/32/23/2332236e06caa9000505d7daa27ad0ee.jpg" alt="" class="notiList__item-image">
-            <div class="notiList__item-content">
-              <p><a href="#">Vy Xinh Đẹp</a> đã gửi cho bạn một lời mời kết bạn</p>
-              <div class="notiList__item-btn">
-                <button type="button" class="btn-Fr">
-                  <ion-icon name="person-add-outline"></ion-icon>
-                  <p>Add</p>
-                  <button type="button" class="btn-Fr">
-                    <ion-icon name="person-remove-outline"></ion-icon>
-                    <p>Remove</p>
-                  </button>
-              </div>
-            </div>
-          </li>
-          <li class="notiList__item">
-            <img src="https://i.pinimg.com/564x/23/32/23/2332236e06caa9000505d7daa27ad0ee.jpg" alt="" class="notiList__item-image">
-            <div class="notiList__item-content">
-              <p><a href="#">Vy Xinh Đẹp</a> đã gửi cho bạn một lời mời kết bạn</p>
-              <div class="notiList__item-btn">
-                <button type="button" class="btn-Fr">
-                  <ion-icon name="person-add-outline"></ion-icon>
-                  <p>Add</p>
-                  <button type="button" class="btn-Fr">
-                    <ion-icon name="person-remove-outline"></ion-icon>
-                    <p>Remove</p>
-                  </button>
-              </div>
-            </div>
-          </li>
+          </li>';
+          }
+           
+        ?>
         </ul>
       </li>
     </div>
@@ -192,12 +168,9 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <!-- <script src="./public/js/home.js"></script> -->
     <script src="./public/js/main.js"></script>
-    <script src="./public/js/home.js"></script>
+    <script src="./public/js/<?php echo $data['page']?>.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script src="./public/js/chat.js"></script>
-    <script src="./public/js/navigartionBar.js"></script><script>
-
-  </script>
+    <script src="./public/js/navigartionBar.js"></script>
 </body>
 
 </html>

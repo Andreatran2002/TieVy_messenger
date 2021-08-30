@@ -73,6 +73,7 @@
 
 .body__left-item {
     color: inherit;
+    position: relative;
     font-weight: 400;
     margin: 20px 10px 20px 10px;
     border-radius: inherit;
@@ -84,6 +85,19 @@
     justify-content: flex-start;
     transition: all 0.2s ease;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px #414e623a;
+}
+
+.body__left-item-label {
+    background-color: red;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-100%, -50%);
+    padding: 2px 5px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 100px;
 }
 
 .body__left-item:hover {
