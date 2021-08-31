@@ -127,17 +127,16 @@ function addFriend(friend_id) {
 var comment_input = document.getElementById("commentInput_input");
 var comment_area = document.getElementById("cmtField");
 
-function addComment(postid) {
-    comment = document.getElementById("commentInput_input").value;
+function addComment(postid, inputid) {
+    comment = document.getElementById(inputid).value;
     comment_area = document.getElementById("cmtField");
-    alert(comment);
+
     if (comment != "") {
         $.post("./Ajax/addComment", {
             comment: comment,
             postid: postid
         }, function(data) {
-            $("#" + postid +
-                " #commentInput_input").val("");
+            comment.innerHTML = "";
         });
 
     }

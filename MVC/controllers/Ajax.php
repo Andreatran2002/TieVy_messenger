@@ -179,10 +179,10 @@ class Ajax extends Controller
         echo '
         </ul>
         <div  class="cmtInput">
-          <input  id="commentInput_input" placeholder="Comment here..." name="postbody"rows="3"cols="
+          <input  id="commentInput_input_'.$row['id'].'" placeholder="Comment here..." name="postbody"rows="3"cols="
       80" class="cmtInput__input"></input>
           <ion-icon  class="cmtInput__btn" onclick="';
-          echo "addComment('".$row['id']."'); \" name=\"send\"></ion-icon>";
+          echo "addComment('".$row['id']."','commentInput_input_".$row['id']."'); \" name=\"send\"></ion-icon>";
           echo'
         </div>
       </div>

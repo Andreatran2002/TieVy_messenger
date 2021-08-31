@@ -73,4 +73,5 @@ $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE
       <!-- friend field -->
       <!-- script file -->
       <div id="filter-container" class="filter-container" onclick="grow()"></div>
+      
 </div>
