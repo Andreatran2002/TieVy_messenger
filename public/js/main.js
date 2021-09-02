@@ -40,7 +40,7 @@ function getcookie(cname) {
             result = data;
         },
         error: function() {
-            alert("error")
+
         }
     });
     return result;
@@ -112,7 +112,6 @@ function updateNewPosts() {
 var friend_id;
 
 function addFriend(friend_id) {
-
     $.post("./Ajax/addFriend", {
         friend_id: friend_id
     }, function(data) {
@@ -368,7 +367,51 @@ function ScrollDown() {
 }
 
 
-refreshFriendlist();
+{
+    let option = document.getElementById('option-chatbox')
+    let messArr = document.getElementsByClassName('body__chatBox-msgArea-item')
+
+    function cbOption(event) {
+        if (!event.target.classList.contains('body__chatBox-msgArea')) {
+            if (option.style.opacity != '1') {
+                for (let i = 0; i < messArr.length; i++) {
+                    messArr[i].style.opacity = '0'
+                    setTimeout(() => {
+                        messArr[i].style.display = 'none'
+                    }, 200)
+                }
+                option.style.display = 'flex'
+                setTimeout(() => {
+                    option.style.opacity = '1'
+                }, 200)
+            } else {
+                option.style.opacity = '0'
+                setTimeout(() => {
+                    option.style.display = 'none'
+                }, 200)
+                for (let i = 0; i < messArr.length; i++) {
+                    messArr[i].style.display = 'flex'
+                    setTimeout(() => {
+                        messArr[i].style.opacity = '1'
+                    }, 200)
+                }
+            }
+        } else if (option.style.opacity == '1') {
+            option.style.opacity = '0'
+            setTimeout(() => {
+                option.style.display = 'none'
+            }, 200)
+            for (let i = 0; i < messArr.length; i++) {
+                messArr[i].style.display = 'flex'
+                setTimeout(() => {
+                    messArr[i].style.opacity = '1'
+                }, 200)
+            }
+        }
+    }
+}
+
+refreshFriendlist()
 
 
 
@@ -388,25 +431,6 @@ function constructUser() {
     });
 }
 
-// constructUser Message 
-
-
-// Enable pusher logging - don't include this in production
-Pusher.logToConsole = true;
-
-var pusher = new Pusher('6d26d8d2ff0bf9b79d49', {
-    cluster: 'ap1'
-});
-
-var channel = pusher.subscribe('my-channel');
-channel.bind('my-event', function(data) {
-    // alert(JSON.stringify(data));
-    // WE will use jquery ajax
-    if (data['request'] == "updateChat") {
-        updateChat();
-    }
-
-});
 
 function message_read(id) {
 
@@ -416,7 +440,7 @@ function message_read(id) {
     }, function(data) {
 
         $(data).css({
-            "content": "0"
+            "opacity": 0
         })
     });
 }

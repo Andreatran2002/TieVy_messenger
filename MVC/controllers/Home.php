@@ -7,10 +7,12 @@ class Home extends Controller
             $this->view("PageMaster", [
                   'page'=>'home'
             ]);
+            
       }
       public function __construct()
       {
             $this->postModel = $this->model("postModels");
+            
       }
       public function upNewPost()
       {

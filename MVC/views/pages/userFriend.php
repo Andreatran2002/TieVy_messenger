@@ -1,7 +1,8 @@
 <?php 
       $userid = Login::isLoggedIn();
       $result = DB::query("SELECT * FROM followers WHERE follower_id = :userid",array(':userid'=>$userid));
-      
+      // $result = DB::query("SELECT * DISTINCT receiver_id,user_id FROM messages WHERE receiver_id = :userid OR user_id = :userid",array(':userid'=>$userid));
+
       foreach($result as $s){
             if (DB::query("SELECT * FROM followers WHERE user_id = :userid AND follower_id = :friendid",array(':userid'=>$userid,':friendid'=>$s['user_id']))){
             $user_follow = DB::query("SELECT * FROM users WHERE id = :user_follow_id", array(":user_follow_id"=>$s['user_id']))[0];

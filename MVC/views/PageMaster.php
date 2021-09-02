@@ -120,15 +120,16 @@
           <?php 
           $friend_requests = DB::query("SELECT * FROM followers WHERE user_id = :user_id", array(':user_id' => $_COOKIE['messageUser']));
           foreach ($friend_requests as $friend){
-            if (DB::query("SELECT * FROM followers WHERE user_id = :userid AND follower_id = :friendid",array(':userid'=>$_COOKIE['messageUser'],':friendid'=>$friend['user_id']))){
+            if (!DB::query("SELECT * FROM followers WHERE user_id = :friendid AND follower_id = :userid",array(':userid'=>$_COOKIE['messageUser'],':friendid'=>$friend['follower_id']))){
             $follower = DB::query("SELECT * FROM users WHERE id = :id", array(':id'=>$friend['follower_id']))[0];
-            echo '
+            echo ' 
             <li class="notiList__item">
             <img src="'.$follower['profileimg'] .'" alt="" class="notiList__item-image">
             <div class="notiList__item-content">
               <p><a href="#">'.$follower['username'].'</a> want to be your friend.</p>
-              <div class="notiList__item-btn">
-                <button onclick="addFriend("'.$friend['id'].'");" type="button" class="btn-Fr">
+              <div class="notiList__item-btn">';
+            echo"   <button onclick=\"addFriend('".$friend['id']."');\"";
+           echo ' type="button" class="btn-Fr">
                   <ion-icon name="person-add-outline"></ion-icon>
                   <p>Add</p>
                   <button type="button" class="btn-Fr">
@@ -168,16 +169,13 @@
   </ul>
   <div id="filter-container" class="filter-container" onclick="grow()"></div>
   <?php require_once "./MVC/views/pages/".$data['page'].".php" ?>
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <!-- <script src="./public/js/home.js"></script> -->
-    <script src="./public/js/main.js"></script>
-    <script src="./public/js/home.js"></script>
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script src="./public/js/navigartionBar.js"></script>
-    <script src="./public/js/chat.js"> </script>
-    <script>
-      recevier = <?php echo $data['id'];?>
-    </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script> 
+  <script src="https://js.pusher.com/7.0/pusher.min.js"></script> 
+  <script src="./public/js/navigartionBar.js"></script>
+  <script src="../public/js/home.js"></script>
+  <script src="./public/js/main.js"></script>   
+  <script src="./public/js/chat.js"> </script>
+
 </body>
 
 </html>

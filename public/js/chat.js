@@ -10,7 +10,6 @@
      // alert(JSON.stringify(data));
 
      if (data['request'] == "message") {
-         data['request'] = "";
          var username = getcookie("messageUser");
          var output = "";
          $.post("./Ajax/updateMessage", {
@@ -35,7 +34,6 @@
          });
      }
      if (data['request'] == "comment") {
-         data['request'] = "";
          var username = getcookie("messageUser");
          var output = "";
          $.post("./Ajax/updateComment", {
@@ -44,7 +42,6 @@
              //  postid = data['postid']
              //  id = "#" + postid + "#cmtField"
              $("#cmtField").html(data);
-             data['postid'] = ""
          });
      }
 

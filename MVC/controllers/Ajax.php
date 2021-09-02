@@ -43,13 +43,13 @@ class Ajax extends Controller
     $message = $_POST["message"];
     $user_id = Login::isLoggedIn();
     $receiver = $_POST["receiver"];
-   
+
     $a = $this->messageModels->insert_message($id, $user_id, $receiver, $message);
     echo  "<div class=\"body__chatBox-msgArea-item sent\">" . $message . " </div>";
   }
   public function updateMessage()
   {
-    
+
     $receiver = $_POST["receiver"];
     $result = $this->messageModels->get_message($receiver);
     echo $result;
@@ -76,7 +76,7 @@ class Ajax extends Controller
                         <a href=\"#\" class=\"friend__box-item\">
                           <img
                             class=\"friend__box-item-image\"
-                            src=\"".$row['profileimg'] ."\"
+                            src=\"" . $row['profileimg'] . "\"
                           />
                           <span class=\"menu-item-text friend__box-item-text\"  
                             >" . $row['username'];
@@ -162,28 +162,28 @@ class Ajax extends Controller
       </button>
       <div  class="cmtField" id ="cmtField">
         <ul  class="cmtContainer">';
-        $comments = DB::query("SELECT * FROM comments WHERE post_id =:postid",array(":postid"=>$row['id']));
-        foreach($comments as $c){
-          $commentator = DB::query("SELECT * FROM users WHERE id = :id", array(':id'=>$c['commentator_id']))[0];
-          echo ' <li  class="cmtContainer__item">
+      $comments = DB::query("SELECT * FROM comments WHERE post_id =:postid", array(":postid" => $row['id']));
+      foreach ($comments as $c) {
+        $commentator = DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $c['commentator_id']))[0];
+        echo ' <li  class="cmtContainer__item">
           <div  class="cmtContainer__item-header">
-            <img src="'.$commentator['profileimg'].'"alt="" class="
+            <img src="' . $commentator['profileimg'] . '"alt="" class="
     cmtContainer__item-header-avatar">
-            <a href="#" class="cmtContainer__item-header-name">'.$commentator['username'].'</a>
+            <a href="#" class="cmtContainer__item-header-name">' . $commentator['username'] . '</a>
           </div>
           <div  class="cmtContainer__item-body">
-            <p>'.$c['commentBody'].'</p>
+            <p>' . $c['commentBody'] . '</p>
           </div>
         </li>';
-        }
-        echo '
+      }
+      echo '
         </ul>
         <div  class="cmtInput">
-          <input  id="commentInput_input_'.$row['id'].'" placeholder="Comment here..." name="postbody"rows="3"cols="
+          <input  id="commentInput_input_' . $row['id'] . '" placeholder="Comment here..." name="postbody"rows="3"cols="
       80" class="cmtInput__input"></input>
           <ion-icon  class="cmtInput__btn" onclick="';
-          echo "addComment('".$row['id']."','commentInput_input_".$row['id']."'); \" name=\"send\"></ion-icon>";
-          echo'
+      echo "addComment('" . $row['id'] . "','commentInput_input_" . $row['id'] . "'); \" name=\"send\"></ion-icon>";
+      echo '
         </div>
       </div>
     </div>
@@ -201,7 +201,7 @@ class Ajax extends Controller
     $userid =  $_POST['friend_id'];
     $id = \Ramsey\Uuid\Uuid::uuid4();
     $followerid = Login::isLoggedIn();
-    if (DB::query("SELECT * FROM followers WHERE user_id = :userid AND follower_id =:follower_id", array(':userid' => $userid , ':follower_id' => $followerid))) {
+    if (DB::query("SELECT * FROM followers WHERE user_id = :userid AND follower_id =:follower_id", array(':userid' => $userid, ':follower_id' => $followerid))) {
       echo json_encode(true);
     } else {
       DB::query('INSERT INTO followers VALUES(:id,:userid,:followerid)', array('id' => $id, 'userid' => $userid, 'followerid' => $followerid));
@@ -210,99 +210,99 @@ class Ajax extends Controller
   public function showFriends()
   {
     $userid = Login::isLoggedIn();
-    $result = DB::query("SELECT * FROM followers WHERE follower_id = :userid", array(':userid' => $userid));
+    if (DB::query("SELECT * FROM followers WHERE follower_id = :userid", array(':userid' => $userid))) {
+      $result = DB::query("SELECT * FROM followers WHERE follower_id = :userid", array(':userid' => $userid));
 
-    foreach ($result as $row) {
-      $name = DB::query("SELECT * FROM users WHERE id = :follower_id", array(':follower_id' => $row['user_id']))[0];
-      echo "<div class=\"friendlist-item\">
+      foreach ($result as $row) {
+        if (DB::query("SELECT * FROM users WHERE id = :follower_id", array(':follower_id' => $row['user_id']))[0]) {
+          $name = DB::query("SELECT * FROM users WHERE id = :follower_id", array(':follower_id' => $row['user_id']))[0];
+          echo "<div class=\"friendlist-item\">
                   <img
                     src=\"" . $name['profileimg'] . "\"
                     class=\"friendlist-item-image\"
                   />
-                  <p
-                    href=\"./chat\"
-                    class=\"friendlist-item-name\"
-                    >" . $name['username'] . "</p
+                  <p class=\"friendlist-item-name\">" . $name['username'] . "</p
                   >
                   <div class=\"btn-container\">
-            <button class=\"btn-mess\"><ion-icon name=\"chatbox-ellipses-outline\"></ion-icon>Chat</button>
+            <a href=\"./chat?w=" . $name['username'] . "\"><button class=\"btn-mess\"><ion-icon name=\"chatbox-ellipses-outline\"></ion-icon>Chat</button></a>
             <button onclick=\"seeProfile('" . $name['username'] . "');\" class=\"btn-info\"><ion-icon name=\"person-outline\"></ion-icon>User</button>
           </div>
                 </div>";
+        }
+      }
     }
   }
 
   public function getUser()
   {
     $closeUserId =  $this->messageModels->getCloseMessage();
-    if (!isset($closeUserId)){
+    if (!isset($closeUserId)) {
       $closeUserId = DB::query("SELECT * FROM followers WHERE follower_id = :userid", array(':userid' => $_COOKIE['messageUser']))[0];
-    } 
-  $user = $this->userModels->getUser($closeUserId);
-    if($user != "false"){
-    echo '
+    }
+    $user = $this->userModels->getUser($closeUserId);
+    if ($user != "false") {
+      echo '
         <img src="' . $user['profileimg'] . '" alt="" id="current-friend" class="body__chatBox-header-image" />
         <a href="#" class="body__chatBox-header-name" id="current-friend-name">' . $user['username'] . '</a>
-        <ion-icon name="information-outline" class="body__chatBox-header-help"></ion-icon>
+        <ion-icon name="information-outline" class="body__chatBox-header-help" onclick="cbOption(event)" ></ion-icon>
         ///' . $closeUserId;
-    }
-    else return json_encode(false);
+    } else return json_encode(false);
   }
-  public function addComment(){
-    
-      $options = array(
-        'cluster' => 'ap1',
-        'useTLS' => true
-      );
-      $pusher = new Pusher\Pusher(
-        '6d26d8d2ff0bf9b79d49',
-        '690b7bb4be34ea3bd2f9',
-        '1253694',
-        $options
-      );
-      $data['request'] = "comment";
-      $data['comment'] = $_POST['comment'];
-      $data['postid'] = $_POST['postid']; 
-      $pusher->trigger('my-channel', 'my-event', $data);
-      $id = \Ramsey\Uuid\Uuid::uuid4();
-      $comment = $_POST["comment"];
-      $user_id = Login::isLoggedIn();
-      $postid = $_POST['postid']; 
-      DB::query("INSERT INTO comments VALUES(:id,:commentBody,:postid,:commentator_id, 0, 0,NOW())",array(':id'=>$id,':commentBody'=>$comment,':postid'=>$postid, ':commentator_id'=>$user_id)); 
-      
-    }
-    public function updateComment()
-    {
-      echo '
+  public function addComment()
+  {
+
+    $options = array(
+      'cluster' => 'ap1',
+      'useTLS' => true
+    );
+    $pusher = new Pusher\Pusher(
+      '6d26d8d2ff0bf9b79d49',
+      '690b7bb4be34ea3bd2f9',
+      '1253694',
+      $options
+    );
+    $data['request'] = "comment";
+    $data['comment'] = $_POST['comment'];
+    $data['postid'] = $_POST['postid'];
+    $pusher->trigger('my-channel', 'my-event', $data);
+    $id = \Ramsey\Uuid\Uuid::uuid4();
+    $comment = $_POST["comment"];
+    $user_id = Login::isLoggedIn();
+    $postid = $_POST['postid'];
+    DB::query("INSERT INTO comments VALUES(:id,:commentBody,:postid,:commentator_id, 0, 0,NOW())", array(':id' => $id, ':commentBody' => $comment, ':postid' => $postid, ':commentator_id' => $user_id));
+  }
+  public function updateComment()
+  {
+    echo '
         <ul  class="cmtContainer">';
-      $postid = $_POST["postid"];
-      $result = DB::query("SELECT * FROM comments WHERE post_id = :postid",array(':postid'=>$postid));
-      foreach ($result as $row){
-        $commentator = DB::query("SELECT * FROM users WHERE id = :id", array(':id'=>$row['commentator_id']))[0];
-        echo '
+    $postid = $_POST["postid"];
+    $result = DB::query("SELECT * FROM comments WHERE post_id = :postid", array(':postid' => $postid));
+    foreach ($result as $row) {
+      $commentator = DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $row['commentator_id']))[0];
+      echo '
         <li  class="cmtContainer__item">
         <div  class="cmtContainer__item-header">
-          <img src="'.$commentator['profileimg'].'"alt="" class="
+          <img src="' . $commentator['profileimg'] . '"alt="" class="
   cmtContainer__item-header-avatar">
-          <a href="#" class="cmtContainer__item-header-name">'.$commentator['username'].'</a>
+          <a href="#" class="cmtContainer__item-header-name">' . $commentator['username'] . '</a>
         </div>
         <div  class="cmtContainer__item-body">
-          <p>'.$row['commentBody'].'</p>
+          <p>' . $row['commentBody'] . '</p>
         </div>
       </li>';
-      }
-      echo '
+    }
+    echo '
         </ul>
         <div  class="cmtInput">
           <input  id="commentInput_input" placeholder="Comment here..." name="postbody"rows="3"cols="
       80" class="cmtInput__input"></input>
           <ion-icon  class="cmtInput__btn" onclick="';
-          echo "addComment('".$row['id']."'); \" name=\"send\"></ion-icon>";
-        
-    }
-    public function setMessageRead(){
-      $sender_id = $_POST['sender'];
-      DB::query("UPDATE messages SET is_read = 1 WHERE receiver_id = :userid AND user_id =:senderid",array(':senderid' => $sender_id,':userid'=>$_COOKIE['messageUser']));
-      echo json_encode($sender_id); 
-    }
+    echo "addComment('" . $row['id'] . "'); \" name=\"send\"></ion-icon>";
+  }
+  public function setMessageRead()
+  {
+    $sender_id = $_POST['sender'];
+    DB::query("UPDATE messages SET is_read = 1 WHERE receiver_id = :userid AND user_id =:senderid", array(':senderid' => $sender_id, ':userid' => $_COOKIE['messageUser']));
+    echo json_encode($sender_id);
+  }
 }
