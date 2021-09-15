@@ -27,6 +27,10 @@ class Account extends Controller
                   if ($this->userModel->checkEmail($email) == "true" && $this->userModel->checkPassword($password == "true") && $this->userModel->checkUsernameValid($username) == "true") {
                         $result = $this->userModel->insert_user($id, $username, $password, $email);
                         header("Location: http://localhost:8080/simple-messenger/Account");
+                        if ($result) { echo "<script>alert('You have successfully created a new user.');</script>"; }
+                  }
+                  else{
+                        header("Location: http://localhost:8080/simple-messenger/Account?a=success_account");
                   }
             }
       }

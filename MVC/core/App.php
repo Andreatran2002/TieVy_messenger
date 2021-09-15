@@ -4,8 +4,10 @@
             protected $action="sayHi"; 
             protected $params=[]; 
             function __construct(){
+            
+      
                   $arr = $this->UrlProcess();
-                  
+                  // if (isset($_GET['w'])) echo "<script>alert('".$_GET['w']."')</script>"; 
                   // Xu ly controller
                   if (isset($arr[0])){
                   if (file_exists("./mvc/controllers/".$arr[0].".php")){

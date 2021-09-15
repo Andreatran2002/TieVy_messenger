@@ -135,7 +135,8 @@ function addComment(postid, inputid) {
             comment: comment,
             postid: postid
         }, function(data) {
-            comment.innerHTML = "";
+            comment_area += data;
+            comment.html("");
         });
 
     }

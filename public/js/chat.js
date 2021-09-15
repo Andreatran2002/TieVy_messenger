@@ -33,17 +33,7 @@
              message__area.scrollTop = message__area.scrollHeight;
          });
      }
-     if (data['request'] == "comment") {
-         var username = getcookie("messageUser");
-         var output = "";
-         $.post("./Ajax/updateComment", {
-             postid: data['postid']
-         }, function(data) {
-             //  postid = data['postid']
-             //  id = "#" + postid + "#cmtField"
-             $("#cmtField").html(data);
-         });
-     }
+
 
 
  });

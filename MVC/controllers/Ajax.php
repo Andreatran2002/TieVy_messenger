@@ -123,9 +123,14 @@ class Ajax extends Controller
             </div>
           </li>';
 
+    $result= DB::query('SELECT posts.id, posts.postbody, posts.postimg, posts.likes, posts.dislikes,
+    users.profileimg, users.username, posts.user_id FROM users, posts, followers
+    WHERE posts.user_id = followers.user_id 
+    AND users.id = posts.user_id
+    AND follower_id = :userid
+    ORDER BY posts.likes DESC LIMIT 20;',array(':userid'=>$userid));
 
-
-    $result = DB::query("SELECT * FROM posts WHERE user_id = :user_id ORDER BY time DESC LIMIT 30", array(':user_id' => Login::isLoggedIn()));
+    // $result = DB::query("SELECT * FROM posts WHERE user_id = :user_id  ORDER BY time DESC LIMIT 30", array(':user_id' => Login::isLoggedIn()));
     foreach ($result as $row) {
       $user = DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $row['user_id']))[0];
       echo '<li class="post">
@@ -224,8 +229,8 @@ class Ajax extends Controller
                   <p class=\"friendlist-item-name\">" . $name['username'] . "</p
                   >
                   <div class=\"btn-container\">
-            <a href=\"./chat?w=" . $name['username'] . "\"><button class=\"btn-mess\"><ion-icon name=\"chatbox-ellipses-outline\"></ion-icon>Chat</button></a>
-            <button onclick=\"seeProfile('" . $name['username'] . "');\" class=\"btn-info\"><ion-icon name=\"person-outline\"></ion-icon>User</button>
+            <a href=\"./chat&w=" . $name['id'] . "\"><button class=\"btn-mess\"><ion-icon name=\"chatbox-ellipses-outline\"></ion-icon>Chat</button></a>
+            <button onclick=\"seeProfile('" . $name['id'] . "');\" class=\"btn-info\"><ion-icon name=\"person-outline\"></ion-icon>User</button>
           </div>
                 </div>";
         }
@@ -235,7 +240,13 @@ class Ajax extends Controller
 
   public function getUser()
   {
-    $closeUserId =  $this->messageModels->getCloseMessage();
+    if (isset($_GET['w'])){
+      if (DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $_GET['w']))){
+        $closeUserId = $_GET['w'];
+      }
+      else $closeUserId =  $this->messageModels->getCloseMessage(); 
+    }
+    else  $closeUserId =  $this->messageModels->getCloseMessage();
     if (!isset($closeUserId)) {
       $closeUserId = DB::query("SELECT * FROM followers WHERE follower_id = :userid", array(':userid' => $_COOKIE['messageUser']))[0];
     }
@@ -250,26 +261,23 @@ class Ajax extends Controller
   }
   public function addComment()
   {
-
-    $options = array(
-      'cluster' => 'ap1',
-      'useTLS' => true
-    );
-    $pusher = new Pusher\Pusher(
-      '6d26d8d2ff0bf9b79d49',
-      '690b7bb4be34ea3bd2f9',
-      '1253694',
-      $options
-    );
-    $data['request'] = "comment";
-    $data['comment'] = $_POST['comment'];
-    $data['postid'] = $_POST['postid'];
-    $pusher->trigger('my-channel', 'my-event', $data);
     $id = \Ramsey\Uuid\Uuid::uuid4();
     $comment = $_POST["comment"];
     $user_id = Login::isLoggedIn();
     $postid = $_POST['postid'];
     DB::query("INSERT INTO comments VALUES(:id,:commentBody,:postid,:commentator_id, 0, 0,NOW())", array(':id' => $id, ':commentBody' => $comment, ':postid' => $postid, ':commentator_id' => $user_id));
+    $commentator = DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $user_id))[0];
+    echo '
+    <li  class="cmtContainer__item">
+    <div  class="cmtContainer__item-header">
+      <img src="' . $commentator['profileimg'] . '"alt="" class="
+cmtContainer__item-header-avatar">
+      <a href="#" class="cmtContainer__item-header-name">' . $commentator['username'] . '</a>
+    </div>
+    <div  class="cmtContainer__item-body">
+      <p>' . $comment . '</p>
+    </div>
+  </li>';
   }
   public function updateComment()
   {

@@ -16,15 +16,36 @@
       rel="stylesheet"
     />
     <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    type="module"
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
     ></script>
     <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    nomodule
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
   </head>
   <body>
+  <?php 
+    if (isset($_GET['a'])){
+    $announce = $_GET['a'];
+    switch ($announce){
+      case "success_account":
+        $content_announce = "You have successfully created a new account"; 
+        $color_announce = "success"; 
+        break; 
+      default:
+      $content_announce = "You have successfully created a new account"; 
+        $color_announce = "success"; 
+      break; 
+    }
+    ?>
+    <div class="announce" role="alert">
+  <?php 
+     echo $content_announce; 
+  }
+  ?>
+  
+</div>
     <div class="container">
       <div class="header">
         <a class="header__logo">TieVy</a>

@@ -1,3 +1,9 @@
+<?php 
+      if (isset($_GET['w'])){
+            $userid = $_GET['w'];
+            $user_info = DB::query("SELECT * FROM users where id  = :id", array(':id'=>$userid))[0]; 
+      }
+?>
 <div class="page-main">
       <div class="body">
             <div class="body__left-container">
@@ -19,9 +25,9 @@
             </div>
             <div class="body__chatBox">
                   <div class="body__chatBox-header" id="body__chatBox-header" >
-                        <img src="./public/images/default_avatar.jpg" alt="" id="current-friend" class="body__chatBox-header-image"  />
+                        <img src="<?php if (isset($_GET['w'])) echo $user_info['profileimg']; else echo "./public/images/default_avatar.jpg"?>" alt="" id="current-friend" class="body__chatBox-header-image"  />
                         
-                        <a href="#" class="body__chatBox-header-name" id="current-friend-name" >Not found</a>
+                        <a href="#" class="body__chatBox-header-name" id="current-friend-name" ><?php if (isset($_GET['w'])) echo $user_info['username']; else echo "No information"?></a>
                          <ion-icon name="information-outline" class="body__chatBox-header-help"  onclick="cbOption(event)" ></ion-icon> 
                       
                   </div>
@@ -33,38 +39,10 @@
                         <ion-icon class="body__chatBox-input-icon" name="rocket-outline" onclick="sendMsg()" >
                         </ion-icon>
                   </div>
-                  <div id="option-chatbox" class="body__chatBox-options">
-                        <img src="https://i.pinimg.com/564x/c5/0d/4c/c50d4cb137b60c361b73c05164d31045.jpg" alt="" id="option-avatar">
-                        <a href="#" class="option-item option-user">LOKI</a>
-                        <a href="#" class="option-item">
-                              <ion-icon name="trash-outline"></ion-icon>
-                              <p>Remove this conversations</p>
-                        </a>
-                        <a href="#" class="option-item">
-                              <ion-icon name="ban-outline"></ion-icon>
-                              <p>Block this user</p>
-                        </a>
-                        <a href="#" class="option-item">
-                              <ion-icon name="person-outline"></ion-icon>
-                              <p>Visit profile</p>
-                        </a>
-                        <a href="#" class="option-item">
-                              <ion-icon name="arrow-undo-outline"></ion-icon>
-                              <p>Share User's URL</p>
-                        </a>
-                        <a href="#" class="option-item">
-                              <ion-icon name="alert-outline"></ion-icon>
-                              <p>Send a report</p>
-                        </a>
-                  </div>
             </div>
       </div>
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="./public/js/main.js"></script>
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-<script src="./public/js/chat.js">
 
 </script>

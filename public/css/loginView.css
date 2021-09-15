@@ -120,7 +120,7 @@
 }
 
 .image-1 {
-    background: url(../image/uiPreView.png) padding-box, linear-gradient(45deg, #9B3D95, #B7356B, #EF2E36, #FC8B4B) border-box;
+    background: url(../images/uiPreView.png) padding-box, linear-gradient(45deg, #9B3D95, #B7356B, #EF2E36, #FC8B4B) border-box;
     position: absolute;
     background-size: cover;
     width: 250px;
@@ -132,7 +132,7 @@
 }
 
 .image-2 {
-    background: url(../image/1.png) padding-box, linear-gradient(45deg, #9B3D95, #B7356B, #EF2E36, #FC8B4B) border-box;
+    background: url(../images/1.png) padding-box, linear-gradient(45deg, #9B3D95, #B7356B, #EF2E36, #FC8B4B) border-box;
     position: absolute;
     background-size: cover;
     width: 150px;
@@ -145,7 +145,7 @@
 }
 
 .image-3 {
-    background: url(../image/3.png) padding-box, linear-gradient(45deg, #9B3D95, #B7356B, #EF2E36, #FC8B4B) border-box;
+    background: url(../images/3.png) padding-box, linear-gradient(45deg, #9B3D95, #B7356B, #EF2E36, #FC8B4B) border-box;
     position: absolute;
     background-size: cover;
     width: 150px;
@@ -157,7 +157,7 @@
 }
 
 .image-4 {
-    background: url(../image/2.png) padding-box, linear-gradient(45deg, #9B3D95, #B7356B, #EF2E36, #FC8B4B) border-box;
+    background: url(../images/2.png) padding-box, linear-gradient(45deg, #9B3D95, #B7356B, #EF2E36, #FC8B4B) border-box;
     position: absolute;
     background-size: cover;
     width: 200px;
@@ -352,6 +352,18 @@ body:after {
     100% {
         border: 1px solid transparent;
     }
+}
+
+.announce {
+    position: absolute;
+    right: 10px;
+    top: 100px;
+    background-color: #d4edda;
+    color: #155724;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
 }
 
 

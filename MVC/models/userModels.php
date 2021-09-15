@@ -8,6 +8,8 @@ class userModels extends DB
       {
             $profileimg = "./public/images/default_avatar.jpg"; 
             $this->query('INSERT INTO users VALUES (:id,:username,:email,:password,:profileimg, \'\', \'\', \'\', \'\', \'\' ) ', array(':id' => $id, ':username' => $username, ':email' => $email, ':password' => $password , ':profileimg' => $profileimg));
+            $id_ =  \Ramsey\Uuid\Uuid::uuid4(); 
+            DB::query('INSERT INTO followers VALUES(:id,:userid,:followerid)', array('id' => $id_, 'userid' => $id, 'followerid' => $id));
             $result = false;
             if ($this->query('SELECT * FROM users WHERE id = :id', array(':id' => $id))) {
                   $result = true;
