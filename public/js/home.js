@@ -56,6 +56,7 @@ let like = event => {
         } else
             btnLike.style.color = ''
     }
+
 }
 
 function loadFile(event) {

@@ -148,24 +148,14 @@
     </li>
   </div>
   <div class="bottom">
-    <li>
-      <a href="#" class="menu-item">
-        <ion-icon name="cube-outline"></ion-icon>
-        <span class="menu-item-text text-hide">Help</span>
-      </a>
-    </li>
+    
     <li>
       <a href="./Profile" class="menu-item">
         <ion-icon name="person-circle-outline"></ion-icon>
         <span class="menu-item-text text-hide">Profile</span>
       </a>
     </li>
-    <li>
-      <a href="#" class="menu-item">
-        <ion-icon name="settings-outline"></ion-icon>
-        <span class="menu-item-text text-hide">Settings</span>
-      </a>
-    </li>
+    
   </div>
 </ul>
 <div id="filter-container" class="filter-container" onclick="grow()"></div>

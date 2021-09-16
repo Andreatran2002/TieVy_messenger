@@ -15,7 +15,7 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
-<body onload = "constructUser();updateNewPosts(); showFriends(); updateStatus(); updateChat(); ">
+<body onload = "<?php if (!isset($_GET['w'])) echo 'constructUser();';?>updateNewPosts(); showFriends(); updateStatus(); updateChat(); ">
 
   <!-- menu-left -->
   <ul id="nagication-bar" class="menu menu-small">
@@ -147,28 +147,24 @@
       </li>
     </div>
     <div class="bottom">
-      <li>
-        <a href="#" class="menu-item">
-          <ion-icon name="cube-outline"></ion-icon>
-          <span class="menu-item-text text-hide">Help</span>
-        </a>
-      </li>
+     
       <li>
         <a href="./Profile" class="menu-item">
           <ion-icon name="person-circle-outline"></ion-icon>
           <span class="menu-item-text text-hide">Profile</span>
         </a>
       </li>
-      <li>
-        <a href="#" class=" menu-item">
-          <ion-icon name="settings-outline"></ion-icon>
-          <span class="menu-item-text text-hide">Settings</span>
-        </a>
-      </li>
+      
     </div>
   </ul>
   <div id="filter-container" class="filter-container" onclick="grow()"></div>
   <?php require_once "./MVC/views/pages/".$data['page'].".php" ?>
+<script>
+
+<?php 
+  if (isset($_GET['w'])) echo 'receiver = "'.$_GET['w'].'"';
+  ?>
+</script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script> 
   <script src="https://js.pusher.com/7.0/pusher.min.js"></script> 
   <script src="./public/js/navigartionBar.js"></script>

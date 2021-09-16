@@ -46,6 +46,7 @@ class Ajax extends Controller
 
     $a = $this->messageModels->insert_message($id, $user_id, $receiver, $message);
     echo  "<div class=\"body__chatBox-msgArea-item sent\">" . $message . " </div>";
+    DB::query("UPDATE followers SET had_text = 1 WHERE follower_id = :userid AND user_id = :friend",array(':userid'=>$user_id, ':friend'=>$receiver)); 
   }
   public function updateMessage()
   {
@@ -123,12 +124,12 @@ class Ajax extends Controller
             </div>
           </li>';
 
-    $result= DB::query('SELECT posts.id, posts.postbody, posts.postimg, posts.likes, posts.dislikes,
+    $result= DB::query('SELECT posts.time,posts.id, posts.postbody, posts.postimg, posts.likes, posts.dislikes,
     users.profileimg, users.username, posts.user_id FROM users, posts, followers
     WHERE posts.user_id = followers.user_id 
     AND users.id = posts.user_id
     AND follower_id = :userid
-    ORDER BY posts.likes DESC LIMIT 20;',array(':userid'=>$userid));
+    ORDER BY posts.time DESC LIMIT 20;',array(':userid'=>$userid));
 
     // $result = DB::query("SELECT * FROM posts WHERE user_id = :user_id  ORDER BY time DESC LIMIT 30", array(':user_id' => Login::isLoggedIn()));
     foreach ($result as $row) {
@@ -209,7 +210,7 @@ class Ajax extends Controller
     if (DB::query("SELECT * FROM followers WHERE user_id = :userid AND follower_id =:follower_id", array(':userid' => $userid, ':follower_id' => $followerid))) {
       echo json_encode(true);
     } else {
-      DB::query('INSERT INTO followers VALUES(:id,:userid,:followerid)', array('id' => $id, 'userid' => $userid, 'followerid' => $followerid));
+      DB::query('INSERT INTO followers VALUES(:id,:userid,:followerid,\'\')', array('id' => $id, 'userid' => $userid, 'followerid' => $followerid));
     }
   }
   public function showFriends()
@@ -230,7 +231,7 @@ class Ajax extends Controller
                   >
                   <div class=\"btn-container\">
             <a href=\"./chat&w=" . $name['id'] . "\"><button class=\"btn-mess\"><ion-icon name=\"chatbox-ellipses-outline\"></ion-icon>Chat</button></a>
-            <button onclick=\"seeProfile('" . $name['id'] . "');\" class=\"btn-info\"><ion-icon name=\"person-outline\"></ion-icon>User</button>
+            <a href=\"./home&f=" . $name['id'] ."\"><button onclick=\"seeProfile('" . $name['id'] . "');\" class=\"btn-info\"><ion-icon name=\"person-outline\"></ion-icon>User</button></a>
           </div>
                 </div>";
         }

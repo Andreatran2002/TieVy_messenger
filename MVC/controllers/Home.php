@@ -7,12 +7,17 @@ class Home extends Controller
             $this->view("PageMaster", [
                   'page'=>'home'
             ]);
+            if (!(Login::isLoggedIn())) {
+                  header("Location: http://localhost:8080/simple-messenger/Account");
+            }
             
       }
       public function __construct()
       {
             $this->postModel = $this->model("postModels");
-            
+            if (!(Login::isLoggedIn())) {
+                  header("Location: http://localhost:8080/simple-messenger/Account");
+            }
       }
       public function upNewPost()
       {

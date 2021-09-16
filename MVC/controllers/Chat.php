@@ -10,6 +10,9 @@ class Chat extends Controller
             $this->mainView = $this->view("PageMaster", [
                   'page' => 'chat'
             ]);
+            if (!(Login::isLoggedIn())) {
+                  header("Location: http://localhost:8080/simple-messenger/Account");
+            }
             // echo "<script>alert('".$_GET['username']."')</script>";
       }
       public function __construct()

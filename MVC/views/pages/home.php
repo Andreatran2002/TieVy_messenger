@@ -1,4 +1,8 @@
 <?php
+if (isset($_GET['f'])){
+      $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_GET['f']))[0];
+}
+else 
 $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE['messageUser']))[0];
 
 ?>

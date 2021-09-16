@@ -3,6 +3,7 @@ var message__area = document.getElementById("message__area");
 var friend_search_input = document.getElementById("friend_search_input");
 var receiver;
 $(document).ready(function() {
+    updateChat();
     $("#username").keyup(function() {
         var user = $(this).val();
         $("#messageUser").html(user);
