@@ -128,16 +128,17 @@ var comment_input = document.getElementById("commentInput_input");
 var comment_area = document.getElementById("cmtField");
 
 function addComment(postid, inputid) {
-    comment = document.getElementById(inputid).value;
-    comment_area = document.getElementById("cmtField");
+    cmtContainerId = "cmtContainer_" + postid;
+    comment = document.getElementById(inputid);
+    comment_area = document.getElementById(cmtContainerId);
 
-    if (comment != "") {
+    if (comment.value != "") {
         $.post("./Ajax/addComment", {
-            comment: comment,
+            comment: comment.value,
             postid: postid
         }, function(data) {
-            comment_area += data;
-            comment.html("");
+            comment.value = "";
+            $("#" + cmtContainerId).html(data)
         });
 
     }
@@ -145,7 +146,6 @@ function addComment(postid, inputid) {
 
 function updateComment(postid) {
     comment_area = document.getElementById("cmtField");
-
     $.post("./Ajax/updateComment", {
         postid: postid
     }, function(data) {

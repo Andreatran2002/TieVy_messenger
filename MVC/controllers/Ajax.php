@@ -82,7 +82,7 @@ class Ajax extends Controller
                           <span class=\"menu-item-text friend__box-item-text\"  
                             >" . $row['username'];
           if (!DB::query('SELECT * FROM followers WHERE user_id = :friendid AND follower_id = :userid', array(':friendid' => $row['id'], ':userid' => Login::isLoggedIn()))) {
-            echo "<ion-icon id=\"" . $row['id'] . "\" onclick=\"addFriend('" . $row['id'] . "')\"
+            echo "<ion-icon id=\"" . $row['id'] . "\" onclick=\"addFriend('" . $row['id'] . "'); addSuccess(event);\"
                               name=\"close-circle-outline\"
                               class=\"friend__box-item-icon\"
                             ></ion-icon>";
@@ -167,8 +167,8 @@ class Ajax extends Controller
         Comment
       </button>
       <div  class="cmtField" id ="cmtField">
-        <ul  class="cmtContainer">';
-      $comments = DB::query("SELECT * FROM comments WHERE post_id =:postid", array(":postid" => $row['id']));
+        <ul  class="cmtContainer" id = "cmtContainer_'.$row['id'].'">';
+      $comments = DB::query("SELECT * FROM comments WHERE post_id =:postid ORDER BY timestamp DESC LIMIT 20", array(":postid" => $row['id']));
       foreach ($comments as $c) {
         $commentator = DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $c['commentator_id']))[0];
         echo ' <li  class="cmtContainer__item">
@@ -265,27 +265,31 @@ class Ajax extends Controller
     $id = \Ramsey\Uuid\Uuid::uuid4();
     $comment = $_POST["comment"];
     $user_id = Login::isLoggedIn();
-    $postid = $_POST['postid'];
+    $postid = $_POST['postid'];   
     DB::query("INSERT INTO comments VALUES(:id,:commentBody,:postid,:commentator_id, 0, 0,NOW())", array(':id' => $id, ':commentBody' => $comment, ':postid' => $postid, ':commentator_id' => $user_id));
-    $commentator = DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $user_id))[0];
-    echo '
-    <li  class="cmtContainer__item">
-    <div  class="cmtContainer__item-header">
-      <img src="' . $commentator['profileimg'] . '"alt="" class="
-cmtContainer__item-header-avatar">
-      <a href="#" class="cmtContainer__item-header-name">' . $commentator['username'] . '</a>
-    </div>
-    <div  class="cmtContainer__item-body">
-      <p>' . $comment . '</p>
-    </div>
-  </li>';
+    $result = DB::query("SELECT * FROM comments WHERE post_id = :postid  ORDER BY timestamp DESC ", array(':postid' => $postid));
+    foreach ($result as $row) {
+      $commentator = DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $row['commentator_id']))[0];
+      echo '
+        <li  class="cmtContainer__item">
+        <div  class="cmtContainer__item-header">
+          <img src="' . $commentator['profileimg'] . '"alt="" class="
+  cmtContainer__item-header-avatar">
+          <a href="#" class="cmtContainer__item-header-name">' . $commentator['username'] . '</a>
+        </div>
+        <div  class="cmtContainer__item-body">
+          <p>' . $row['commentBody'] . '</p>
+        </div>
+      </li>';
+    }
+
   }
   public function updateComment()
   {
     echo '
         <ul  class="cmtContainer">';
     $postid = $_POST["postid"];
-    $result = DB::query("SELECT * FROM comments WHERE post_id = :postid", array(':postid' => $postid));
+    $result = DB::query("SELECT * FROM comments WHERE post_id = :postid ORDER BY timestamp DESC", array(':postid' => $postid));
     foreach ($result as $row) {
       $commentator = DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $row['commentator_id']))[0];
       echo '

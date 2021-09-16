@@ -406,7 +406,7 @@ body {
     flex-direction: column;
     margin-bottom: 20px;
     height: inherit;
-    height: 240px;
+    max-height: 240px;
     overflow-y: scroll;
 }
 
@@ -777,6 +777,3 @@ body {
     color: #2b2929;
     background-color: #50505000;
 }
-
-
-/*# sourceMappingURL=home.css.map */

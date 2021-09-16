@@ -23,10 +23,7 @@
       <li class="menu-header">
         <ion-icon onclick="grow()" id="icon-hint" name="arrow-back-outline"></ion-icon>
       </li>
-      <li class="menu-search" onclick="growSearch()">
-        <ion-icon class="menu-search-icon" name="search-outline"></ion-icon>
-        <input id="search-input" type="text" placeholder="" />
-      </li>
+      
       <li>
         <a href="./Home" class="menu-item">
           <ion-icon name="home-outline"></ion-icon>

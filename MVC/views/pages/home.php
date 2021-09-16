@@ -1,9 +1,8 @@
 <?php
-if (isset($_GET['f'])){
+if (isset($_GET['f'])) {
       $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_GET['f']))[0];
-}
-else 
-$user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE['messageUser']))[0];
+} else
+      $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE['messageUser']))[0];
 
 ?>
 <div class="container-home">
@@ -68,9 +67,20 @@ $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE
 
             </ul>
       </div>
-      <div class="friendlist" id="friendlist">
+      <div style="
+            display: flex;
+            flex-direction: column;
+            width: 350px;
+      ">
 
-      </div>
+            <div class="menu-search onHome">
+                  <ion-icon class="menu-search-icon" name="search-outline"></ion-icon>
+                  <input id="search-input" type="text" placeholder="Enter your friend's name" />
+            </div>
+            <div class="friendlist" id="friendlist">
+
+            </div>
+      </di>
       <div id="filter-container" class="filter-container" onclick="grow()"></div>
-      
+
 </div>

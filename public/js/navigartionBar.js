@@ -75,7 +75,7 @@ function grow() {
             filter.style.animation = 'filter-on 0.3s ease forwards'
         }, 100)
         document.getElementById('nagication-bar').classList.remove('menu-small')
-        document.getElementById('icon-hint').style.transform = 'rotate(0deg)'
+        document.getElementById('icon-hint').style.transform = 'rotate(7deg)'
         iconhide[0].classList.add('icon-hide_2')
         searchInput.style.padding = '0 10px 0 45px'
         for (let i = 0; i < textArray.length; i++) {
@@ -124,7 +124,12 @@ function searchFriend() {
         hide = true
     }
 }
+
+;
 (function notiCount() {
-    let numOfNoti = document.getElementsByClassName("notiList__item").length
-    document.getElementById("notifications-num").innerHTML = numOfNoti
+    let numOfNoti = document.getElementsByClassName('notiList__item').length
+    if (numOfNoti > 0)
+        document.getElementById('notifications-num').innerHTML = numOfNoti
+    else
+        document.getElementById('notifications-num').style.opacity = '0'
 })()
