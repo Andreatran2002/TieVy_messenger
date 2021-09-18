@@ -1,4 +1,4 @@
-body {
+html {
     overflow: hidden;
 }
 
@@ -218,7 +218,6 @@ body {
     height: 40px;
     border-radius: 30% 70% 65% 35%/30% 32% 68% 70%;
     box-shadow: 2px 2px 5px black, -2px -2px 5px #3c495c6b;
-    object-fit: cover;
 }
 
 .post__header-time {
@@ -255,13 +254,12 @@ body {
     padding: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
 }
 
 .post__body-image {
     margin-top: 20px;
-    height: 400px;
-    width: 400px;
+    width: 100%;
 }
 
 .post__footer {
@@ -285,9 +283,8 @@ body {
     padding: 10px 20px;
     padding-left: 40px;
     justify-self: flex-end;
-    margin-right: 0px;
-    margin-left: calc(100% - 260px) !important;
-    /* border: 1px solid #505050; */
+    transform: translate(0, 8px);
+    margin: 15px 0 0 calc(100% - 260px) !important;
     transition: all 0.5s ease;
 }
 
@@ -310,6 +307,7 @@ body {
 
 .post__footer-btncmt:active {
     color: white;
+    border: 1px solid #fff;
 }
 
 .post__footer-btncmt:active>ion-icon {
@@ -406,7 +404,7 @@ body {
     flex-direction: column;
     margin-bottom: 20px;
     height: inherit;
-    max-height: 240px;
+    height: 240px;
     overflow-y: scroll;
 }
 
@@ -423,7 +421,7 @@ body {
 .cmtContainer__item {
     display: flex;
     flex-direction: column;
-    padding: 0 20px 20px 20px;
+    padding: 0 20px 0px 20px;
 }
 
 .cmtContainer__item-header {
@@ -581,11 +579,43 @@ body {
     overflow-y: scroll;
     height: 100%;
     padding: 5px;
+    padding-top: 50px;
+    align-items: center;
+    position: relative;
 }
 
 .friendlist::-webkit-scrollbar {
     background-color: transparent;
     width: 0px;
+}
+
+.friendlist__search {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translate(-50%, 0%) scale(1.1);
+    height: 30px;
+    width: 75%;
+    display: flex;
+    align-items: center;
+    background-color: #212121;
+    border-radius: 10px;
+    padding: 0 0 0 10px;
+}
+
+.friendlist__search-input {
+    height: 30px;
+    background: transparent;
+    margin-left: 5px;
+    border-radius: 0 10px 10px 0;
+    padding-left: 5px;
+    width: calc(100% - 15px);
+    transition: all 0.2s ease;
+    background-color: #212121;
+}
+
+.friendlist__search-input:focus {
+    background-color: #202020;
 }
 
 .friendlist-item {
@@ -648,11 +678,10 @@ body {
     }
 }
 
-.post__body-text {
-    align-self: flex-start;
-}
-
 @media only screen and (max-width: 46.1875em) {
+    .container-home {
+        padding: 10px 10px 50px 10px !important;
+    }
     .friendlist {
         display: none;
     }
@@ -677,13 +706,11 @@ body {
     .post {
         padding: 20px;
     }
-    .post__footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
     p {
         font-size: 14px;
+    }
+    #nagication-bar {
+        display: none;
     }
 }
 
@@ -718,13 +745,11 @@ body {
     width: 85px;
     cursor: pointer;
     transition: all 0.2s ease;
-    object-fit: cover;
 }
 
 .btn-mess>ion-icon {
     margin-right: 5px;
     transform: translateY(2px);
-    object-fit: cover;
 }
 
 .btn-mess:hover {
@@ -777,3 +802,21 @@ body {
     color: #2b2929;
     background-color: #50505000;
 }
+
+.cmt-btn {
+    margin-top: 0;
+}
+
+.cmt-btn>button {
+    padding: 0 10px;
+}
+
+.cmt-btn>button>ion-icon {
+    font-size: 16px;
+}
+
+
+/*# sourceMappingURL=home.css.map */
+
+
+/*# sourceMappingURL=home.css.map */

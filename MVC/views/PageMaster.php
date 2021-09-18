@@ -15,7 +15,7 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
-<body onload = "<?php if (!isset($_GET['w'])) echo 'constructUser();';?>updateNewPosts(); showFriends(); updateStatus(); updateChat(); ">
+<body onload = "<?php if (!isset($_GET['w'])) echo 'constructUser();';?>updateNewPosts(); showFriends(); updateStatus();  updateChat(); ">
 
   <!-- menu-left -->
   <ul id="nagication-bar" class="menu menu-small">
@@ -162,9 +162,9 @@
   if (isset($_GET['w'])) echo 'receiver = "'.$_GET['w'].'"';
   ?>
 </script>
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script> 
+<script src="./public/js/navigartionBar.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script> 
   <script src="https://js.pusher.com/7.0/pusher.min.js"></script> 
-  <script src="./public/js/navigartionBar.js"></script>
   <script src="./public/js/home.js"></script>
   <script src="./public/js/main.js"></script>   
   <script src="./public/js/chat.js"> </script>

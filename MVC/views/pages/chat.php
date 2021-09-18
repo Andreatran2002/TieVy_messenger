@@ -23,7 +23,7 @@ if (isset($_GET['w'])) {
                               <input id="search-input" type="text" placeholder="Enter your friend's name" />
                         </div>
                   </div>
-                  <div class="body__left">
+                  <div class="body__left" id = "body__left">
                         <?php require_once("./MVC/views/pages/userFriend.php") ?>
                   </div>
             </div>
@@ -46,6 +46,32 @@ if (isset($_GET['w'])) {
                         </ion-icon>
                   </div>
             </div>
+            <div id="option-chatbox" class="body__chatBox-options">
+            <img src="<?php if (isset($_GET['w'])) echo $user_info['profileimg'];
+                               ?>" alt="" id="option-avatar">
+            <a href="#" class="option-item option-user" id="option-item-name"><?php if (isset($_GET['w'])) echo $user_info['username'];
+                                                                                                 ?></a>
+            <a href="#" class="option-item" onclick="removeConversation(); ">
+                  <ion-icon name="trash-outline"></ion-icon>
+                  <p>Remove this conversations</p>
+            </a>
+            <a href="#" class="option-item">
+                  <ion-icon name="ban-outline"></ion-icon>
+                  <p>Block this user</p>
+            </a>
+            <a href="#" class="option-item">
+                  <ion-icon name="person-outline"></ion-icon>
+                  <p>Visit profile</p>
+            </a>
+            <a href="#" class="option-item">
+                  <ion-icon name="arrow-undo-outline"></ion-icon>
+                  <p>Share Users URL</p>
+            </a>
+            <a href="#" class="option-item">
+                  <ion-icon name="alert-outline"></ion-icon>
+                  <p>Send a report</p>
+            </a>
+      </div>
       </div>
 </div>
 

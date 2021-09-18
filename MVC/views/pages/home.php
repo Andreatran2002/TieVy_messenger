@@ -1,8 +1,17 @@
 <?php
-if (isset($_GET['f'])) {
+if (isset($_GET['f'])){
+      if (DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_GET['f']))){
       $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_GET['f']))[0];
-} else
-      $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE['messageUser']))[0];
+
+}
+else 
+$user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE['messageUser']))[0];
+
+
+}
+
+else 
+$user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE['messageUser']))[0];
 
 ?>
 <div class="container-home">
@@ -52,7 +61,9 @@ if (isset($_GET['f'])) {
                         </li>
                         <li class="information__item">
                               <ion-icon name="logo-instagram"></ion-icon>
-                              <a href="https://www.instagram.com/1wky0u/" class="information__item-text">
+                              <a href=" <?php
+                                    echo $user['instagram_address'];
+                                    ?>" class="information__item-text">
                                     <?php
                                     echo $user['instagram_address'];
                                     ?></a>
@@ -67,20 +78,20 @@ if (isset($_GET['f'])) {
 
             </ul>
       </div>
-      <div style="
-            display: flex;
-            flex-direction: column;
-            width: 350px;
-      ">
+        
+      <div class="friendlist" >
 
-            <div class="menu-search onHome">
-                  <ion-icon class="menu-search-icon" name="search-outline"></ion-icon>
-                  <input id="search-input" type="text" placeholder="Enter your friend's name" />
-            </div>
-            <div class="friendlist" id="friendlist">
+      <label for="friend__search-input" class="friendlist__search">
+      <ion-icon class="friendlist__search-icon" name="search-outline"></ion-icon>
+      <input id="search-input-home" class="friendlist__search-input" id="friend__search-input" type="text">
+      </label>
+      <div id="friendlist">
 
-            </div>
-      </di>
+      </div>
+   
+      </div>
       <div id="filter-container" class="filter-container" onclick="grow()"></div>
-
+      
 </div>
+
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script> 

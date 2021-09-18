@@ -1,15 +1,26 @@
 {
     function sendMsg() {
-        let rocket = document.getElementsByClassName('body__chatBox-input-icon')
-        rocket[0].classList.add('rocket-fly')
-        console.log(rocket[0].classList)
+        let rocket = document.getElementsByClassName("body__chatBox-input-icon");
+        rocket[0].classList.add("rocket-fly");
+        console.log(rocket[0].classList);
         setTimeout(() => {
-                rocket[0].classList.remove('rocket-fly')
-            }, 250)
-            // sendmsg();
+            rocket[0].classList.remove("rocket-fly")
+        }, 250)
+        sendmsg();
+        setTimeout(() => {
+            document.getElementById("message__area").scrollTo(0, document.getElementById("message__area").scrollHeight);
+        }, 500)
     }
 } // menu-left animation
 {
+    function getID(oObject) {
+        var id = oObject.id;
+        // message__area.scrollTop = message__area.scrollHeight;
+
+        return id;
+
+    }
+
     function refreshFriendlist() {
         let friendItem = document.getElementsByClassName('body__left-item')
         let avatar = document.getElementById('option-avatar')
@@ -58,6 +69,10 @@
                     // console.log(nameRegex);
                     // let name = ;
                     // console.log(friendItem[i].childNodes[3]);
+                var receiver = getReceiver(getID(friendItem[i]));
+                updateChat();
+                //message readed
+                message_read(receiver);
             })
         }
     }
@@ -111,4 +126,42 @@ function addSuccess(e) {
     e.target.style.opacity = '0'
 }
 
-refreshFriendlist()
+refreshFriendlist();
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('6d26d8d2ff0bf9b79d49', {
+    cluster: 'ap1'
+});
+
+var channel = pusher.subscribe('my-channel');
+channel.bind('my-event', function(data) {
+    // alert(JSON.stringify(data));
+
+    if (data['request'] == "message") {
+        var username = getcookie("messageUser");
+        var output = "";
+        $.post("./Ajax/updateMessage", {
+            receiver: receiver
+        }, function(data) {
+
+            var response = data.split("\n");
+            var rl = response.length;
+            var item = "";
+            for (var i = 0; i < rl; i++) {
+                item = response[i].split('\\')
+                if (item[1] != undefined) {
+                    if (item[0] == username) {
+                        output += "<div class=\"body__chatBox-msgArea-item sent\">" + item[1] + " </div>";
+                    } else {
+                        output += "<div class=\"body__chatBox-msgArea-item receive\">" + item[1] + " </div>";
+                    }
+                }
+            }
+            $("#message__area").html(output);
+            message__area.scrollTop = message__area.scrollHeight;
+        });
+    }
+
+
+
+});

@@ -2,6 +2,7 @@ var message__input = document.getElementById("message__input");
 var message__area = document.getElementById("message__area");
 var friend_search_input = document.getElementById("friend_search_input");
 var receiver;
+
 $(document).ready(function() {
     updateChat();
     $("#username").keyup(function() {
@@ -13,6 +14,54 @@ $(document).ready(function() {
             $("#messageUser").html(data);
         });
 
+    })
+    $("#search-input").keyup(function() {
+
+        var username = $(this).val();
+
+        if (username != "") {
+            $.post("./Ajax/search_friend_followed", {
+                keyword: username
+            }, function(data) {
+                if (data != "false")
+
+                    $("#body__left").html(data)
+
+            });
+        } else {
+            $.post("./Ajax/showFriend_ChatView", {
+
+            }, function(data) {
+                if (data != "false")
+                    $("#body__left").html(data);
+
+            });
+
+
+        }
+    })
+    $("#search-input-home").keyup(function() {
+        var username_home = $(this).val();
+
+        if (username_home != "") {
+            $.post("./Ajax/search_friend_followed_home", {
+                keyword: username_home
+            }, function(data) {
+                if (data != "false")
+                    $("#friendlist").html(data)
+
+            });
+        } else {
+            $.post("./Ajax/showFriend_HomeView", {
+
+            }, function(data) {
+                if (data != "false")
+                    $("#friendlist").html(data);
+
+            });
+
+
+        }
     })
 })
 
@@ -68,8 +117,6 @@ function sendmsg() {
         }, function(data) {
             $("#message__input").val("");
             message__area.scrollTop = message__area.scrollHeight;
-
-
         });
     }
 }
@@ -141,6 +188,7 @@ function addComment(postid, inputid) {
             $("#" + cmtContainerId).html(data)
         });
 
+
     }
 }
 
@@ -195,20 +243,6 @@ function ScrollDown() {
 }
 
 {
-    function sendMsg() {
-
-        let rocket = document.getElementsByClassName("body__chatBox-input-icon");
-        rocket[0].classList.add("rocket-fly");
-        console.log(rocket[0].classList);
-        setTimeout(() => {
-            rocket[0].classList.remove("rocket-fly")
-        }, 250)
-        sendmsg();
-        setTimeout(() => {
-            document.getElementById("message__area").scrollTo(0, document.getElementById("message__area").scrollHeight);
-        }, 500)
-    }
-} {
 
     function friendChatting(receiver_id) {
         ScrollDown();
@@ -313,111 +347,6 @@ function ScrollDown() {
 
     }
 }
-// menu-left animation
-{
-    function getID(oObject) {
-        var id = oObject.id;
-        // message__area.scrollTop = message__area.scrollHeight;
-
-        return id;
-
-    }
-
-    function refreshFriendlist() {
-        let friendItem = document.getElementsByClassName("body__left-item");
-        let n = friendItem.length;
-        for (let i = 0; i < n; i++) {
-            // thêm function cho friend item.
-            friendItem[i].addEventListener("click", () => {
-                for (let j = 0; j < n; j++) {
-                    friendItem[j].classList.remove("friend-item-focus");
-                }
-                friendItem[i].classList.add("friend-item-focus");
-                let currFriend = document.getElementById("current-friend");
-                let friendImage = friendItem[i].childNodes[1].src.toString();
-                let currFriendName = document.getElementById(
-                    "current-friend-name"
-                );
-                // console.log(currFriend.src);
-                {
-                    currFriend.style.animation = "fade-out-in 0.4s ease forwards";
-                    currFriendName.style.animation =
-                        "fade-out-in 0.4s ease forwards";
-
-                    setTimeout(() => {
-                        currFriend.src = friendImage;
-                        currFriendName.innerHTML =
-                            friendItem[i].childNodes[3].innerHTML;
-                    }, 200);
-                    setTimeout(() => {
-                        currFriend.style.animation = "";
-                        currFriendName.style.animation = "";
-                    }, 400);
-                }
-                let nameRegex = new RegExp(">" + "." + "<");
-                // console.log(nameRegex);
-                // let name = ;
-                // console.log(friendItem[i].childNodes[3]);
-                var receiver = getReceiver(getID(friendItem[i]));
-                updateChat();
-                //message readed
-                message_read(receiver);
-            });
-        }
-    }
-
-}
-
-
-{
-    let option = document.getElementById('option-chatbox')
-    let messArr = document.getElementsByClassName('body__chatBox-msgArea-item')
-
-    function cbOption(event) {
-        if (!event.target.classList.contains('body__chatBox-msgArea')) {
-            if (option.style.opacity != '1') {
-                for (let i = 0; i < messArr.length; i++) {
-                    messArr[i].style.opacity = '0'
-                    setTimeout(() => {
-                        messArr[i].style.display = 'none'
-                    }, 200)
-                }
-                option.style.display = 'flex'
-                setTimeout(() => {
-                    option.style.opacity = '1'
-                }, 200)
-            } else {
-                option.style.opacity = '0'
-                setTimeout(() => {
-                    option.style.display = 'none'
-                }, 200)
-                for (let i = 0; i < messArr.length; i++) {
-                    messArr[i].style.display = 'flex'
-                    setTimeout(() => {
-                        messArr[i].style.opacity = '1'
-                    }, 200)
-                }
-            }
-        } else if (option.style.opacity == '1') {
-            option.style.opacity = '0'
-            setTimeout(() => {
-                option.style.display = 'none'
-            }, 200)
-            for (let i = 0; i < messArr.length; i++) {
-                messArr[i].style.display = 'flex'
-                setTimeout(() => {
-                    messArr[i].style.opacity = '1'
-                }, 200)
-            }
-        }
-    }
-}
-
-refreshFriendlist()
-
-
-
-
 
 function constructUser() {
     $.post("./Ajax/getUser", {

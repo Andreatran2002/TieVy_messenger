@@ -45,13 +45,9 @@
             </form>
       </div>
       <!-- main content -->
-      <!-- <div class="filter-option"></div> -->
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
       <script>
-            let userNames = ["PhuongVy", "NhatTien2002", "Lala"]
 
             function loadFile(event) {
                   console.log(URL.createObjectURL(event.target.files[0]))
@@ -106,4 +102,3 @@
 
             }
       </script>
-      <script src="./public/js/navigartionBar.js"></script>
