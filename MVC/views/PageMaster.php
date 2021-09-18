@@ -162,12 +162,12 @@
   if (isset($_GET['w'])) echo 'receiver = "'.$_GET['w'].'"';
   ?>
 </script>
-<script src="./public/js/navigartionBar.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script> 
-  <script src="https://js.pusher.com/7.0/pusher.min.js"></script> 
-  <script src="./public/js/home.js"></script>
-  <script src="./public/js/main.js"></script>   
-  <script src="./public/js/chat.js"> </script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script> 
+<script src="./public/js/chat.js"> </script>
+<script src="./public/js/home.js"></script>
+<script src="./public/js/main.js"></script>   
+<script src="./public/js/navigartionBar.js"></script>
 
 </body>
 

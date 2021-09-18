@@ -2,7 +2,6 @@ var message__input = document.getElementById("message__input");
 var message__area = document.getElementById("message__area");
 var friend_search_input = document.getElementById("friend_search_input");
 var receiver;
-
 $(document).ready(function() {
     updateChat();
     $("#username").keyup(function() {
@@ -257,7 +256,7 @@ function ScrollDown() {
     }
     let filter = document.getElementById("filter-container");
     let friendSearch = document.getElementsByClassName("friend__box-search");
-    let searchInput = document.getElementById("search-input");
+
     let textArray = document.getElementsByClassName("menu-item-text");
     let iconhide = document.getElementsByClassName("menu-header");
     let barHint = true;
@@ -282,7 +281,6 @@ function ScrollDown() {
             document.getElementById("icon-hint").style.transform = "rotate(180deg)";
             document.getElementsByClassName("menu-item-text");
             barHint = true;
-            searchInput.style.padding = "0 0 0 0";
             for (let i = 0; i < textArray.length; i++) {
                 textArray[i].classList.add("text-hide");
             }
@@ -374,6 +372,10 @@ function message_read(id) {
             "opacity": 0
         })
     });
+}
+
+function seeProfile(name) {
+
 }
 
 function seeProfile(name) {

@@ -64,7 +64,7 @@ function grow() {
         document.getElementById('icon-hint').style.transform = 'rotate(180deg)'
         document.getElementsByClassName('menu-item-text')
         barHint = true
-        searchInput.style.padding = '0 0 0 0'
+
         for (let i = 0; i < textArray.length; i++) {
             textArray[i].classList.add('text-hide')
         }
@@ -77,7 +77,7 @@ function grow() {
         document.getElementById('nagication-bar').classList.remove('menu-small')
         document.getElementById('icon-hint').style.transform = 'rotate(7deg)'
         iconhide[0].classList.add('icon-hide_2')
-        searchInput.style.padding = '0 10px 0 45px'
+            // searchInput.style.padding = '0 10px 0 45px'
         for (let i = 0; i < textArray.length; i++) {
             setTimeout(() => {
                 textArray[i].classList.remove('text-hide')
@@ -130,6 +130,58 @@ function searchFriend() {
     let numOfNoti = document.getElementsByClassName('notiList__item').length
     if (numOfNoti > 0)
         document.getElementById('notifications-num').innerHTML = numOfNoti
-    else
-        document.getElementById('notifications-num').style.opacity = '0'
+    else document.getElementById('notifications-num').style.opacity = '0'
 })()
+
+$(document).ready(function() {
+    if ($(window).width() < 428) {
+        let container = $('.container-home')
+        let notilist = $('.notiList')
+        notilist.css({
+            transform: '',
+        })
+        container.append(notilist)
+        console.log($('.notiList').attr('style', ''))
+        let arr = [$('.timeNew'), $('.friendlist'), $('.menuMb'), $('.notiList')]
+        let arrBtn = [$('#toHome'), $('#toFriend'), $('#toMenu'), $('#toNoti')]
+
+        $('.notiList').hide()
+        $('.menuMb').show()
+        $('.profileField').hide()
+        $('.friendlist').hide()
+            // $('.timeNew').show()
+        $('.timeNew').hide()
+
+        arrBtn.map(function(btn, iBtn) {
+            btn.click(function() {
+                arr.map(function(page, iPage) {
+                    if (iPage != iBtn) {
+                        page.fadeOut(100)
+                    } else {
+                        setTimeout(function() {
+                            page.fadeIn(100)
+                        }, 200)
+                    }
+                })
+            })
+        })
+
+        $('.addFriendMbField').hide()
+        let check1 = true
+        $('#addFriendMb').click(function() {
+            if (check1) {
+                $('.menuMb__item:not(#addFriendMb)').fadeToggle(200)
+                setTimeout(function() {
+                    $('.addFriendMbField').fadeToggle(200)
+                }, 200)
+                check1 = false
+            } else {
+                setTimeout(function() {
+                    $('.menuMb__item:not(#addFriendMb)').fadeToggle(200)
+                }, 200)
+                $('.addFriendMbField').fadeToggle(200)
+                check1 = true
+            }
+        })
+    }
+})

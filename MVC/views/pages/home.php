@@ -93,5 +93,3 @@ $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE
       <div id="filter-container" class="filter-container" onclick="grow()"></div>
       
 </div>
-
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script> 
