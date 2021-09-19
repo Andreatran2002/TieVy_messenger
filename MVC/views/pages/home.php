@@ -90,6 +90,64 @@ $user = DB::query("SELECT * FROM users WHERE id = :id ", array(':id' => $_COOKIE
       </div>
    
       </div>
+      <div class="menuMb">
+              <div class="menuMb__header">
+                <img class="menuMb__header-avatar"
+                  src="https://i.pinimg.com/564x/7b/ee/c5/7beec5a45c69696b4902a46a4d33eeed.jpg"></img>
+              <a href="#" class="menuMb__header-name">Miles Morales
+              </a>
+            </div>
+            <a id="addFriendMb" class="menuMb__item">
+              <ion-icon name="person-add"></ion-icon>
+              <span>Connect to your friend</span>
+            </a>
+            <div class="addFriendMbField">
+              <input class="addFriendMbField__input" type="text">
+              <div class="addFriendMbField__container">
+                <div class="addFriendMbField__item">
+                  <img src="https://i.pinimg.com/236x/85/af/3d/85af3d1aedca688912b2fdfd1cf47dba.jpg"
+                    alt=""
+                    class="addFriendMbField__item-image" />
+                  <p class="addFriendMbField__item-name">Sylvie</p>
+                </div>
+                <div class="addFriendMbField__item">
+                  <img src="https://i.pinimg.com/236x/85/af/3d/85af3d1aedca688912b2fdfd1cf47dba.jpg"
+                    alt=""
+                    class="addFriendMbField__item-image" />
+                  <p class="addFriendMbField__item-name">Sylvie</p>
+                </div>
+                <div class="addFriendMbField__item">
+                  <img src="https://i.pinimg.com/236x/85/af/3d/85af3d1aedca688912b2fdfd1cf47dba.jpg"
+                    alt=""
+                    class="addFriendMbField__item-image" />
+                  <p class="addFriendMbField__item-name">Sylvie</p>
+                </div>
+              </div>
+            </div>
+            
+            <a class="menuMb__item">
+              <ion-icon name="cog"></ion-icon>
+              <span>Modify your account</span>
+            </a>
+            <a class="menuMb__item">
+              <ion-icon name="chatbubbles"></ion-icon>
+              <span>Chat with your friend</span>
+            </a>
+            <a class="menuMb__item">
+              <ion-icon name="log-in-outline"></ion-icon>
+              <span>Log out</span>
+            </a>
+          </div>
+        </div>
+        <!-- time new Field -->
+
+        <div class="nbm">
+          <ion-icon id="toHome" name="albums"></ion-icon>
+          <ion-icon id="toFriend" name="people-circle"></ion-icon>
+          <ion-icon id="toNoti" name="notifications"></ion-icon>
+          <ion-icon id="toMenu" name="menu"></ion-icon>
+        </div>
+
       <div id="filter-container" class="filter-container" onclick="grow()"></div>
       
 </div>

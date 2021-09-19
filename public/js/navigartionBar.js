@@ -146,11 +146,11 @@ $(document).ready(function() {
         let arrBtn = [$('#toHome'), $('#toFriend'), $('#toMenu'), $('#toNoti')]
 
         $('.notiList').hide()
-        $('.menuMb').show()
+        $('.menuMb').hide()
         $('.profileField').hide()
         $('.friendlist').hide()
             // $('.timeNew').show()
-        $('.timeNew').hide()
+        $('.timeNew').show()
 
         arrBtn.map(function(btn, iBtn) {
             btn.click(function() {

@@ -160,11 +160,19 @@ class Ajax extends Controller
 
       echo '</div>
       <div  class="post__footer">
-      <button  class="post__footer-btnLike btn" onclick="like(event)">
+      <button  class="post__footer-btnLike btn" '; 
+      if (DB::query("SELECT * FROM likes WHERE user_id = :userid 
+      AND post_id = :postid AND is_like = 1 " , array(':userid'=> Login::isLoggedIn(), ':postid'=>$row['id'])))
+      echo 'style="color : white" '; 
+      echo 'onclick="like(event); updateLike(\''.$row['id'].'\',\'like\');">
         <ion-icon  name="heart"></ion-icon>
       </button>
-      <button  class="post__footer-btnDisLike btn" onclick="like(event)">
-        <ion-icon  name="heart-dislike"></ion-icon>
+      <button  class="post__footer-btnDisLike btn" onclick="like(event) ; updateLike(\''.$row['id'].'\',\'dislike\'); ">
+        <ion-icon  name="heart-dislike"';
+        if (DB::query("SELECT * FROM likes WHERE user_id = :userid 
+        AND post_id = :postid AND is_like = 1 " , array(':userid'=> Login::isLoggedIn(), ':postid'=>$row['id'])))
+        echo 'style="color : white" '; 
+        echo '></ion-icon>
       </button>
       <button  class="post__footer-btncmt" onclick="openCmtField(event)">
         <ion-icon  name="chatbox-ellipses"></ion-icon>
@@ -468,4 +476,52 @@ class Ajax extends Controller
           
     }
   }
+  
+  public function updateLike(){
+    $id = $_POST['id'];
+    $status = $_POST['status'];
+    $dislikes = DB::query('SELECT * FROM posts WHERE id = :id',array(':id'=>$id))[0]['dislikes'];  
+    $likes = DB::query('SELECT * FROM posts WHERE id = :id',array(':id'=>$id))[0]['likes'];
+    if ($status == "like"){
+      if (DB::query("SELECT * FROM posts WHERE id = :id" , array(':id'=> $id)))
+      {
+         
+        if (!DB::query("SELECT * FROM likes WHERE user_id = :userid AND post_id = :postid" , array(':userid'=> Login::isLoggedIn(), ':postid'=>$id))){
+          DB::query('UPDATE posts SET likes = :likes WHERE id = :id',array(':id'=>$id,':likes'=>$likes+1));
+          DB::query('INSERT INTO likes VALUES (:id, :user_id, :post_id,1)', array(':id'=>\Ramsey\Uuid\Uuid::uuid4(), ':user_id'=>Login::isLoggedIn(),':post_id'=>$id)); 
+        }
+        else {
+          if (DB::query("SELECT * FROM likes  WHERE user_id = :userid AND post_id = :postid AND is_like = 0 " , array(':userid'=> Login::isLoggedIn(), ':postid'=>$id))){
+            DB::query('UPDATE posts SET likes = :likes,dislikes = :dislikes WHERE id = :id',array(':id'=>$id,':likes'=>$likes+1 ,':dislikes'=>$dislikes-1));
+            DB::query('UPDATE likes SET is_like = 1 WHERE user_id = :id AND post_id = :postid',array(':postid'=>$id,':id'=>Login::isLoggedIn()));
+          }
+          else{
+          DB::query('UPDATE posts SET likes = :likes WHERE id = :id',array(':id'=>$id,':likes'=>$likes-1));
+          DB::query('DELETE FROM likes WHERE user_id = :userid AND post_id = :postid' , array(':userid'=> Login::isLoggedIn(), ':postid'=>$id)); 
+          }
+        }
+      }
+    }
+    else{
+      if (DB::query("SELECT * FROM posts WHERE id = :id" , array(':id'=> $id)))
+      {
+        if (!DB::query("SELECT * FROM likes WHERE user_id = :userid AND post_id = :postid" , array(':userid'=> Login::isLoggedIn(), ':postid'=>$id))){
+          DB::query('UPDATE posts SET dislikes = :dislikes WHERE id = :id',array(':id'=>$id,':dislikes'=>$dislikes+1));
+          DB::query('INSERT INTO likes VALUES (:id, :user_id, :post_id,0)', array(':id'=>\Ramsey\Uuid\Uuid::uuid4(), ':user_id'=>Login::isLoggedIn(),':post_id'=>$id)); 
+        }
+        else {
+          if (DB::query("SELECT * FROM likes WHERE user_id = :userid AND post_id = :postid AND is_like = 1 " , array(':userid'=> Login::isLoggedIn(), ':postid'=>$id))){
+            DB::query('UPDATE posts SET likes = :likes, dislikes = :dislikes  WHERE id = :id',array(':id'=>$id,':likes'=>$likes-1,':dislikes'=>$dislikes+1));
+            DB::query('UPDATE likes SET is_like = 0 WHERE user_id = :userid',array(':userid'=>Login::isLoggedIn()));
+          }
+          else{
+            DB::query('UPDATE posts SET dislikes = :dislikes WHERE id = :id',array(':id'=>$id,':dislikes'=>$dislikes-1));
+            DB::query('DELETE FROM likes WHERE user_id = :userid AND post_id = :postid' , array(':userid'=> Login::isLoggedIn(), ':postid'=>$id)); 
+          }
+       
+        }}
+    }
+  }
 }
+
+?>

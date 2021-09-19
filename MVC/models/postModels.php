@@ -42,8 +42,8 @@ class PostModels extends DB
             }
             $id = \Ramsey\Uuid\Uuid::uuid4();
             $this->query('INSERT INTO posts VALUES (:id, :postbody, \'\', :userid, \'\', \'\',NOW())', array(':id' => $id, ':postbody' => $postbody, ':userid' => $userid));
-            $postid = $this->query('SELECT id FROM posts WHERE user_id=:userid ORDER BY ID DESC LIMIT 1;', array(':userid' => $userid))[0]['id'];
-            return $postid;
+            
+            return $id;
       }
       public function allPosts()
       {

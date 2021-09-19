@@ -38,6 +38,7 @@ $(document).ready(function() {
 
 
         }
+
     })
     $("#search-input-home").keyup(function() {
         var username_home = $(this).val();
