@@ -147,9 +147,7 @@ class Ajax extends Controller
               </ion-icon>
               <ul class="post__option">
                 <a href="./home&f='.$user['id'].'"><li class="post__option-item">Truy cập trang cá nhân</li></a>
-                <li class="post__option-item">Ẩn bài viết</li>
-                <li class="post__option-item">Ẩn bài viết từ người này</li>
-                <li class="post__option-item">Báo cáo bài viết</li>
+                <li class="post__option-item" >Ẩn bài viết</li>
               </ul>
                   </div>
                   <div class="post__body">
@@ -233,7 +231,7 @@ class Ajax extends Controller
       foreach ($result as $row) {
         if (DB::query("SELECT * FROM users WHERE id = :follower_id", array(':follower_id' => $row['user_id']))[0]) {
           $name = DB::query("SELECT * FROM users WHERE id = :follower_id", array(':follower_id' => $row['user_id']))[0];
-          echo "<div class=\"friendlist-item\">
+          echo "<div class=\"friendlist-item\" onclick=\"updateAvt(event); \">
                   <img
                     src=\"" . $name['profileimg'] . "\"
                     class=\"friendlist-item-image\"
@@ -256,11 +254,11 @@ class Ajax extends Controller
       if (DB::query("SELECT * FROM users WHERE id = :id", array(':id' => $_GET['w']))){
         $closeUserId = $_GET['w'];
       }
-      else $closeUserId =  $this->messageModels->getCloseMessage(); 
+      else $closeUserId =  $this->messageModels->getCloseMessage()['receiver_id']; 
     }
-    else  $closeUserId =  $this->messageModels->getCloseMessage();
+    else  $closeUserId =  $this->messageModels->getCloseMessage()['receiver_id'];
     if (!isset($closeUserId)) {
-      $closeUserId = DB::query("SELECT * FROM followers WHERE follower_id = :userid", array(':userid' => $_COOKIE['messageUser']))[0];
+      $closeUserId = DB::query("SELECT * FROM followers WHERE follower_id = :userid", array(':userid' => $_COOKIE['messageUser']))[0]['user_id'];
     }
     $user = $this->userModels->getUser($closeUserId);
     if ($user != "false") {
@@ -269,34 +267,8 @@ class Ajax extends Controller
         <a href="#" class="body__chatBox-header-name" id="current-friend-name">' . $user['username'] . '</a>
         <ion-icon name="information-outline" class="body__chatBox-header-help" onclick="cbOption(event)" ></ion-icon>
         ///' . $closeUserId ;
-        // echo '
-        // <div id="option-chatbox" class="body__chatBox-options">
-        //     <img src="'.$user['profileimg'];
-        //       echo '" alt="" id="option-avatar">
-        //     <a href="#" class="option-item option-user" id="option-item-name">"'.$user['username'];
-        //     echo '</a>
-        //     <a href="#" class="option-item" onclick="removeConversation(); ">
-        //           <ion-icon name="trash-outline"></ion-icon>
-        //           <p>Remove this conversations</p>
-        //     </a>
-        //     <a href="#" class="option-item">
-        //           <ion-icon name="ban-outline"></ion-icon>
-        //           <p>Block this user</p>
-        //     </a>
-        //     <a href="#" class="option-item">
-        //           <ion-icon name="person-outline"></ion-icon>
-        //           <p>Visit profile</p>
-        //     </a>
-        //     <a href="#" class="option-item">
-        //           <ion-icon name="arrow-undo-outline"></ion-icon>
-        //           <p>Share Users URL</p>
-        //     </a>
-        //     <a href="#" class="option-item">
-        //           <ion-icon name="alert-outline"></ion-icon>
-        //           <p>Send a report</p>
-        //     </a>
-        // ';
-    } else return json_encode(false);
+        
+    } else echo json_encode(false);
   }
   public function addComment()
   {
@@ -375,8 +347,10 @@ class Ajax extends Controller
         foreach ($result as $row) {
           $message_not_read = count(DB::query("SELECT * FROM messages WHERE receiver_id =:id AND is_read = 0 AND user_id =:friendid",array(":id"=>$_COOKIE['messageUser'],':friendid'=>$row['id'])));
 
-          echo "<div class=\"body__left-item\" id=\"".$row['id']."\" >
-          <a href=\"./chat&f=".$row['id']."\">
+          echo "<div class=\"body__left-item\" id=\"".$row['id']."\" 
+          onclick = \" getReceiver('".$row['id']."');
+          updateChat();updateAvt(event);
+          message_read('".$row['id']."'); \">
                   <img src=\"".$row['profileimg']."\"
               alt=\"\"
               
@@ -386,7 +360,7 @@ class Ajax extends Controller
               href=\"./home&f=".$row['id']."\"
               class=\"body__left-item-name\">".$row['username']."</a>";
             if ($message_not_read >0) echo "  <span class=\"body__left-item-label\">".$message_not_read."</span>";
-            echo " </a></div>";
+            echo " </div>";
         }
       } else {
         echo '<h5 style="padding : 20px; " >You haven\'t followed this one</h5>';
@@ -402,7 +376,10 @@ class Ajax extends Controller
     foreach($result as $s){
           $user_follow = DB::query("SELECT * FROM users WHERE id = :user_follow_id", array(":user_follow_id"=>$s['user_id']))[0];
           $message_not_read = count(DB::query("SELECT * FROM messages WHERE receiver_id =:id AND is_read = 0 AND user_id =:friendid",array(":id"=>$_COOKIE['messageUser'],':friendid'=>$user_follow['id'])));
-          echo "<div class=\"body__left-item\" id=\"".$s['user_id']."\">
+          echo "<div class=\"body__left-item\" id=\"".$user_follow['id']."\"
+          onclick = \" getReceiver('".$user_follow['id']."');
+          updateChat();updateAvt(event); 
+          message_read('".$user_follow['id']."');\">
                 <img src=\"".$user_follow['profileimg']."\"
             alt=\"\"
             

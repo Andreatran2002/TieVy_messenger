@@ -6,12 +6,15 @@ class messageModels extends DB
       }
       public function insert_message($id, $sender, $receiver, $message)
       {
-            $this->query('INSERT INTO messages VALUES (:id,:sender,:receiver,:message, NOW(),0) ', array(':id' => $id, ':sender' => $sender, ':receiver' => $receiver, ':message' => htmlspecialchars($message)));
-            $result = false;
-            if ($this->query('SELECT * FROM messages WHERE id = :id', array(':id' => $id))) {
-                  $result = true;
+            if (DB::query('SELECT * FROM users WHERE id = :id', array(':id'=>$receiver))){
+                  $this->query('INSERT INTO messages VALUES (:id,:sender,:receiver,:message, NOW(),0) ', array(':id' => $id, ':sender' => $sender, ':receiver' => $receiver, ':message' => htmlspecialchars($message)));
+                  $result = false;
+                  if ($this->query('SELECT * FROM messages WHERE id = :id', array(':id' => $id))) {
+                        $result = true;
+                  }
+                  return json_encode($result);
             }
-            return json_encode($result);
+            
       }
 
       public function get_message( $receiver)
@@ -37,7 +40,7 @@ class messageModels extends DB
             ORDER BY time DESC LIMIT 1",array(':userid'=>$userid))[0])){
             return  $this->query("SELECT * FROM messages 
             WHERE user_id =:userid 
-            ORDER BY time DESC LIMIT 1",array(':userid'=>$userid))[0]['receiver_id'];
+            ORDER BY time DESC LIMIT 1",array(':userid'=>$userid))[0];
             }
             else return json_encode(false);
       }

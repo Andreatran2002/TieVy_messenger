@@ -137,6 +137,8 @@ $(document).ready(function() {
     if ($(window).width() < 428) {
         let container = $('.container-home')
         let notilist = $('.notiList')
+        notilist[0].childNodes[3].childNodes[1].style.display = "none"
+        notilist[0].childNodes[5].childNodes[1].style.display = "none"
         notilist.css({
             transform: '',
         })

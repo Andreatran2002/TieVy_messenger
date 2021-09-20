@@ -50,6 +50,7 @@ $(document).ready(function() {
                 if (data != "false")
                     $("#friendlist").html(data)
 
+
             });
         } else {
             $.post("./Ajax/showFriend_HomeView", {
@@ -357,6 +358,8 @@ function constructUser() {
             $('#body__chatBox-header').html(response[0]);
             receiver = response[1];
             updateChat();
+
+
         }
     });
 }
@@ -375,10 +378,19 @@ function message_read(id) {
     });
 }
 
-function seeProfile(name) {
+function updataAvatar(receiver) {
 
-}
+    // $.post("./Ajax/getUser", {
+    //     // id = user_id; 
+    //     // Để hiển thị các bài post mới là bạn của người dùng
+    // }, function(data) {
+    //     if (data != "false" && data != "") {
+    //         var response = data.split("///");
+    //         $('#body__chatBox-header').html(response[0]);
+    //         receiver = response[1];
+    //         updateChat();
+    //         ('#option-chatbox').html(response[2]);
 
-function seeProfile(name) {
-
+    //     }
+    // });
 }

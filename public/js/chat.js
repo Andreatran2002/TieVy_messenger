@@ -23,26 +23,11 @@
 
     function refreshFriendlist() {
         let friendItem = document.getElementsByClassName('body__left-item')
-        let avatar = document.getElementById('option-avatar')
-        let name = document.getElementById('option-username')
-        let option = document.getElementById('option-chatbox')
-        let messArr = document.getElementsByClassName('body__chatBox-msgArea-item')
-
         let n = friendItem.length
-        for (let i = 0; i < n; i++) {
+        for (let i = 0; i < friendItem.length; i++) {
+            n = friendItem.length
             friendItem[i].addEventListener('click', (e) => {
-                option.style.opacity = '0'
-                for (let i = 0; i < messArr.length; i++) {
-                    messArr[i].style.display = 'flex'
-                    setTimeout(() => {
-                        messArr[i].style.opacity = '1'
-                    }, 200)
-                }
-                setTimeout(() => {
-                    option.style.display = 'none'
-                    avatar.src = friendItem[i].childNodes[1].src
-                    name.innerHTML = e.target.childNodes[3].innerHTML
-                }, 200)
+
 
                 for (let j = 0; j < n; j++) {
                     friendItem[j].classList.remove('friend-item-focus')
@@ -65,19 +50,74 @@
                             currFriendName.style.animation = ''
                         }, 400)
                     }
-                let nameRegex = new RegExp('>' + '.' + '<')
-                    // console.log(nameRegex);
-                    // let name = ;
-                    // console.log(friendItem[i].childNodes[3]);
-                var receiver = getReceiver(getID(friendItem[i]));
-                updateChat();
-                //message readed
-                message_read(receiver);
+
             })
         }
     }
-}
+} {
+    document.getElementById('option-item-name').innerHTML = ""
 
+    function updateAvt(e) {
+        let avatar = document.getElementById('option-avatar')
+        let name = document.getElementById('option-item-name')
+        let messArr = document.getElementsByClassName('body__chatBox-msgArea-item')
+        let chatHeader = document.getElementById('body__chatBox-header')
+
+        let option = document.getElementById('option-chatbox')
+        let friendItem = document.getElementsByClassName('body__left-item')
+        let n = friendItem.length
+            //hide
+        option.style.opacity = '0'
+        for (let i = 0; i < messArr.length; i++) {
+            messArr[i].style.display = 'flex'
+            setTimeout(() => {
+                messArr[i].style.opacity = '1'
+            }, 200)
+        }
+        setTimeout(() => {
+            option.style.display = 'none'
+            avatar.src = e.target.childNodes[1].src
+            name.innerHTML = e.target.childNodes[3].innerHTML
+        }, 200)
+        for (let j = 0; j < n; j++) {
+            friendItem[j].classList.remove('friend-item-focus')
+        }
+        e.target.classList.add('friend-item-focus')
+        let currFriend = document.getElementById('current-friend')
+        let friendImage = e.target.childNodes[1].src.toString()
+            // console.log(e.target.childNodes)
+        let currFriendName = document.getElementById('current-friend-name')
+            // alert('dduojcw ef mas')
+
+        {
+            currFriend.style.animation = 'fade-out-in 0.4s ease forwards'
+            currFriendName.style.animation = 'fade-out-in 0.4s ease forwards'
+
+            setTimeout(() => {
+                currFriend.src = friendImage
+                currFriendName.innerHTML = e.target.childNodes[3].innerHTML
+            }, 200)
+            setTimeout(() => {
+                currFriend.style.animation = ''
+                currFriendName.style.animation = ''
+            }, 400)
+        }
+
+    }
+}
+$(document).ready(() => {
+        setTimeout(() => {
+            $('#option-avatar').attr('src', $('#current-friend').attr('src'))
+            $('#option-item-name').text($('#current-friend-name').text())
+        }, 2000)
+    })
+    //add
+    // var receiver = getReceiver(getID(friendItem[i]));
+    // updateChat();
+    // //message readed
+
+// message_read(receiver);
+// updateAvatar(receiver);
 {
     let option = document.getElementById('option-chatbox')
     let messArr = document.getElementsByClassName('body__chatBox-msgArea-item')
@@ -126,7 +166,7 @@ function addSuccess(e) {
     e.target.style.opacity = '0'
 }
 
-refreshFriendlist();
+// refreshFriendlist();
 Pusher.logToConsole = true;
 
 var pusher = new Pusher('6d26d8d2ff0bf9b79d49', {
@@ -161,7 +201,5 @@ channel.bind('my-event', function(data) {
             message__area.scrollTop = message__area.scrollHeight;
         });
     }
-
-
 
 });

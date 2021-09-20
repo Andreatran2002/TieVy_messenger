@@ -131,6 +131,11 @@
 
 .body__left-item-name {
     color: inherit;
+    user-select: none;
+}
+
+.body__left-item-label {
+    user-select: none;
 }
 
 .body__chatBox {
@@ -140,6 +145,11 @@
     flex-direction: column;
     color: inherit;
     position: relative;
+    width: calc(100% - 310px);
+}
+
+body {
+    overflow: hidden;
 }
 
 .body__chatBox-options {
@@ -214,7 +224,7 @@
 
 .body__chatBox-msgArea-item {
     padding: 8px 15px;
-    max-width: 300px;
+    max-width: 60%;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6), -2px -2px 5px #414e6249;
     border-radius: inherit;
     margin-bottom: 10px;
@@ -223,6 +233,8 @@
     border: 3px solid rgba(61, 37, 37, 0.05);
     font-weight: 500;
     transition: all 0.2s ease;
+    text-align: left;
+    word-wrap: break-word;
 }
 
 .body__chatBox-input {
