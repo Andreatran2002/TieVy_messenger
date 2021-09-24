@@ -57,15 +57,17 @@
 } {
     document.getElementById('option-item-name').innerHTML = ""
 
+
+
     function updateAvt(e) {
         let avatar = document.getElementById('option-avatar')
         let name = document.getElementById('option-item-name')
         let messArr = document.getElementsByClassName('body__chatBox-msgArea-item')
         let chatHeader = document.getElementById('body__chatBox-header')
-
         let option = document.getElementById('option-chatbox')
         let friendItem = document.getElementsByClassName('body__left-item')
         let n = friendItem.length
+        $('.option-profile').attr('href', e.target.childNodes[3].href)
             //hide
         option.style.opacity = '0'
         for (let i = 0; i < messArr.length; i++) {

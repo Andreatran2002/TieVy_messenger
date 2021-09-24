@@ -358,8 +358,6 @@ function constructUser() {
             $('#body__chatBox-header').html(response[0]);
             receiver = response[1];
             updateChat();
-
-
         }
     });
 }

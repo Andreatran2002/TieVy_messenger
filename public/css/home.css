@@ -425,7 +425,7 @@ body {
 .cmtContainer__item {
     display: flex;
     flex-direction: column;
-    padding: 0 20px 0px 20px;
+    padding: 0px 20px 20px 20px;
 }
 
 .cmtContainer__item-header {

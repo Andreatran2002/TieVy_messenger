@@ -61,7 +61,7 @@ if (isset($_GET['w'])) {
                         <ion-icon name="ban-outline"></ion-icon>
                         <p>Block this user</p>
                   </a>
-                  <a href="#" class="option-item">
+                  <a href="<?php if (isset($_GET['w'])) echo './home&f='.$_GET['w']; ?>"class="option-item option-profile">
                         <ion-icon name="person-outline"></ion-icon>
                         <p>Visit profile</p>
                   </a>

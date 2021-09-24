@@ -15,13 +15,13 @@ class Ajax extends Controller
 
   public function checkUsername()
   {
-    $un = $_POST["un"];
+    $un = addslashes($_POST["un"]);
 
     echo $a = $this->userModels->checkUsername($un);
   }
   public function checkEmail()
   {
-    $e = $_POST["email"];
+    $e = addslashes($_POST["email"]);
     echo $a = $this->userModels->checkEmail($e);
   }
   public function sendMessage()
@@ -37,12 +37,13 @@ class Ajax extends Controller
       $options
     );
     $data['request'] = "message";
-    $data['message'] = $_POST['message'];
+    $data['message'] = addslashes($_POST['message']);
+    $data['receiver_id'] = addslashes($_POST["receiver"]);
     $pusher->trigger('my-channel', 'my-event', $data);
     $id = \Ramsey\Uuid\Uuid::uuid4();
-    $message = $_POST["message"];
+    $message = addslashes($_POST["message"]);
     $user_id = Login::isLoggedIn();
-    $receiver = $_POST["receiver"];
+    $receiver = addslashes($_POST["receiver"]);
 
     $a = $this->messageModels->insert_message($id, $user_id, $receiver, $message);
     echo  "<div class=\"body__chatBox-msgArea-item sent\">" . $message . " </div>";
@@ -168,7 +169,7 @@ class Ajax extends Controller
       <button  class="post__footer-btnDisLike btn" onclick="like(event) ; updateLike(\''.$row['id'].'\',\'dislike\'); ">
         <ion-icon  name="heart-dislike"';
         if (DB::query("SELECT * FROM likes WHERE user_id = :userid 
-        AND post_id = :postid AND is_like = 1 " , array(':userid'=> Login::isLoggedIn(), ':postid'=>$row['id'])))
+        AND post_id = :postid AND is_like = 0 " , array(':userid'=> Login::isLoggedIn(), ':postid'=>$row['id'])))
         echo 'style="color : white" '; 
         echo '></ion-icon>
       </button>
@@ -273,7 +274,7 @@ class Ajax extends Controller
   public function addComment()
   {
     $id = \Ramsey\Uuid\Uuid::uuid4();
-    $comment = $_POST["comment"];
+    $comment = addslashes($_POST["comment"]);
     $user_id = Login::isLoggedIn();
     $postid = $_POST['postid'];   
     DB::query("INSERT INTO comments VALUES(:id,:commentBody,:postid,:commentator_id, 0, 0,NOW())", array(':id' => $id, ':commentBody' => $comment, ':postid' => $postid, ':commentator_id' => $user_id));
@@ -456,7 +457,7 @@ class Ajax extends Controller
   
   public function updateLike(){
     $id = $_POST['id'];
-    $status = $_POST['status'];
+    $status = addslashes($_POST['status']);
     $dislikes = DB::query('SELECT * FROM posts WHERE id = :id',array(':id'=>$id))[0]['dislikes'];  
     $likes = DB::query('SELECT * FROM posts WHERE id = :id',array(':id'=>$id))[0]['likes'];
     if ($status == "like"){
